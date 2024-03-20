@@ -1,0 +1,5 @@
+10.03.2024
+Moj drogi pamietniczku, na dzisiejszych zajeciach dowiedziałem się jak instalować
+maszynę wirtualną z wykorzystaniem virtualbox-a. 
+Dodatkowo na zajęciach dowiedziałem się kilku rzeczy dotyczących dysków oraz 
+czym się różnią.

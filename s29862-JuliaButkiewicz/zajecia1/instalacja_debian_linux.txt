@@ -1,0 +1,92 @@
+Sprawozdanie z instalacji debiana
+
+By zacząć swoją przygodę z instalacją Linux Debian (debiana),
+pobieram program Virtual Box, z oficjalnej strony. W tym celu 
+będę mogła uruchomić system operacyjny (jeden lub więcej) na
+pojedynczej maszynie fizycznej bez wpływu na główny system
+znajdujący się na mojej jednostce personalnej.
+
+Po pomyślnej instalacji włączam program Virtual Box i podejmuje
+próbę stworzenia maszyny wirtualnej na dwa sposoby (w trybie
+przewodnika i w trybie eksperta).
+
+Zapoznaje się z interface'em, wybieram opcję NOWA by zacząć 
+tworzenie wirtualnej maszyny w której zawrze się Linux Debian.
+Po wybraniu ww. opcji wyskakuje okno w trybie przewodnika.
+To w nim mogę wpisać nazwę wirtualnej maszyny, folder w którym
+się ona zbuduje, typ systemu operacyjnego, jego wersje oraz
+obraz ISO, który już zdążyłam pobrać ze strony debian.org z
+zakładki download. Co ciekawe, po wpisaniu w NAZWIE słowa Debian, 
+typ i wersja systemu sama się uzupełnia. 
+Przechodząc dalej znajdziemy się w zakładce HARDWARE gdzie możemy 
+zmodyfikować ilość ramu i pracesorów które przeznaczymy na 
+rzecz włączenia maszyny wirtualnej. Warto pamiętać, że mimo iż można
+przeznaczyć na to całe zasoby serwera, należy zastanowić się dobrze
+w jakim celu dana maszyna wirtualna będzie używana. Dzięki temu
+zaoszczędzimy ram i inne zasoby, a nawet utworzymy więcej niż
+jedną maszynę wirtualną na pojedynczym serwerze. CO WIĘCEJ,
+każda maszyna potrzebuje określonej ilości zasobów, skąd więc mamy 
+je wziąć? Ano, należy spojrzeć na wymagania sprzęowe jakie znajdziemy
+na stronie debian.org w zakładce Meeting Minimum Hardware Requirements.
+Tam w pięknej tabelce podane zostały wartości, które i ja wykorzystałam
+powyżej podczas wpisywania/ustalania ilości ramu, miejsca na dysku czy
+ilości procesorów.
+Po przejściu dalej, pokazuje nam się sekcja VIRTUAL HARD DISK,
+w której można wyznaczyć przestrzeń dla wirtualnego dysku twardego.
+Tak samo jak powyżej, nie powinno nas ponieść przy wydzielaniu 
+pamięci, ja dałam tyle i wynosi minimlane wymaganie (2GB).
+Kończąc ten setup, jesteśmy w stanie stworzyc maszynę wirtualną
+z obrazem. 
+
+By bardziej zagłębić się w proces instalacji 
+podjęłam kolejną próbę setupowania, tym razem w trybie eksperta.
+Po ponownym wybraniu NOWA, i przejściu do sekcji eksperta,
+włącza się obraz wszystkich wymienionych wyżej rzeczy, z tym że
+w jednym oknie. Pierwsza sekcja nie różni się od tej w trybie
+przewodnika. Ją wypełniam tak samo jak tą powyżej, wpisując nazwę
+witrualnej maszyny, wybierając typ systemu operacyjnego, jego wersje
+folder w którym ma być utworzony i oczywiście obraz ISO, o którego
+pobraniu pisałam wcześniej.
+Drugą zakładkę Unattended Install pomijam gdyż nie będę z niej korzystała.
+Doczytałam jednak, że jest to proces instalacji systemu operacyjnego
+bez potrzeby interakcji użytkownika podczas całego procesu. Jest to 
+przydatne w automatyzacji tegoż właśnie procesu.
+W trzeciej zakładce, HARDWARE, przeznaczam 2048MB RAMU oraz
+dwa procesory na rzecz debiana12.
+Czwarta zakładka zawiera już nowe modyfikacje wirtualnego dysku
+twardergo. Możemy zmienić tu jego typ. Tj. wybrać między VDI, VHD,
+VMDK, HDD, QCOW, QED. Wybieram opcje VDI jako iż jest ona najbardziej
+kompatybilna dla systemu Debian12. Wybieram 20 GB przestrzeni
+bo czemu nie. I tym sposobem zakańczam proces tworzenia wirtualnej
+maszyny.
+Włączam wirtualną maszynę. Po jej, dość długim ładowaniu, otwiera mi się
+interface instalacji. Spośród opcji instalacji wybieram instalacje
+tekstową. Uruchamiam ją gdyż graficzna instalacja wymaga więcej 
+zasobów, dodatkowo wymaga to myszy i jej używania. Pewnym jest, że 
+instalacja tekstowa jest dużo łatwiejsza.
+Następna sekcja pozwala mi wybrać język. Wybieram więc angielski.
+Następnie lokalizacja, w której wybieram Europę, by później wybrać 
+Polskę - zgodnie z prawdą. Ostatnia opcja kosmetyczna, pozwala wybrać
+rodzaj klawiatury. Wybieram angielską/amerykańską, gdyż nie będę 
+używała polskich znaków.
+W dalszym etapie odczytuje mi obraz z pliku ISO. Przydziela mi adres 
+sieciowy, jest to ważna część instalacji systemu operacyjnego. Wyskakuje
+mi opcja nazwania hostname'a, nazywam go debian, zaraz po tym nazwa
+domeny, której nie mam. Wprowadzam hasło, które potwierdzam "1234"
+(bardzo trudne). Po tym wprowadzam nazwe użytkownika "Butek" i wprowadzam
+hasła, które są takie same jak to ww.. Proces credentiali mija, i
+przenosi mnie do sekcji dzielenia dysków na partycje. Niezwykle
+ważna i kluczowa część instalacji systemu operacyjnego.
+To w niej zadecydujemy ile miejsca zajmie sam system w danej
+partycji i jak podzielimy dysk, wydzielając miejsca na rózne
+sfery/zastosowania danego dysku.
+Po zainstalowaniu systemu warto zainstalować niezbędne dla
+funkcjonowania systemu narzędzia, takie jak SSH server by
+zapewnić pełną funkcjonalność i możliwość by zarządzać systemem zdalnie.
+Środowisko graficzne wybieramy wedle preferencji użytkownika, mając na
+względzie to, że wpłynie na wydajność  funkcjonalność systemu.
+Dodatkowo instalujemy boot managera, jest to potrzebne w późniejszym etapie
+by np. uruchomić system. Ważne jest by zwrócić uwagę na MBR a Boot Record,
+które mają wpływ na proces rozruchu systemu.
+Pamiętajmy by po ukończonej instalacji, przeprowadzić restart systemu,
+aby system mógł zostać skonfigurowany.

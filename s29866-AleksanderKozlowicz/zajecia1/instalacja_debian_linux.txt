@@ -1,0 +1,318 @@
+Prosze zrobic commit do swojego repozytorum do galezi instalacja-debiana w katalogu
+ o nazwie sXXXXX-ImieNazwisko. W nim proszę stworzyć katalog zajecia1 a w nim plik 
+instalacja_debian_linux.txt z opisem procesu instalacji systemu. Czyli 
+sXXXXX-ImieNazwisko/zajecia1/instalacja_debian_linux.txt Prosze jeszcze raz 
+przeczytac powyzsze punkty od slowa Primo!. Reguly te, maja byc tu takze 
+(jak i w kazdym zadaniu przez reszte semestru) przestrzegane.
+
+
+1. Pobieramy Virtual Box'a oraz dystrybucje Debiana na swoj dysk. 
+2. Odpalamy VirtualBoxa, powinno pojawic sie okienko Oracle VM VirtualBox Menager. 
+3. Klikamy przycisk Nowa
+4. Po kliknieciu przycisku powinno pojawic nam sie okno Utworz wirtualna maszyne wraz 
+z nastepujacymi polami:
+- Nazwa (podajemy nazwe swojej maszyny);
+- Folder (folder w którym maszyna ma byc zapisana);
+- ISO Image (obraz naszego systemu operacyjnego - w tym przypadku pobranego ze strony
+Debiana) wybieramy nasz obraz;
+- Edition (tutaj niestety mam to wyszarzone)
+- Typ (wyswitla nam sie jaki to jest system operacyjny, w moim przypadku jest Linux)
+- Wersja (tutaj podana jest wersja systemu - u mnie Debian (64-bit);
+
+Ponizej widzimy rowniez checkbox "Skip Unattended Installation", ktore oznacza ze chcemy pominac
+instalacje maszyny dla goscia tj. kazdy bedzie mogl na maszyne wejsc bez podawania hasla czy
+loginu. Wiec to zalezy od danego case'u - dla mnie checkbox bedzie odzaznaczony do testu:
+	- Jesli go nie zaznaczymy: 
+		Pojawia nam sie pola Username and Password oraz Additional Options. W Username
+		and Password podajemy nazwe oraz haslo dla nowego konta uzytkownika. 
+		W Additional Options mamy pola:
+ 
+		- Product Key (u mnie wyszarzone, prawdopodobnie dlatego ze ta dystrybucja
+		Debiana nie wymaga klucza / jest darmowa)
+		- Hostname (tutaj podajemy nazwe maszyny, po wpisaniu komendy "whoami"
+		ta nazwa hosta nam sie pojawi - u mnie jest to Aleks)
+		- Domain Name (tutaj podajemy nazwe domeny dzieki, ktorej bedziemy laczyc sie
+		do sieci - u mnie jest defaultowa nazwa) 
+		- Checkbox "Install in background" co pozwoli nam zainstalowac opcje 
+		przedstawione wyzej w tle.
+		
+		Na samym dole mamy opcje Guest Additions, w ktorej mozemy wybrac dodatki
+		jak sterowniki ktore beda zainstalowane po zainstalowaniu maszyny,
+		sprawia one ze maszyna moze lepiej dzialac lub miec funkcjonalnosci
+		ktorych wczesniej nie miala.
+		Reszta opcji bedzie taka sama jak dla nizszego podpunktu Virtual Hard Disk
+
+	- Jesli go zaznaczymy: 
+		Pojawia nam sie okno o nazwie Hardware, mozemy tu dostosowac ile RAMu ma byc 
+		uzyte dla maszyny wirtualnej (w moim przypadku jest to 2048MB) im mocniejszy 
+		komputer tym tego RAMu mozna dac wiecej. Mozemy rowniez suwakiem zaznaczyc ile 
+		prcesorow CPU maszyna moze widziec, najlepiej wybrac defaultowo tyle ile ich 
+		jest, poniewaz zalezy to od mocy naszego komputera (u mnie jest 1CPU)
+		Mamy rowniez checkbox "Enable EFI (special OSes only)", ktore inicjuje 
+		komponenty sprzetowe i pliki obrazow systemu operacyjnego po uruchomieniu 
+		komputera. 
+
+		Po kliknieciu Next, nastepne okno jakie nam sie pojawi to Virtual Hard Disk
+		Mamy 3 opcje do wyboru:
+		- Create a Virtual Hard Disk Now - jak sama nazwa mowi tworzy to nam dysk
+		wirtualny na ktorym zapisywac bedziemy dane (u mnie jest do z defaultu 20GB)
+		mozemy ta przestrzen na dysku sobie zmodyfikowac w zaleznosci od tego
+		co bedziemy na danej maszynie robic. Jezeli ogladac filmy no to damy wiecej
+		miejsca, jezeli robimy test dzialania, mozemy dac tego miejsca mniej. 
+		W tej opcji mam rowniez checkbox "Pre-allocate Full Size". Niestety
+		nie wiem co ta opcja oznacza, w internecie znalazlem wytlumaczenie, jednak	
+		nie jestem w stanie go zrozumiec, wiem tylko tyle, ze ta opcja alokuje pewna	
+		czesc dysku aby maszyna dzialala szybciej. Opcja Create a Virtual Hard Disk Now
+		bedzie u mnie zaznaczona poniewaz chce aby maszyna miala swoj wlasny dysk.
+		- Use an Existing Virtual Hard Disk File - ta opcja sprawi ze maszyna nie utworzy
+		swojego dysku wirtualnego tylko wykorzysta wybrany przez nas, mozemy taki dysk
+		pobrac np. z backupow poprzednich VMek (typ pliku .vdi) dzieki czemu wykorzystamy
+		miejsce przez nie wykorzystywane. Ja nie mam takiego dysku wiec ta opcja odpada.
+		- Do Not Add a Virtual Hard Disk - po wybraniu tej opcji wszytskie dane VMki 
+		beda metadanymi, a to znaczy ze nic sie nie zapisze po wylaczeniu maszyny.
+		Wszystko zostanie usuniete. 
+		
+		
+5. Po kliknieciu Next pojawi nam sie podsumowanie wszystkich opcji ktore wybralismy. Mozemy 
+sprawdzic czy wszystko nam odpowiada i zatwierdzic zmiany klikajac Zakoncz. 
+
+6. Gdy juz mamy stworzona maszyne wirtualna pojawi nam sie okno Oracle VM VirtualBox Menedzer i tam jest 
+taka opcja jak Ustawienia. Po kliknieciu w nia mozemy jeszcze dodatkowo skonfigurowac nasza maszyne:
+	a) Ogolne:
+		-Podstawowe:
+			Widzimy tutaj nazwę, typ VMki oraz jej wersje 
+		-Zaawansowane:
+			Folder migawek: sciezka do pliku w ktorym beda zapisywane checkpointy naszej
+			VMki, jezeli cos sie zepsuje to tam sa przechowywane zapisy do ktorych mozemy
+			wrocic.
+			
+			Wspoldzielony schowek: 
+				Gospodarz do goscia - schowek bedzie dostepny z VM dla naszego komputera
+				Gosc do gospodarza - schowek bedzie dostepny z naszego komputera dla VM
+				Dwukierunkowy - laczy 2 opcje powyzej
+			
+			Przeciaganie i upuszczanie: 
+				Gospodarz do goscia - przeciaganie plikow  bedzie dostepne z VM dla naszego komputera
+                                Gosc do gospodarza - przeciaganie plikow bedzie dostepne z naszego komputera dla VM
+                                Dwukierunkowy - laczy 2 opcje powyzej (ta opcje wybralem, bedzie przydatna do szybkiego
+				kopiowania textu, plikow na VMke)
+
+		-Opis: tutaj mozemy dac opis dla naszej maszyny, jakies informacje ktore beda dotepne z poziomu Oracle
+		-Szyfrowanie dysku:
+			Mozemy wlaczyc opcje jezeli chcemy przechowywac tutaj jakies wazne informacje
+			jest to dodatkowe zabezpieczenie przed wlamaniem na VM, ja jednak tego nie potrzebuje.
+	
+	b)System:
+		-Plyta glowna:
+			Mozemy tutaj skonfigurowac RAM jaki bedzie naszej maszynie potrzebny, ja zostawiam 2048MB
+			Mozemy wybrac kolejnosc bootowania, mysle ze tutaj nie bedzie miec znaczenia co wybierzemy
+			Chipset mam PIIX3, innego nie moge wybrac, wspomaga on wirtualizacje
+			TPM Służy do poprawy bezpieczeństwa twojego komputera, mamy 2 wersje do wyboru - ja nic nie	
+			wybralem
+			Urzadzenie wskazujace - pokazuje na jakiej zasadzie ma dzialac ekran wirtualboxa, jak ma sie zachowywac
+			u mnie jest TabletUSB
+			
+		-Procesor:
+			Tutaj moge zmienic tylko wykorzystanie procesora ktore w moim przypdaku wynosi 100%, jednak nie bede	
+			tego robil gdyz uzywam tylko 1CPU i mocno ograniczylo by to wydajnosc mojej VM
+		
+		-Akceleracja:
+			Interfejs parawirtualizacji - mamy rozne opcje do wyboru, sluzy on do m.in skalowania obrazu
+			nie moglem niestety znalezc wiecej informacji na temat tego do czego sluza poszczegolne opcje
+		
+	c)Ekran:
+		-Pamiec video:
+			Pamiec video to dedykowana pamiec na karcie graficznej, odpowiedzialna wylacznie za obsługe 
+			danych zwiazanych z grafika. U mnie opcja jest wyszarzona.
+		-Ilosc monitorow:
+			Jak sama nazwa mowi, jest to ilosc monitorow ktore VMka moze obsluzyc/dzialac.
+		-Scale Factor
+			 opcja wyszarzona, opcja odpowiadajaca za skalnowanie ekranu ustaawiona u mnie na 100%
+		- Kontroler grafiki
+			– VBoxSVGA: Domyslny kontroler graficzny dla nowych maszyn wirtualnych, ktore uzywaja Linuksa 
+			lub Windows 7 lub nowszego. Ten kontroler graficzny poprawia wydajnosc i obsluge 3D w 
+			porownaniu ze starsza opcja VBoxVGA.		
+			– VBoxVGA: Uzyj tego kontrolera graficznego dla starszych systemow operacyjnych gosci. Jest to 
+			domyslny kontroler graficzny dla wersji Windows sprzed Windows 7.
+			– VMSVGA: Uzyj tego kontrolera graficznego, aby emulować urzadzenie graficzne VMware SVGA.
+			– Brak: Nie emuluje typu karty graficznej.
+	
+	d)Pamiec:
+		-Tutaj widzimy parametry naszej maszyny tj. kontroler IDE ktorego nazwe mozemy zmienic. 
+	
+	e)Dzwiek:
+		- Sterownik dzwieku gospodarza:
+    			Wybor automatycznego sterownika przez VirtualBox na systemie hosta zapewnia optymalne dzialanie na danej 
+			platformie, ulatwiajac przenoszenie maszyny wirtualnej miedzy roznymi systemami bez potrzeby zmiany
+			sterownika dzwieku.
+    			W przypadku systemow Linux zalecane sa sterowniki OSS, ALSA lub PulseAudio, z preferencja dla PulseAudio w 
+			nowszych dystrybucjach.
+     			W Oracle Solaris wspierany jest jedynie subsystem OSS.
+			Kontroler Audio: Mozliwosc wyboru emulacji kontrolera audio miedzy Intel AC'97, Intel HD Audio oraz 
+			SoundBlaster 16.
+			Wlacz wyjscie dzwieku: Aktywuje wyjscie dzwieku dla maszyny wirtualnej.
+			Wlacz wejscie dzwieku: Aktywuje wejscie dzwieku dla maszyny wirtualnej.
+
+	f)Siec:
+		- Konfiguracja karty sieciowej:
+    			- Niepołączona: Symuluje kartę sieciową bez połączenia, co oznacza brak dostępu do sieci z poziomu 
+			maszyny wirtualnej.
+    			- NAT: Standardowy tryb, który umożliwia korzystanie z internetu oraz pobieranie plików z poziomu 
+			maszyny wirtualnej.
+    			- Sieć NAT: Podobna do NAT, jednak umożliwia połączenia wychodzące, działając jak domowy router. 
+			Wymaga serwera DHCP dla łatwiejszego korzystania.
+    			- Mostkowana (bridged): Zaawansowany tryb, który umożliwia symulację działania sieci oraz
+			 uruchamianie serwerów w maszynie wirtualnej. Połączenie odbywa się bezpośrednio przez hosta.
+    			- Sieć wewnętrzna: Tworzy sieć widoczną tylko dla wybranych maszyn wirtualnych, nie dostępną dla
+			 programów na hoście ani na zewnątrz
+    			- Karta sieci izolowanej (host-only):** Pozwala na utworzenie sieci zawierającej hosta i maszyny
+			 wirtualne, bez potrzeby fizycznego interfejsu sieciowego na hoście.
+    			- Cloud Network: Umożliwia połączenie lokalnej maszyny wirtualnej z podsiecią w chmurze.
+    			- Rodzajowy sterownik: Rzadko używane tryby, umożliwiające wybór sterownika, który może być dołączony
+			 do VirtualBox lub dostępny jako część pakietu rozszerzeń. Obejmuje m.in.
+			- Tunel UDP i VDE (Wirtualny Rozproszony Ethernet).
+
+	g)Porty:
+		- Porty szeregowe to funkcja, ktora pozwala na wirtualizacje portow szeregowych dla maszyny wirtualnej. 
+		Jest to przydatne w przypadku, gdy konieczne jest uzycie prostego polaczenia null-modem, zwlaszcza gdy nie 
+		ma dostepu do sieci Ethernet. Deweloperzy oprogramowania czesto wykorzystuja te funkcje do debugowania jadra,
+		 poniewaz wiele narzedzi do debugowania dziala poprzez porty szeregowe.
+
+	h)USB:
+		-VirtualBox umozliwia maszynom wirtualnym bezposredni dostep do urzadzen USB hosta. Dodatkowo, za
+		 pomoca funkcji zdalnego pulpitu, mozliwe jest nawet podlaczenie urzadzen USB zdalnie do maszyn wirtualnych.
+
+	
+	i)Udostepnione foldery: 
+		- Tutaj mozemy podpatrzec na pliki/foldery wymieniane pomiedzy maszyna wirtualna a hostem
+	
+	j)Interfejs uzytkownika:
+		-Tutaj mozemy zmienic niektore cechy interfejsu uzytkownika np. Wiersze polecen
+
+--------------------------------------------------------------------------------------------------
+
+5. Przejdzmy zatem do instalacji debiana w VirtualBoxie:
+	a) Pojawia nam sie opcje:
+		- Graphical Install - zainstalujemy system ktory bedzie wygladal jak normalny OS a nie "terminal"
+		- Install - tego bedziemy uzywac
+		- Advanced Options - dla mnie jako poczatkujacego te opcje nie beda wazne
+		- Help - tutaj mozemy znalezc pomoc dotyczaca instalacji jak i samego systemu
+		- Install with speech syntesis - instalacja z emulatorem mowy
+
+	b)Po kliknieciu Install, pojawi sie monit o wybranie jezyka w jakim instalacja bedzie przeprowadzana
+	mozna wybrac jezyk polski, ja wole wybrac angielski z tego wzgledu ze bedzie to bardziej czytelne jezeli 
+	chodzi o dokumentacje
+	
+	c)Nastepnie musimy wybrac region ktory jest najbizej nas, Europe u mnie
+	
+	d)Wybieramy jaka klawiatura ma nas obowiazywac
+	
+	e)Wpisujemy jaka chcemy miec nazwe hosta, a nastepnie jaka chcemy miec nazwe domeny - potrzebne nam to bedzie do
+	logowania sie za pomoca SSH
+
+	f)Konfiurujemy uzytkownikow:
+		-root - ustawiamy dla niego haslo
+		-podajemy nazwe uzytkownika, moze to byc cokolwiek w tym momencie, wazne zeby ta nazwe zapamietac
+		-podajemy Username, tutaj rowniez moze byc cokolwiek - u mnie Aleks - a nastepnie tworzymy haslo dla usera
+
+	g)Partycja dyskow:
+		-Ext... - sa to generacje systemu ext. xt2 przy domyślnym rozmiarze bloku (4 KB) obsługuje partycje o 
+		wielkości do 4 TB i pojedyncze pliki o wielkości do 2 TB. ext3 różni się od ext2 brakiem możliwości 
+		odzyskania skasowanych plików.czwarta wersja rozszerzonego systemu plików, następca ext3. Obecnie 
+		jeden z najpopularniejszych systemów plików dla Linuksa.
+		
+		-JFS - To 64-bitowy system plikow do ksiegowania stworzony przez IBM.
+
+		-XFS - To wysokowydajny 64-bitowy system plikow do ksiegowania stworzony przez Silicon Graphics.
+	
+		-FAT16, FAT32 - odmiany systemu plikow FAT, ktora posluguje sie kolejno  16 i 32-bitowym adresowaniem przy 
+		dostepie do plikow. Stworzony do obslugi pierwszych dyskow twardych.
+
+		-BTRFS - Jest komputerowym formatem pamieci masowej, ktory lączy system plikow oparty na zasadzie 
+		copy-on-write (COW) z logicznym menedzerem woluminow.
+
+
+		-Automatyczna konfiguracja partycji:
+			
+			-Po wybraniu opcji automatycznej instalacji, instalator systemu Debian automatycznie przeprowadza 
+			proces partycjonowania i instalacji systemu na jednym z dostępnych dysków wirtualnych. Jest to 
+			zwykle najszybszy sposób na uruchomienie systemu Debian bez potrzeby zaawansowanej konfiguracji partycji.     
+
+			-Wybór dysku: Instalator Debian rozpoznaje wszystkie dostępne dyski wirtualne na maszynie
+			wirtualnej Oracle VirtualBox. Następnie, na podstawie dostępnej przestrzeni na dyskach,
+			wybiera jeden z nich jako miejsce instalacji systemu.     
+
+			-Partycjonowanie: Instalator tworzy nowe partycje na wybranym dysku, zwykle składające się z partycji
+			głównej (`/`) oraz partycji wymiany (swap). Partycje mogą być tworzone zgodnie z
+			domyślnymi zaleceniami instalatora lub zgodnie z określonymi przez użytkownika preferencjami.     
+
+			-Formatowanie partycji: Po utworzeniu partycji, instalator formatuje
+			je zgodnie z wybranymi przez użytkownika typami systemów plików. Dla partycji
+			głównej zwykle stosuje się system plików `ext4`, natomiast dla partycji wymiany
+			stosuje się typ `swap`.     
+
+			-Kopiowanie plików i konfiguracja bootloadera: Następnie, instalator kopiuję pliki systemowe na 
+			partycję główną oraz konfiguruje bootloader (zwykle `GRUB`) w celu umożliwienia uruchomienia
+			systemu Debian z dysku wirtualnego. Bootloader jest instalowany na MBR (Master Boot Record) 
+			dysku, co umożliwia rozruch systemu po zakończeniu instalacji.     
+
+			-Zakończenie instalacji: Po zakończeniu kopiowania plików i konfiguracji bootloadera, 
+			instalator Debian 12 kończy proces instalacji i prosi użytkownika o restart maszyny wirtualnej. 
+			Po restarciesystemu, użytkownik będzie mógł uruchomić system Debian 12 z dysku wirtualnego i
+			kontynuować konfigurację oraz dostosowywanie systemu do swoich potrzeb.  Ta automatyczna
+			metoda instalacji jest zalecana dla użytkowników, którzy chcą szybko uruchomić system
+			Debian bez konieczności ręcznej konfiguracji partycji. Jednakże, nie zapewnia ona
+			takiej elastyczności jak ręczna konfiguracja partycji, więc może być mniej
+			odpowiednia dla zaawansowanych użytkowników, którzy potrzebują niestandardowych ustawień
+			partycji. 
+
+
+	
+		-Reczna konfiguracja partycji:
+			
+			- Podczas ręcznego tworzenia partycji, użytkownik ma pełną kontrolę nad procesem partycjonowania
+			dysku wirtualnego na maszynie wirtualnej. W tym procesie zaangażowane są narzędzia do partycjonowania,
+			takie jak parted, fdisk lub cfdisk.
+			
+			- Partycjonowanie dysku: Użytkownik wybiera dysk, na którym chce przeprowadzić ręczną konfigurację
+			 partycji. Instalator Debian przetwarza informacje o dostępnych dyskach, odczytując ich geometrię, 
+			 rozmiary i dostępną przestrzeń.
+			
+			- Definiowanie partycji: Użytkownik określa parametry dla każdej nowej partycji, włączając w to numer
+			 partycji, jej rozmiar, typ (np. primarne, logiczne) oraz typ systemu plików. To może obejmować 
+			 wyznaczanie partycji głównej (/), partycji wymiany (swap), partycji danych, itp.
+			
+			- Formatowanie partycji: Po zdefiniowaniu partycji, użytkownik decyduje, czy chce je sformatować i z 
+			jakim systemem plików. Narzędzia partycjonowania pozwalają na formatowanie partycji z wybranymi 
+			systemami plików, takimi jak ext4, btrfs, xfs, ntfs itp.
+			
+			- Punkty montowania: Użytkownik określa punkty montowania dla każdej partycji, co określa, 
+			gdzie partycje zostaną zamontowane w strukturze katalogów systemowych systemu Debian.
+			Na przykład, partycja główna (/) jest zwykle montowana jako główny katalog systemowy, a partycja
+			wymiany (swap) jako przestrzeń wymiany.
+
+
+		- Kończymy partycjonowanie wybierając „Finish partitioning
+                and write changes to disk" i następnie wyrażamy zgodę na
+                zastosowanie zmian na dysku. 
+		
+		- Kolejnym krokiem jest konfiguracja menedżera pakietów. Podczas tego procesu, 
+		instalator zapytal mnie, które źródło chce wybrać. Aby uzyskać najlepsze połączenie i 
+		jak najszybsze pobieranie pakietów, zaleca się wybranie serwerów znajdujących się w kraju, 
+		w którym działa maszyna wirtualna. Następnie wybralem serwery, z których będą pobierane pakiety. 
+		Dodatkowo, instalator zapytal również, czy chce brać udział w badaniach statystycznych dotyczących 
+		pobieranych pakietów - tutaj odpowiedź to nie. 
+
+		- Kolejnym zapytaniem jest to czy chce skonfigurowac srodowisko graficzne - odpowiedz to nie. 
+		
+		- Instalator się restartuje. Później gdy odpalamy maszyne musimy podać poświadczenia i wszystko gotowe.
+
+
+
+Moje przemyślenia:
+	-Instalacja na systemie mac na którym to virtualbox jest wersją beta była dla mnie udręką. Dużo opcji nie działało
+	instalację musiałem przechodzić parokrotnie, gdyż VMka nie chciała się załączyć. 
+
+	-Ale pomimo teg co napisałem wyżej na pewno też więcej zrozumiałem. Oczywiście im więcej praktyki w tym nabiorę tym
+	brdziej pewnie się w konfiguracji VM czuł. Dużo informacji brałem ze StackOverflow czy dokumentacji Virtualboxa, 
+	Debiana. 

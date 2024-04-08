@@ -1,0 +1,81 @@
+1. Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+### Podstawowy skrypt, bardzo prosty. Dodanie atrybutu -e dodaje obsługę znaków pokroju \n, czyli znak nowej lini. Ae tutaj nie było potrzeby.
+
+2.To zadanie należy wykonać wpisując polecenia w terminalu normalnie. Nie należy tworzyć skryptu z tymi poleceniami.
+
+ Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+
+### Utworzyliśmy zmienną lokalną - następnie wywołaliśmy jej zawartość. Po uruchomieniu nowej powłoki zmienna przepadła.
+
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+### Bash potraktował znak po spacji jako polecenie/parametr. Zastosowanie zarówno pojedyńczego jak i podwójnego apostrofu pomogło. Bez symboli możemy do zmiennej zapisać jedno słowo bez spacji
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+
+###Zmienne w '' mogą zawierać w sobie cokolwiek, poza apostrofami. Zmienne w "" interpretuje znaki specjalne i zmienne. 
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować wartości zmiennej A.
+
+### echo wywołało Ala ma kota, a kot ma Alaę. Domyślam się że teraz będzie o konkatencji stringów, aby Alaę zamienić na Alę
+
+3.Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy może się wg Ciebie przydać:
+
+PATH
+### Przechowuje PATH - czyli foldery w któych OS będzie szukać plików z poleceniami czy konfiguracją. Do PATH na pewno na windowsie dodawany jest interpreter pythona.
+RANDOM
+### Generuje losową liczbę - genialna sprawa. Nie sposób zliczyć do czego może się przydać, chociażby do losowania tapety.
+PWD
+### Przechowuje ścieżkę folderu w którym się znajdujemy. Myślę że może się przydać w skryptach tworzących coś w bierzącym folderze
+PS1
+### Przechowuje wygląd stringa na lewo od naszego obszaru wpisywania - czyli definiuje to co poprzedza to co piszemy.
+USER
+### Przechowuje nazwę aktualnego użytkownika. Przydatne by sprawdzić, czy np. użytkownik wywołujący polecenie pokrywa się z aktualnym użytkownikiem
+HOSTNAME
+### Przechowuje nazwę hosta. Nie mam do końca pomysłu do czego może być to przydatne - może żeby sprawdzić czy podpięliśmy się do odpowiedniego serwera?
+OSTYPE
+### Przechowuje typ systemu operacyjnego. Przydatne by poznać na czym pracujemy
+
+4. Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+
+Wyświetl zawartość tej zmiennej.
+
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+
+ls -l
+
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+
+echo $X
+
+Zastanów się dlaczego.
+
+### Wystarczy napisać echo "$X". Ze zdobytej przez mnie wiedzy wynika, że bez cudzysłowia bash traktuje $X jako listę oddzieloną spacjami, więc wszystkie whitespace'y zostaną skasowane i printuje się to jako jeden mooonstrualny teskt. Natomiast użycie "" sprawia, że wszystko zostaje zachowane. Może to przez to, że cudzysłów nakazuje interpretację wszystkich znaków i zmiennych?

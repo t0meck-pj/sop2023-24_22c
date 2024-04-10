@@ -1,0 +1,130 @@
+1.Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj z 
+komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+	- Skrypt: echo "Witamy w terminalu" 
+	Wynik: Witamy w terminalu
+
+	- Nie bylo roznicy w tym czy dalem wyrazenie w nawiasach czy nie, w obu przypadkach 
+	wypisalo to samo.
+
+2. Po wpisaniu: 
+ X=tekst
+ echo $X
+ bash
+ echo $X
+
+	- Zmienna X dostala wartosc "tekst". Komenda bash jakby wykasowala to co znajdowalo sie pod ta
+	zmienna.
+ 
+ X=Tekst dłuższy
+ echo $X
+
+	- Po wpisaniu przypisania zmiennej dostalem error bash: dłuższy: nie znaleziono polecenia
+	echo $X nie wydrukowalo nic poniewaz pamieta jeszcze skrypt bash ktory usunal zmienna. Po
+	dodaniu cudzyslowia do wartosci zmiennej i wpisaniu komendy echo tekst wypisal sie w calosci.
+
+ X="Tekst 1"
+ Y="tekst:$X"
+ echo "$Y"
+	Wynik: tekst:Tekst 1
+
+ Y='tekst:$X'
+ echo "$Y" 
+	Wynik: tekst:$X
+
+ Y=tekst:$X
+ echo "$Y"
+	Wynik: tekst:Tekst 1
+
+	- Pierwsza czesc kodu przypisala do X wartosc "Tekst 1" oraz do zmiennej Y wartosc "tekst:$X"
+	Wyswitlony zostal wynik w ktorym zmienna odwoluje sie do zmiennej.
+	W drugiej czesci wyswietlona zostala tylko wartosc tego co jest w Y bez odwolania sie do 
+	poprzedniej zmiennej - prawdopodobnie dlatego ze jest to w ('') - wyglada to na to ze wartosc
+	zostala potraktowana jako string.
+	Trzecia czesc wydrukowala to samo co pierwsza z racji tego ze cala wartosc jest zlaczona w 
+	jedno. 
+
+
+3. Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy 
+może się wg Ciebie przydać:
+
+	PATH - mowi shellowi gdzie szukac wykonywalnych plikow 
+		/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+		w moim przypadku szuka ich w folderze /usr/games
+
+	RANDOM - generuje losowe numery 
+		bash: 18728: nie znaleziono polecenia
+		jak widac tutaj wylosowalo mi nr 18728
+
+	PWD - wyswietla mi aktualny katalog w ktorym pracuje
+		/home/PJWSTK/s29866
+		jest to moj katalg domowy
+
+	PS1 - to juz trudniejsze, na pewno z informacji ktore znalazlem w internecie mozna to 
+		modyfikowac, korzysta to z ANSI escape secences. Dzieki temu mozemy modyfikowac 
+		nasz prompt.
+
+	USER - pokazuje nam bierzacego usera, ktory jest aktywny na powloce
+		bash: s29866: nie znaleziono polecenia
+		tutaj jest podany moj user
+
+	HOSTNAME - podaje hostname maszyny na ktorej pracujemy, jest to jej nazwa wlasna
+		bash: szuflandia22: nie znaleziono polecenia
+		jak widac tutaj podana jest nazwa serwera do ktorego jestem podlaczony
+
+	OSTYPE - pokazuje nam na jakim systemie operacyjnym dzialamy
+		bash: linux-gnu: nie znaleziono polecenia
+		w moim przypadku jest to linux-gnu
+	
+
+4. Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+- ls -l
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+- echo $X
+Zastanów się dlaczego.
+
+	-Moj skrypt: X=$(ls -l)
+	-Wynik: taki sam jak po wpisaniu ls -l normalnie w bashu
+	
+	-Mysle ze dzieje sie tak dlatego ze wartosc X="ls -l" czytana jest jako ciag znakow
+	a nie polecenie.
+  
+5a. Pamiętasz jedno z zadań poprzednich?
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+Przerób je tak, aby tekst wypisywał się poprawnie.
+
+	-Moj skrypt: A=Ala echo $A ma kota, a kot ma ${A:0:2}ę
+	-Wynik: Wypisało to co powinno "Ala ma kota, a kot ma Alę".
+	-Wypisało to w ten sposob ponieważ ustawiłem znak od którego ma czytać stringa (0) i na którym
+	ma zakończyć (2)
+
+
+5b. Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+
+	-Mój skrypt:
+
+	pierwszy_znak=${1:0:1}
+	echo "Pierwszy znak: $pierwszy_znak"
+
+	ostatni_znak=${1: -1}
+	echo "Ostatni znak: $ostatni_znak"
+
+	tekst=$(echo -e "$1" | sed 's/SOP/\\e[32mSOP\\e[0m/g')
+	echo -e "$tekst"
+
+	-Wynik: wypisało S, ! oraz zielone SOP
+	
+
+
+
+
+
+
+
+
+^G Help       ^O Zapisz     ^W Wyszukaj   ^K Cut        ^T Execute    ^C Location   M-U Odwołaj
+^X Wyjdź      ^R Wczyt.plik ^\ Zastąp     ^U Paste      ^J Wyjustuj   ^_ Do linii   M-E Odtwórz
+

@@ -1,0 +1,107 @@
+Aby zainstalować Virtualboxa, najpierw pobieram go ze strony virtualbox.org.
+Następnie wybieram odpowiednią wersję dla mojego systemu operacyjnego,
+na przykład "Windows Host" dla Windowsa. Po pobraniu instaluję program
+i dodaję Extension Pack, jeśli jest to wymagane. Kiedy już mam Virtualboxa
+zainstalowanego, otwieram program i dostosowuję ustawienia globalne według
+moich potrzeb. Jeśli chcę tworzyć nowe maszyny wirtualne, wybieram opcję
+"Nowa" i postępuję zgodnie z przewodnikiem lub trybem eksperta, aby utworzyć
+nową maszynę wirtualną. Wprowadzam nazwę maszyny, wybieram typ systemu
+operacyjnego i wersję, a następnie dostosowuję inne opcje, takie jak ilość
+pamięci RAM i rozmiar dysku. Po skonfigurowaniu nowej maszyny wirtualnej
+kontynuuję instalację wybranego systemu operacyjnego. Upewniam się, że mam
+zainstalowane odpowiednie rozszerzenia lub dodatki dla Virtualboxa, jeśli są
+wymagane do poprawnego działania maszyny wirtualnej. Warto być świadomym
+możliwych konfliktów z innymi programami do wirtualizacji, takimi jak
+Hyper-V lub VMware, które mogą wymagać dostosowania ustawień lub ograniczyć
+funkcjonalność wirtualizacji. Instaluję system Debian. Nie zawsze trzeba
+przydzielać maksymalne zasoby dla maszyny wirtualnej. Zbyt duża alokacja może
+prowadzić do marnowania zasobów. Biorę pod uwagę faktyczne potrzeby systemu
+oraz ewentualnych dodatkowych aplikacji, takich jak bazy danych czy serwery
+webowe. Na stronie Debian.org znalazłem obrazy do instalacji Debiana oraz
+informacje o minimalnych wymaganiach sprzętowych. W przypadku instalacji bez
+interfejsu graficznego (wui) będę potrzebować około 256MB RAMu i 2GB miejsca na
+dysku. Jeśli mam ograniczone zasoby, muszę dokładnie przemyśleć alokację
+zasobów dla poszczególnych maszyn wirtualnych. Należy również uwzględnić
+wymagania dodatkowych aplikacji, aby uniknąć marnowania zasobów i zapewnić
+płynną pracę systemu. Dlatego, przed przystąpieniem do instalacji, zbadałem
+wymagania każdej aplikacji, która ma być uruchomiona na maszynach wirtualnych,
+aby zoptymalizować wykorzystanie zasobów. Na początku zdecydowałem się
+przydzielić 2048MB pamięci RAM, ponieważ zaleca się, aby ilość RAMu była
+podzielna przez dwa i wielokrotnością dwójki, co sprzyja lepszemu działaniu
+mechanizmów systemowych. Wybrałem także dwie jednostki centralne procesora,
+choć wiem, że dla niektórych zastosowań wystarczyłby nawet jeden. Następnie
+włączyłem Extended Firmware Interface (EFI), co umożliwia lepszą komunikację
+między systemem a sprzętem, co przekłada się na szybsze i efektywniejsze
+działanie. Wybierając format obrazu dysku, zdecydowałem się na VHD ze względu
+na kompatybilność z narzędziami Microsoftu, które mogą być potrzebne
+w przyszłości. Postanowiłem nie zaznaczać opcji "Reallocate Full Disk Size"
+ze względu na ograniczenia wydajnościowe. Na koniec wybór dysku systemowego
+dokonałem w oparciu o istniejący obraz, a także oczekiwane potrzeby związane
+z wydajnością i rozmiarem. Stworzyłem dysk o pojemności 200 GB. Włączenie
+współdzielonego schowka i przeciągania nie będzie potrzebne, ponieważ nie
+będzie środowiska graficznego ani dostępu do myszy. Schowek również nie będzie
+potrzebny, ponieważ maszynę można będzie zarządzać przez SSH. Jeśli chciałbym
+włączyć szyfrowanie dysku, aby spełnić wymagania dotyczące bezpieczeństwa
+(np. w firmie) to wybór algorytmu szyfrowania będzie wpływał na wydajność
+systemu. Należy pamiętać o konieczności zaszyfrowania partycji swap i obszaru
+hibernacji, aby zapobiec potencjalnemu wycieku danych. Chipset PX3 jest
+bardziej kompatybilny, ale CH9 oferuje więcej funkcji, choć jest rozwiązaniem
+eksperymentalnym. Nie będę korzystać z TPM ani potrzebować akceleracji 3D.
+Wybrałem prostsze urządzenie wskazujące, takie jak mysz PS2. Secure Boot
+pozostawiłem wyłączony dla prostoty. Przechodzę teraz do domyślnych ustawień
+interfejsu. Nagrywanie po uruchomieniu maszyny nie będzie potrzebne. Wybrałem
+typ NAT dla sieci, co umożliwi dostęp do Internetu bez dodatkowego adresu IP.
+Wybrałem też kartę sieciową mostkowaną, aby maszyna była widoczna w sieci.
+Sieć wewnętrzna może być przydatna do tworzenia sieci między maszynami, np.
+do budowy klastrów. Karta sieci izolowanej pozwala na komunikację między
+maszyną a hostem. Podczas instalacji systemu operacyjnego dokonałem podziału
+na partycje, co jest kluczowym krokiem. Mogę wybrać prowadzenie krok po kroku
+lub skorzystać z opcji zaawansowanych, takich jak LVM (Linux Volume Manager),
+co pozwala na dynamiczne zarządzanie dyskami. Wybór partycji zależy od potrzeb
+i wiedzy użytkownika. Mogę zdecydować się na prostą instalację na jednej
+partycji, jednak zaleca się oddzielenie katalogów home, var, tmp i www na
+osobnych partycjach, co ułatwia zarządzanie systemem oraz diagnostykę
+problemów. Przystąpiłem do konfiguracji partycji. Pierwsza partycja będzie
+primary i znajdzie się na początku dysku. Więc na razie nie ma znaczenia, jaką
+partycję wybiorę o wielkości 1GB. Format partycji zakończył się ostrzeżeniem.
+Kolejna nowa partycja ma 2GB i również będzie primary na początku. Mam
+partycje oznaczone jako 1 i 2, obie są primary. Kolejna partycja może mieć 3GB
+i również będzie primary na początku. Brakuje partycji 4, ponieważ wszystkie
+są primary. Kolejna partycja może mieć 4GB, także primary na początku. Mam
+11,5GB dostępnego miejsca i nie mogę utworzyć więcej partycji, ponieważ na
+dyskach korzystających z MBR (Master Boot Record) jest ograniczenie do czterech
+partycji primary. Jeśli utworzymy partycję logiczną to tworzymy partycję
+rozszerzoną. Partycja rozszerzona zawsze jest czwartą partycją. Dlatego
+partycje logiczne zaczynają się od piątej pozycji, gdyż znajdują się wewnątrz
+partycji rozszerzonej. Mogę stworzyć wiele partycji logicznych, ograniczenie
+wynosi około 65 tysięcy. Aby uniknąć ograniczeń ilości partycji, zaleca się
+stworzenie jednej partycji podstawowej, ponieważ tylko z partycji podstawowych
+można uruchamiać system, dlatego ta partycja musi być bootowalna. Mając
+oddzielną partycję boot, musiałaby być ona partycją podstawową i musiałaby mieć
+ustawioną flagę boot. Jeśli nie mam oddzielnej partycji boot, mogę stworzyć
+partycję logiczną. W ten sposób, automatycznie otrzymam piątą partycję.
+Pierwsza partycja logiczna zawsze będzie piątą, ponieważ znajduje się wewnątrz
+partycji rozszerzonej. Pozostałe trzy pozycje są nieużywane. Podział na
+partycje jest kluczowy podczas instalacji systemu operacyjnego, więc w tym
+przypadku wybieram jedną partycję podstawową. W następnym kroku przydzieliłem
+przestrzeń na pamięć wymienną (swap). Pamięć swap jest używana do
+przechowywania danych tymczasowych, co jest istotne ze względu na
+wielozadaniowość systemu. Gdy miałbym więcej niż 2GB RAMu, zaleca się alokację
+pamięci swap jako RAM plus 2GB. W przypadku 2GB RAM, przydzieliłem 4GB na swap.
+Jest to ważne z punktu widzenia możliwości zapisania całej zawartości RAM do
+pliku swap, co jest istotne w przypadku awarii systemu. Istnieją różne systemy
+plików, każdy z własnymi zaletami i wadami. Jednym z kryteriów wyboru jest
+obecność journalingu, który zapisuje operacje na systemie plików. Systemy
+plików bez journalingu są szybsze, ale mogą być bardziej narażone na utratę
+danych w przypadku awarii zasilania. Natomiast systemy plików z journalingiem
+są wolniejsze, ale bardziej niezawodne, ponieważ zapisują operacje zapisu.
+Warto również rozważyć zastosowanie LVM (Logical Volume Manager) i RAID
+(Redundant Array of Independent Disks) do zarządzania dyskami i zabezpieczenia
+danych. Po konfiguracji partycji, dokonałem konfiguracji systemu - ustawiłem
+nazwę użytkownika, hasło, język i klawiaturę. Wybór języka angielskiego jest
+zalecany ze względu na dostępność pomocy technicznej i instrukcji w sieci.
+Podczas konfiguracji zwróciłem uwagę na poprawne podanie wielkości dysku.
+Windows używa innego systemu jednostek, dlatego sprawdziłem, czy podane przeze
+mnie rozmiary są zgodne z oczekiwaniami. Kluczowym elementem podczas podziału
+partycji jest także rozróżnienie pomiędzy partycjami podstawowymi a logicznymi
+oraz dokładne określenie, co znajdzie się na każdej z partycji.

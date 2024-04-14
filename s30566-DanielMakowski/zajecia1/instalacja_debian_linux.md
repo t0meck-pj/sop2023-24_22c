@@ -61,7 +61,31 @@
         i.  Wybieramy ścieżkę, w której będzie znajdować się wirtualny
             dysk -- wybierz nośnik, który ma dostępną przestrzeń.
 
-        ii. Wg zalecanych parametrów powinniśmy ustawić przynajmniej
+        ii. Dostępne są poniższe formaty wirtualnych dysków:
+            1. VDI - Natywny format dysku w virtualboxie,
+            oferuje nalepszą kompatybilność. Wspiera dynamiczną
+            alokację danych.
+
+            2. VMDK - Format wspierający dynamiczną alokację danych,
+            natywny format dla VMWare. Wyróżnia się wysoką kompatybilnością
+            z wieloma środowiskami wirtualizacyjnymi (VMWare,
+            VirtualBox, QEMU). Posiada zdolność do przechowywania
+            jednego pliku jako pliki mniejsze niż 2GB. Przydatne,
+            Jeśli korzystamy z systemu plików z niskim limitem rozmiaru
+            pliku.
+
+            3. VHD - Natywny format Microsoft Virtual PC. Wspiera
+            dynamiczną alokację przestrzeni.
+
+            4. HDD - Format plików z kompatybilnością dla Parallels 
+            (wirtualizacja dla macOS). VirtualBox wspiera jedynie
+            starą wersję tego formatu
+
+            5. QCOW - Stary format QUEMU, wyparty przez QCOW2
+
+            6. QED - Porzucony format będący ulepszeniem dla QCOW
+        
+            Wg. zalecanych parametrów powinniśmy ustawić przynajmniej
             10GB przestrzeni dyskowej, tak więc można ustawić 10GB albo
             jak ja -- ustawić 20GB (później opiszę dlaczego).
 
@@ -70,9 +94,10 @@
              dysk witrualny powiększa się dynamicznie -- jak jest taka
              potrzeba. Zaznaczenie tej opcji powinno nieco zwiększyć
              wydajność, ponieważ komputer nie musi regularnie powiększać
-             dysku wirtualnego. Akurat ta maszyna nie ma potrzeby aby
-             pamięć działała aż tak poprawnie, więc nie zaznaczam tej
-             opcji. Zauważ, że można wybrać jeszcze dysk wirtualny,
+             dysku wirtualnego. Akurat w tym przypadku nie potrzebujemy 
+             aż tak wysokiej efektywności w działaniu pamięci, więc 
+             nie zaznaczam tej opcji aby zaoszczędzić miejsce na maszynie 
+             hostującej. Zauważmy, że można wybrać jeszcze dysk wirtualny, 
              który już istnieje lub w ogóle nie dodawać dysku.
 
         iv. Kończymy wstępną konfigurację przyciskiem „Zakończ"
@@ -197,9 +222,9 @@
                      razy ilość linii, następnie wynik pomnóż razy
                      głębie kolorów. Dla ekranów o rozdzielczości
                      1024x768 z 32 bitową głębią kolorów będzie to 1024
-                     \* 768 = 786432 pikseli, 786432 \* 32 = 25 165 824
+                     \* 768 = 786432 pikseli, 786432 \* 32 = 25 165 824
                      bitów.\
-                     25 165 824 / 8 = 3 145 728 bajtów co daje 3
+                     25 165 824 / 8 = 3 145 728 bajtów co daje 3
                      Mebibajty (nieco ponad 3 Megabajty). Jednakże nie
                      są to wszystkie obliczenia jakie są tutaj
                      konieczne, ponieważ w grę wchodzi jeszcze ilość
@@ -437,26 +462,70 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
         razu zbootować instalację debiana. Dostępne mamy 5 opcji:
 
         i.  Instalacja graficzna
+        		1. Graficzna, prosta metoda instalacji wspierająca instalację
+        		przy użyciu klawiatury i myszy.
 
         ii. Instalacja (w prostszej formie)
+        		1. Instalacja z prostym motywem graficznym, zdecydowanie mniej
+        		wymagająca, wspierająca jedynie wejście klawiatury.
 
         iii. Ustawienia Zaawansowane
 
              1.  Graficzna instalacja w trybie eksperta
+             	a) Tryb instalacji wyszczególniający wszystkie możliwe
+             	opcje w procesie instalacji. Zezwala również na nawigację
+             	między różnymi krokami, które nie wykonują się automatycznie
+             	w domyślnej sekwencji. Wspiera mysz oraz klawiaturę.
+             		
 
              2.  Graficzny tryb odzyskiwania
+             	a) Graficzny tryb odzyskiwania służy do przywracania 
+             	uszkodzonej instalacji systemu lub do naprawienia bootloadera. 
+             	Pokazane zostanie kilka pierwszych ekranów instalatora w 
+             	bardziej zaawansowanej grafice niż ta, jaką uświadczymy w 
+             	przypadku zwykłego trybu odzyskiwania z informacją, że jest to 
+             	tryb odzyskiwania. Obsługuje wejście z klawiatury i myszy. Tryb 
+             	ten przejmuje "dowodzenie" nad hardware'em aby zapewnić, że 
+             	dyski czy urządzenia sieciowe są dostępne w czasie naprawy. 
+             	Następnie umożliwii wejście do powłoki systemu w wybranym przez 
+             	użytkownika systemie plików aby przeprowadzić wymagane akcje, 
+             	lub aby zainstalować ponownie bootloader.
 
              3.  Automatyczna instalacja graficzna
 
              4.  Instalacja eksperta
+             	a) Tryb instalacji wyszczególniający wszystkie możliwe
+             	opcje w procesie instalacji. Zezwala również na nawigację
+             	między różnymi krokami, które nie wykonują się automatycznie
+             	w domyślnej sekwencji. Wspiera tylko klawiaturę. Charakteryzuje
+             	się prostą oprawą graficzną.
 
              5.  Tryb odzyskiwania
+             	a) Tryb odzyskiwania służy do przywracania uszkodzonej
+             	instalacji systemu lub do naprawienia bootloadera. Pokazane
+             	zostanie kilka pierwszych ekranów instalatora w prostej oprawie 
+             	graficznej z informacją, że jest to tryb odzyskiwania. Tryb ten 
+             	obsługuje jedynie wejście z klawiatury. Tryb ten przejmuje 
+             	"dowodzenie" nad hardware'em aby zapewnić, że dyski czy 
+             	urządzenia sieciowe są dostępne w czasie naprawy. Następnie 
+             	umożliwii wejście do powłoki systemu w wybranym przez 
+             	użytkownika systemie plików aby przeprowadzić wymagane akcje, 
+             	lub aby zainstalować ponownie bootloader.
 
              6.  Automatyczna instalacja
+             	a) Automatyczna instalacja wymaga pliku preseed, który zawiera 
+             	informacje o konfiguracji systemu, którą domyślnie tworzymy 
+             	przez instalator. Ta metoda ma za zadanie przyspieszyć 
+             	instalację debiana i powinna wymagać minimalnej ingerencji 
+             	człowieka.
 
         iv. Menu instalatora w trybie kontrastowym (ciemne menu)
+        		1. Zmiana motywu menu instalatora na ciemne z wysokim kontastem.
 
         v.  Instalacja z syntezatorem mowy
+        		1. Jedna z opcji dostępności umożliwiająca instalację systemu 
+        		użytkownikom z niepełnosprawnościami (dostępna jest jeszcze 
+        		instalacja z wykorzystaniem monitora brajlowskiego )
 
     b.  Proces będziemy kontynuować poprzez opcję normalnej instalacji
 
@@ -543,8 +612,9 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
                 tym kontrolerze oraz numer urządzenia na tym kanale (np.
                 SCSI2 (0,0,0)) oraz nazwę urządzenia (np. sda).
 
-            2.  Partycjonowanie można przeprowadzić na wiele sposobów. W
-                debianie 12 dostępne są poniższe systemy plików:
+            2.  Partycjonowanie można przeprowadzić na wiele sposobów. W 
+            graficznym instalatorze debiana 12 dostępne są poniższe systemy 
+            plików:
 
                 a.  Ext2, ext3, ext4 -- różne generacje systemu ext,
                     gdzie 2 nie miała możliwości journalingu co może
@@ -560,7 +630,8 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
                     dzięki czemu jeden plik może ważyć do 16TB. Oprócz
                     nowych funkcji charakteryzuje się również wyższą
                     wydajnością operacji zapisu i odczytu jak i
-                    wprowadza różne tryby alokacji bloków.
+                    wprowadza różne tryby alokacji bloków. System plików 
+                    ext4 nie jest kompatybilny ze swoimi poprzednikami.
 
                 b.  Jfs -- system plików z dziennikowaniem
 
@@ -574,6 +645,15 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
                     migawkowymi tworzonymi w czasie rzeczywistym oraz
                     wsparciem dla RAID i innymi przydatnymi
                     funkcjonalnościami.
+				
+			Z poziomu powłoki systemu możemy sformatować partycje do wielu 
+			innych systemów plików. Takich jak reiserfs (dziennikowany system 
+			plików działający bardzo dobrze z małymi plikami, maksymalna waga 
+			pliku to 1exabajt), FAT (przestarzały system plików dedykowany pod 
+			systemy MS-DOS i wczesne systemy Windows), zfs (zaawansowany system 
+			plików charakteryzujący się wysoką redundancją, oferujący 
+			zaawansowane możliwości dla efektywnego zarządzania przestrzenią 
+			dyskową).
 
             3.  To w jaki sposób podzielimy dysk na partycje musi być
                 bardzo dobrze przemyślane. Warto zadbać o możliwość
@@ -636,11 +716,10 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
                          zaktualizowany tylko wtedy, kiedy modyfikacja
                          pliku nastąpiła po jego ostatnim odczycie
 
-                    iv. Nodev -- ta opcja zapobiega uruchamianiu plików
-                        wykonywalnych na wolumenie. Może się przydać,
-                        kiedy chcemy zamontować partycję z danymi ale
-                        nie chcemy aby była ona używana jako przestrzeń
-                        dla plików wykonywalnych.
+                    iv. Nodev --  Udział zamontowany z tą flagą ma 
+                        wyłączoną interpretację specjalnych urządzeń 
+                        blokowych (plików urządzeń).
+
 
                     v.  Nosuid -- zapobiega wykonywania plików z
                         ustawionym bitem SUID lub SGID z tego wolumenu.
@@ -705,9 +784,97 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
 
             6.  Po konfiguracji menedżera pakietów apt instalator zapyta
                 nas czy chcemy doinstalować dodatkowe oprogramowanie,
-                takie jak serwer SSH czy środowisko graficzne.
+                takie jak serwer SSH, httpd czy środowisko graficzne.
 
-            7.  Gdy instalacja przebiegnie pomyślnie instalator
+            7.  Dostępne z poziomu instalatora środowiska graficzne:
+            			a) GNOME
+            				i. Wymagania sprzętowe:
+            					1. Dwurdzeniowy procesor 2GHz
+            					2. 4GB Pamięci RAM
+            					3. 20GB miejsca na dysku
+            					
+            				ii. Charakterystyka:
+            					1. Efektowny
+            					2. Intuicyjny
+            					3. Integracja z różnymi oprogramowaniami
+            					4. Możliwość instalacji rozszerzeń
+            					5. Stale rozwijany o nowe funkcje i zabezpieczenia
+            					6. Wybitny w przypadku jednego monitora 		
+            					(subiektywna opinia)
+            						
+            			b) Xfce 
+            				i. Wymagania sprzętowe:
+            					1. Procesor: 1GHz+
+            					2. Pamięć RAM: 512MB na czas instalacji, 
+            					zainstalowany 128mb
+            					3. Przestrzeń dyskowa ~1,5GB
+            					
+            				ii. Charakterystyka:
+            					1. Szybki
+            					2. Niskie zapotrzebowanie na zasoby
+            					3. Prosty w obsłudze
+            					4. Prosty wygląd
+            					
+            			c) KDE Plasma
+            				i. Wymagania sprzętowe:
+            					1. Procesor: 2GHz 64bit
+            					2. RAM: 2 GB
+            					3: Przestrzeń dyskowa: 10GB
+            					
+            				ii. Charakterystyka:
+            					1. Efektowny
+            					2. Intuicyjny
+            					3. Integracja z różnymi oprogramowaniami
+            					4. Bardzo dobra zintegrowana aplikacja 
+            					terminala (subiektywna opinia).
+            			
+            			d) Cinnamon
+            				i. Wymagania:
+            					1. Procesor: 2GHz 2 rdzenie
+            					2. Pamięć RAM: 2GB
+            					3. Przestrzeń dyskowa: 20GB
+            					
+            				ii. Charakterystyka:
+            					1. Stylowy
+            					2. Doświadczenie zbliżone do windowsa
+            					3. Intuicyjny
+            					4. Prosty w obsłudze
+            					
+            			e) MATE
+            				i. Wymagania:
+            					1. Procesor: 1GHz
+            					2. RAM: 1GB
+            					3. Przestrzeń dyskowa: 8GB
+            					
+            				ii. Charakterystyka:
+            					1. Szybki
+            					2. Minimalistyczny
+            					3. Mieszanka MacOS i Windowsa z dodatkiem
+                                cech charakterystycznych dla środowisk
+                                linuxowych (subiektywna opinia).
+            				
+            			f) LXDE
+                            i. Wymagania:
+                                1. Procesor: Tak (Pentium II)
+                                2. Ram: Tak (45MB)
+                                3. Przestrzeń dyskowa: 200MB
+                            ii. Charakterystyka:
+                                1. Lekki
+                                2. Szybki
+                                3. Prosty w użytku
+                                4. Odpowiedni dla starych maszyn
+            			
+            			g) LXQt
+                            i. Wymagania:
+                                1. Procesor: 512MHz
+                                2. Ram: 512MB
+                                3. Przestrzeń dyskowa: 6GB
+                            ii. Charakterystyka:
+                                1. Modularny
+                                2. Duże możliwości personalizacji
+                                3. Możliwość instalacji dodatków
+
+            8.  Gdy instalacja przebiegnie pomyślnie instalator
                 zaproponuje restart maszyny i zbootowanie systemu. Jeśli
                 nie instalowaliśmy żadnego środowiska graficznego,
                 system przywita nas tekstem informującym o wersji
@@ -716,7 +883,7 @@ x.  Interfejs Użytkownika -- Ta sekcja umożliwia zmianę pewnych aspektów
 
 # Adnotacja na koniec
 - Całe rozwiązanie zadania zostało napisane przezemnie od zera.
-- Do pomocy jakiej potrzebowałem na wielu etapach wykorzystywałem dokumentacje virtualboxa i debiana.
+- Do pomocy jakiej potrzebowałem na wielu etapach wykorzystywałem dokumentacje virtualboxa i debiana. Dodatkowo zostały wykorzystane dokumentacje wymienionych środowisk graficznych.
 - Części z systemami plików i opcjami montowań były konsultowane z chatem gpt (wolałem żeby mi to po ludzku opisał zamiast czytać dokumentacje każdego systemu plików z osobna).
 - Całość była pisana w taki sposób, żebym mógł się do tego pliku w przyszłości odnieść aby przypomnieć sobie pewne informacje (np. odnośnie flag montowania).
 - Szczególnie nowymi były dla mnie informacje właśnie odnośnie systemów plików – wiedziałem że istnieją różne systemy plików i że się różnią ale to zadanie dało mi większą wiedzę na temat różnic między nimi. Nowe dla mnie też są opcje montowań, z którymi się już wcześniej spotkałem (nawet używałem) ale nie wiedziałem o tak wielu.

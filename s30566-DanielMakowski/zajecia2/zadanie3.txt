@@ -16,16 +16,17 @@ Zmienna PATH przechowuje taką wartość:
 #/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
 Zmienna PATH zawiera katalogi z wykonywalnymi programami. Pomaga to w wykonywaniu programów bez znania ich
-dokładnej lokalizacji.
+dokładnej lokalizacji. Przydaje się to w upraszaczniu operacji w powłoce systemu. Dla przykładu - jeśli chcę wykonać polecenie curl, to mogę po prostu wpisać "curl" zamiast /usr/bin/curl.
 
 RANDOM
 
 Ta zmienna jest wykorzystywana do generowania randomowych liczb 16-bitowych z zakresu 0 - 32767
-Każdy odczyt zmiennej zwraca inną liczbę.
+Każdy odczyt zmiennej zwraca inną liczbę. Może się to przydać do nazywania plików tymczasowych, lub np. do testowania różnych przypadków w skryptach.
 
 PWD
 
 W zmiennej PWD przechowywana jest lokalizacja w której obecnie się znajdujemy.
+Może się ona przydać do zapisywania obecnej lokalizacji w logu skryptu, lub do przeprowadzania operacji na plikach.
 
 PS1
 
@@ -47,7 +48,14 @@ $ - jeżeli UID bieżącego użytkownika jest 0, to wyświetlany jest #, w przec
 debian_chroot - jeśli zmienna jest pusta a istnieje plik /etc/debian_chroot i jest dostępny do odczytu, to
 zmienna przyjmuje zawartość tego pliku. Plik ten występuje kiedy posiadamy chrootowanego debiana w innym debianie
 (takim przykładem jest Ubuntu). Sam chroot to operacja która zmienia najwyższy katalog dla danego procesu i jego dzieci.
+Przydaje się głównie w celach informacyjnych. Mówi użytkownikowi gdzie się znajduje i z jakiego konta obecnie korzysta.
 
-USER - przechowuje nazwę obecnego użytkownika
-HOSTNAME - zmienna przechowuje nazwę hosta systemu
-OSTYPE - Zmienna opisująca system operacyjny, w jakim właśnie działa powłoka.
+USER - przechowuje nazwę obecnego użytkownika. Może się przydać do personalizacji outputu skryptu, np. aby napisać "Witaj $USER". Przyda się również do uzyskiwania dostępu do ścieżek użytkownika (np. /home/USER/foo)
+
+HOSTNAME - zmienna przechowuje nazwę hosta systemu. Może przydać się do informowania,
+na jakim serwerze wystąpił problem. 
+Na przykład: jeśli skrypt wykryje, że jest coś nie tak i nie może się wykonać, to wyśle maila z informacją co się stało na jakim serwerze.
+
+OSTYPE - Zmienna opisująca system operacyjny, w jakim właśnie działa powłoka. Może przysłużyć się do tworzenia skryptów 
+z zachowaniami specyficznymi dla danego systemu operacyjnego. Np. w przykładu linuxa wykona się dana
+sekwencja poleceń, a w przypadku BSD inna.

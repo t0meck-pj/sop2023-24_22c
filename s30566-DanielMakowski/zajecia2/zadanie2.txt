@@ -156,4 +156,4 @@ Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować war
 #ma kota, a kot ma ę
 
 Zmienne są case-sensitive, czyli zmienna "A" to inna zmienna niż "a". Widać tutam też zastosowanie
-nawiasów klamrowych, dzięki którym mówimy, że chodzi o zmienną "A" a nie o zmienną "Aę".
+nawiasów klamrowych, dzięki którym mówimy, że chodzi o zmienną "A" a nie o zmienną "Aę". Problem można rozwiązać przypisując wartość zmiennej "A" do zmiennej "a".

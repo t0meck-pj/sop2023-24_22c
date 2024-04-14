@@ -9,11 +9,11 @@ B=$( echo "${A: -1}")
 
 if [ "$B" = "a" ]; then
         A2=$(echo "$A" | sed 's/a$/ę/g' | sed 's/\([^ę]\)$/\1a/g')
-        echo "$A ma kota, a kot ma ${A2}"
 else
         A2=$(echo "${A}a")
-        echo "$A ma kota, a kot ma ${A2}"
 fi
+
+echo "$A ma kota, a kot ma ${A2}"
 
 A - przechowuje pierwszy argument
 B - ostatnia litera zawatości zmiennej A

@@ -11,3 +11,12 @@ Do douczenia:
 
 Do pozniej o7
 
+-------------------------------------------------------------------------------
+2024-03-24
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak pisać skrypty
+	jak operować na ciągach znaków
+	jak korzystać z sed-a i kodów ucieczki ANSI
+
+Do pozniej o7
+

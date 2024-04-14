@@ -1,6 +1,18 @@
 Ćwiczenia 1
 Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
 
+###
+#!/bin/bash
+
+if [ "$#" -gt 1 ]; then
+    echo "$1"
+else
+    echo "This script does not have more than one parameter."
+fi
+
+Ten skrypt nauczył mnie ważnej rzeczy - SPACJE SĄ KONIECZNE PRZY NAWIASACH KWADRATOWYCH - inaczej skrypt nie działa. Oraz nauczyłem się -gt, nie można użyć < bo w linuxie to przekierowanie. Oraz $# przechowuje zmienne dla skryptu
+###
+
 Napisz skrypt, który:
 
 sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
@@ -10,6 +22,21 @@ Jeśli taki plik istnieje, to niech go wykona.
 Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
 
 Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+###
+#!/bin/bashfilename="config.cfg"
+
+if [ -f "$filename" ]; then 
+    source "$filename"
+elif [ "$#" -gt 0 ]; then
+    givenfile="$1"
+    source "$givenfile"
+else
+    echo "Nastąpił bład"
+fi
+
+Przy odpowiedniej konfiguracji można sprawić, aby skrypt podany jako argument przyjmował kolejne argumenty
+###
 
 Napisz skrypt, który:
 
@@ -37,6 +64,8 @@ wc - word count - zlicza znaki, słowa i linie
 grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
 
 może warto użyć także innego polecenia by znaleźć pliki?
+
+
 
 Ćwiczenia 2
 Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2

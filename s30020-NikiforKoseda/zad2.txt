@@ -1,0 +1,226 @@
+1. Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+### Podstawowy skrypt, bardzo prosty. Dodanie atrybutu -e dodaje obsługę znaków pokroju \n, czyli znak nowej lini. Ae tutaj nie było potrzeby.
+
+2.To zadanie należy wykonać wpisując polecenia w terminalu normalnie. Nie należy tworzyć skryptu z tymi poleceniami.
+
+ Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+
+### Utworzyliśmy zmienną lokalną - następnie wywołaliśmy jej zawartość. Po uruchomieniu nowej powłoki zmienna przepadła.
+
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i apostrofów.
+
+### Bash potraktował znak po spacji jako polecenie/parametr. Zastosowanie zarówno pojedyńczego jak i podwójnego apostrofu pomogło. Bez symboli możemy do zmiennej zapisać jedno słowo bez spacji
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+
+###Zmienne w '' mogą zawierać w sobie cokolwiek, poza apostrofami. Zmienne w "" interpretuje znaki specjalne i zmienne. 
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować wartości zmiennej A.
+
+### echo wywołało Ala ma kota, a kot ma Alaę. Domyślam się że teraz będzie o konkatencji stringów, aby Alaę zamienić na Alę
+
+3.Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy może się wg Ciebie przydać:
+
+PATH
+### Przechowuje PATH - czyli foldery w któych OS będzie szukać plików z poleceniami czy konfiguracją. Do PATH na pewno na windowsie dodawany jest interpreter pythona.
+RANDOM
+### Generuje losową liczbę - genialna sprawa. Nie sposób zliczyć do czego może się przydać, chociażby do losowania tapety.
+PWD
+### Przechowuje ścieżkę folderu w którym się znajdujemy. Myślę że może się przydać w skryptach tworzących coś w bierzącym folderze
+PS1
+### Przechowuje wygląd stringa na lewo od naszego obszaru wpisywania - czyli definiuje to co poprzedza to co piszemy.
+USER
+### Przechowuje nazwę aktualnego użytkownika. Przydatne by sprawdzić, czy np. użytkownik wywołujący polecenie pokrywa się z aktualnym użytkownikiem
+HOSTNAME
+### Przechowuje nazwę hosta. Nie mam do końca pomysłu do czego może być to przydatne - może żeby sprawdzić czy podpięliśmy się do odpowiedniego serwera?
+OSTYPE
+### Przechowuje typ systemu operacyjnego. Przydatne by poznać na czym pracujemy
+
+4. Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+
+Wyświetl zawartość tej zmiennej.
+
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem komendy:
+
+ls -l
+
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy tak:
+
+echo $X
+
+Zastanów się dlaczego.
+
+### Wystarczy napisać echo "$X". Ze zdobytej przez mnie wiedzy wynika, że bez cudzysłowia bash traktuje $X jako listę oddzieloną spacjami, więc wszystkie whitespace'y zostaną skasowane i printuje się to jako jeden mooonstrualny teskt. Natomiast użycie "" sprawia, że wszystko zostaje zachowane. Może to przez to, że cudzysłów nakazuje interpretację wszystkich znaków i zmiennych,więc znak nowej lini również jest interpretowany?
+
+Ćwiczenie 5a
+Pamiętasz jedno z zadań poprzednich?
+
+A=Ala
+
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak, aby tekst wypisywał się poprawnie.
+
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich. Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład Marek). Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe wywołanie:
+
+$ ./pszetżkole Ala
+
+Ala ma kota, a kot ma Alę
+
+$ ./pszetżkole Justyna
+
+Justyna ma kota, a kot ma Justynę
+
+$ ./pszetżkole Stefan
+
+Stefan ma kota, a kot ma Stefana
+
+Czy jest to możliwe w czystym bash-u?
+
+###
+W czystym bashu na pewno możliwe jest to:
+
+#!/bin/bash
+imie=$1
+nowe_imie="${imie:0:-1}ę"
+echo "$imie ma kota, a kot ma $nowe_imie"
+
+Jeżeli chodzi o męskie to:
+
+#!/bin/bash
+imie=$1
+ostatnia_litera="${imie: -1}"
+
+if [ "$ostatnia_litera" == "a" ]; then
+  nowe_imie="${imie:0:-1}ę"
+  echo "$imie ma kota, a kot ma $nowe_imie"
+else
+  nowe_imie="${imie}a"
+  echo "$imie ma kota, a kot ma $nowe_imie"
+fi
+
+Więc tak, da się to zrobić i działa. Ciężej z tymi inaczej odmienianymi imionami.
+Podczas tworzenia natrafiłem na błąd, którego nie potrafię wyjaśnić. Jeżeli echo znajdowało się poza ifem to drugie męskie imie się nie drukowało. Nie byłem w stanie zidentyfikować problemu. Czy zmienne w ifach są dostępne poza nimi?
+###
+
+Ćwiczenie 5b
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+
+Pierwszy znak z argumentu
+
+Ostatni znak z argumentu
+
+Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z przełącznikiem -e):
+
+\e[32mSOP\e[0m
+
+Przykładowy tekst testowy:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+
+Wynikowo ma to wyglądać tak:
+
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+
+###
+#!/bin/bash
+color_sop() {
+    echo -e "${1//SOP/\e[32mSOP\e[0m}"
+}
+color_sop "$1"
+
+Nie jestem pewien co robię nie tak. Próbuję wywołać na różne sposoby, samo echo wywołuje teskt na zielono, ale skryptem wywala po prostu literki używane do zastąpienia tekstu na zielono
+
+###
+
+Wyrażenia regularne (regex/regexp - regular expressions)
+Bash jako taki obsługuje w niektórych aspektach wyrażenia regularne, ale niestety nie jest to tak wygodne, jakby się czasami marzyło. Na szczęście jest program sed.
+
+Program sed jest określany przez twórców jako edytor tekstowy bez interfejsu użytkownika. Coś w tym jest. My nie będziemy się zgłębiać w całą składnie polecenia sed, natomiast skupimy się na małym wycinku - przetwarzaniu wyrażeń regularnych.
+
+
+Sed najczęściej przetwarza ciąg znaków który dociera do niego przez standardowe wejście i zwraca wynik na standardowe wyjście. Składnia wyrażeń regularnych jest w większości zgodna z innymi programami. Podstawowe elementy składni wyrażeń wyglądają tak:
+
+\[…\] - w miejsce … wchodzi lista znaków które mogą wystąpić na danym miejscu
+
+() - zbiór opcji
+
+^ - początek ciągu znaków (jeśli nie występuje wewnątrz nawiasów kwadratowych)
+
+[^] - wewnątrz nawiasów kwadratowych to negacja tego co w nawiasie
+
+$ - koniec ciągu znaków
+
+* - wzorzec tuż przed tym znakiem ma się powtarzać dowolną liczbę razy (od 0 do nieskończoności)
+
++ - wzorzec tuż przed tym znakiem ma się powtarzać co najmniej raz
+
+. - dowolny jeden znak
+
+…-… - zakres znaków np. [a-z]
+
+\ - znak modyfikacji (escape character)
+
+
+echo Alicja | sed s/a$/ę/g | sed 's/\([^ę]\)$/\1a/g'
+
+
+Narzędzia, tutoriale i materiały
+https://regex101.com/ - webowy edytor/tester
+
+https://regexr.com/ - kolejny webowy edytor/tester
+
+https://www.regular-expressions.info/ - opis składni, możliwości, dokumentacja
+
+
+Drobna informacja na przyszłe zajęcia:
+W bash-u można także dopasowywać wyrażenia regularne w samej składni
+
+[[ tekst_sprawdzany =~ wyrazenie_regularne ]] && echo pasuje
+
+
+Ćwiczenie 6
+Teraz postaraj się zrobić to zadanie z haczykiem i podmianą fragmentu zmiennej (Ala ma ...)
+
+###
+Wydaje mi się że rozwiązanie w 5a spełnia założenia. Nie jak tutaj zastosować REGEX, ale mogę się mylić, i jest optymalniejsza ścieżka zrobienia tego
+###
+
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i wypisze go na terminalu tak, aby wszystkie wystąpienia Twojego imienia były podświetlone na czerwono. 
+
+###
+#!/bin/bash
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+sed "s/Nikifor/${RED}Nikifor${NC}/g" "$1"
+
+Ponownie wydaje mi się że wszytsko powinno działać, ale echo nie wyświetla kolorów, tylko tekst
+###

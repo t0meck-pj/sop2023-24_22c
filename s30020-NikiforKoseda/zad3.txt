@@ -1,0 +1,131 @@
+Ćwiczenia 1
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+###
+#!/bin/bash
+
+if [ "$#" -gt 1 ]; then
+    echo "$1"
+else
+    echo "This script does not have more than one parameter."
+fi
+
+Ten skrypt nauczył mnie ważnej rzeczy - SPACJE SĄ KONIECZNE PRZY NAWIASACH KWADRATOWYCH - inaczej skrypt nie działa. Oraz nauczyłem się -gt, nie można użyć < bo w linuxie to przekierowanie. Oraz $# przechowuje zmienne dla skryptu
+###
+
+Napisz skrypt, który:
+
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+
+Jeśli taki plik istnieje, to niech go wykona.
+
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+###
+#!/bin/bashfilename="config.cfg"
+
+if [ -f "$filename" ]; then 
+    source "$filename"
+elif [ "$#" -gt 0 ]; then
+    givenfile="$1"
+    source "$givenfile"
+else
+    echo "Nastąpił bład"
+fi
+
+Przy odpowiedniej konfiguracji można sprawić, aby skrypt podany jako argument przyjmował kolejne argumenty
+###
+
+Napisz skrypt, który:
+
+sprawdzi, czy jego nazwa kończy się .sh .
+
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+
+porównanie ostatnich 3 liter nazwy skryptu
+
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
+
+Napisz skrypt, który 
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+Podpowiem:
+
+ls - wyświetla listę plików
+
+wc - word count - zlicza znaki, słowa i linie
+
+grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
+
+może warto użyć także innego polecenia by znaleźć pliki?
+
+
+
+Ćwiczenia 2
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+   cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file
+
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+indeksy ujemne tablicy mogą się przydać
+
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+
+przyda się for
+
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+
+Ćwiczenia 3
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+
+Nie używamy pętli
+
+Nie używamy echo
+
+Wartość ma być zwracana przez literał return
+
+Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
+Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
+
+Zadanie domowe
+W przypadku bardzo podobnych rozwiazań nie będę ich uznawał.
+
+Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko litery i zawierać polskie znaki).
+
+Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+
+Przygotuj wyrażenie regularne sprawdzające e-mail.
+
+
+Napisz skrypt który będzie pobierał jeden argument z linii komend i wypisywał informację o tym, czy jest to imie, kod pocztowy, czy też email. Na przykład
+
+./coto Janusz
+
+imię
+
+./coto 68-221
+
+kod pocztowy
+
+./coto 'muniek+spam@gmail.com'
+
+email

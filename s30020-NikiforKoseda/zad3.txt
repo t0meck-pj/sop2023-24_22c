@@ -50,6 +50,20 @@ porównanie ostatnich 3 liter nazwy skryptu
 
 użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
 
+
+###
+Zdecydowałem się na wykorzystanie REGEXa, lubię uniwersalne rozwiązania
+
+#!/bin/bash
+if [[ ! $0 =~ \.sh$ ]]; then
+    mv "$0" "$0.sh"
+    echo "Script extension was changed to .sh"
+else
+    echo "Script name ends with .sh"
+fi
+
+###
+
 Napisz skrypt, który 
 
 sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
@@ -64,6 +78,19 @@ wc - word count - zlicza znaki, słowa i linie
 grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
 
 może warto użyć także innego polecenia by znaleźć pliki?
+
+###
+Zdecydowałem się na ls | wc -l
+
+#!/bin/bash
+file_count=$(ls | wc -l)
+if [ $file_count -gt 5 ]
+then
+    echo "More than 5 files"
+else
+    echo "5 files or less"
+fi
+###
 
 
 

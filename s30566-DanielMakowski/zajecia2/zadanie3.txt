@@ -15,8 +15,16 @@ Zmienna PATH przechowuje taką wartość:
 #s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $PATH
 #/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
-Zmienna PATH zawiera katalogi z wykonywalnymi programami. Pomaga to w wykonywaniu programów bez znania ich
-dokładnej lokalizacji. Przydaje się to w upraszaczniu operacji w powłoce systemu. Dla przykładu - jeśli chcę wykonać polecenie curl, to mogę po prostu wpisać "curl" zamiast /usr/bin/curl.
+Zmienna PATH zawiera katalogi z wykonywalnymi programami. Pomaga to w wykonywaniu programów bez znania ich dokładnej lokalizacji.
+Poniżej przykładowa wartość zmiennej PATH:
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Załóżmy, że zainstalowaliśmy nowe oprogramowaniew /opt, które chcemy wygodnie uruchamiać.
+Niech będzie to IntellijIdea, a jego ścieżka to będzie /opt/jetbrains/intellij/idea.
+Wówczas wyeksportujemy zmodyfikowaną zmienną PATH - export PATH=/opt/jetbrains/intellij:$PATH
+Zazwyczaj będziemy chcieli ustawić to permamentnie, można wówczas dodać tę komendę do ~/.profile, aby zachować kompatybilność z powłokami.
+Jeśli chcemy, aby inni użytkownicy też mieli tę ścieżkę w path, możemy dodać to polecenie do pliku .sh w /etc/profile.d/. 
+Wówczas każdy inny użytkonik przy zalogowaniu od razu będzie mieć możliwość uruchomienia 
+programu z tej ścieżki za pomocą terminala bez wpisywania ścieżki bezwzględnej, wystarczy wpisać "idea".
 
 RANDOM
 

@@ -1,0 +1,13 @@
+2024-03-09
+Mój kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
+	jak korzystac z VirtualBoxa,
+	jak instalowac Debiana,
+	i wiele wiecej, za duzo do wymieniania.
+
+Do douczenia:
+	konfiguracja LVM,
+	tworzenie partycji,
+	opcje montowania.
+
+Do pozniej o7
+

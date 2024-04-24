@@ -26,7 +26,8 @@ Odpowiedź:
 Wpisanie "X=Tekst dłuższy" powoduje, że terminal wyrzuca linijkę o treści
 "bash: dluzszy: nie znaleziono polecenia". W tym przypadku spacja
 sprawiła, że ten błąd został wyrzucony. Po wpisaniu X='Tekst dłuższy' błąd
-już nie występował. W tym przypadku użycie cudzysłowia jest konieczne!
+już nie występował. W tym przypadku użycie cudzysłowia/apostrofów 
+jest konieczne!
 
 Zobacz:
 

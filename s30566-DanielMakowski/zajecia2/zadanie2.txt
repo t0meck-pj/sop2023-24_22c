@@ -139,11 +139,6 @@ Po podaniu znaku ucieczki "\", znak dolara będzie traktowany dosłownie jako cz
 
 
 
-
-
-Jaka jest różnica między " a ' ?
-
-
 A=Ala
 echo $A ma kota, a kot ma ${A}ę
 
@@ -152,8 +147,13 @@ Tak, tu coś będzie nie tak, zaraz to naprawimy. Nie będziemy modyfikować war
 #s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $A ma kota, a kot ma ${A}ę
 #Ala ma kota, a kot ma Alaę
 
-#s30566@szuflandia22:~/playgroud/sop/zajecia2$ echo $a ma kota, a kot ma ${a}ę
-#ma kota, a kot ma ę
+Naprawić to można wyciągając podciąg tego ciągu znaków:
 
-Zmienne są case-sensitive, czyli zmienna "A" to inna zmienna niż "a". Widać tutam też zastosowanie
-nawiasów klamrowych, dzięki którym mówimy, że chodzi o zmienną "A" a nie o zmienną "Aę". Problem można rozwiązać przypisując wartość zmiennej "A" do zmiennej "a".
+s30566@szuflandia22:~$ echo $A ma kota, a kot ma ${A:0:-1}ę
+Ala ma kota, a kot ma Alę
+
+W tym przypadku wykorzystałem podciąg rozpoczynający się od znaku o indeksie 0 i kończący na przedostatnim znaku ciągu.
+
+echo $A ma kota, a kot ma ${A:0:2}ę
+
+W tym przypadku wykorzystałem podciąg rozpoczynający się od znaku o indekcie 0 i kończący na znaku o indeksie 2. Ten sposób jest mniej uniwersalny.

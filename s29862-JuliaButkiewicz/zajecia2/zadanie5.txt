@@ -1,0 +1,19 @@
+Zadanie 5a.
+Pamiętasz jedno z poprzednich zadań?
+
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+
+Przerób je tak aby tekst wypisywał się poprawnie.
+
+Odpowiedź:
+Poprawnie przerobiona wersja tego polecenia wygląda tak:
+echo "$A ma kota, a kot ma ${A/%a/ę}". Tak wpisane polecenie
+sprawia, że literka "a" w słowie Ala zostaje zastąpiona literką "ę".
+
+Napisz skrypt który będzie wypisywał taki tekst także dla imion
+męskich. Pomijajmy zdrobnienia i imiona które dziwnie się odmieniają.
+Niech skrypt przyjmuje jeden argument - imię.
+Czy jest to możliwe w czystym bashu?
+
+Odpowiedź:

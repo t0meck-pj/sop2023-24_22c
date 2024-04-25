@@ -17,3 +17,20 @@ Niech skrypt przyjmuje jeden argument - imię.
 Czy jest to możliwe w czystym bashu?
 
 Odpowiedź:
+
+#!/bin/bash
+imie="$1"
+
+zmiana_koncowki() {
+	imie="$1"
+	if [[ "$imie" == *[a] ]]; then
+		echo "${imie/%a/ę}"
+	else
+		echo "${imie}a"
+	fi
+}
+
+echo "$imie ma kota, a kot ma $(zmiana_koncowki "$imie")"
+
+Powyżej wykonany skrypt pozwolił mi zmienić tekst również dla imion męskich.
+Czy jest to możliwe w czystym bashu? Tak, możemy to wykonać w czystym bashu.

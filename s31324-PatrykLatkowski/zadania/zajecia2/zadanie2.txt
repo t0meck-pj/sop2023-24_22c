@@ -19,6 +19,4 @@ A="Ala"
 
 Wyświetlenie zdania z wykorzystaniem zmiennej A i dodanie polskich znaków
 echo "${A} ma kota, a kot ma ${A}ę"
-Wynik: Ala ma kota, a kot ma Alaę"ak
-
-
+Wynik: Ala ma kota, a kot ma Alaę"

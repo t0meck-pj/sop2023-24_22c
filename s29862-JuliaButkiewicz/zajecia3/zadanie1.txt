@@ -44,5 +44,29 @@ fi
 -Jeśli nie, to niech zmieni swoją nazwę poprzez dodanie rozszerzenia.
 
 Odpowiedź:
+#!/bin/bash
 
+if [[ "$0" =~ \.sh$ ]]; then
+	echo "Nazwa kończy się na .sh"
+else
+	echo "Nazwa nie kończy się na .sh"
+	mv "$0" "$0.sh"
+	echo "Nazwa zmieniona na $0.sh"
+	exit 0
+fi
 
+Zadanie4.
+Napisz skrypt który:
+-Sprawdzi czy w bieżącym katalogu jest więcej niż 5 plików.
+-Jeśli tak, to wypisze odpowiedni komunikat z informcją że tak jest.
+
+Odpowiedź:
+#!/bin/bash
+
+liczba=$(ls -1 | wc -l)
+
+if [ "$liczba" -gt 5 ]; then
+	echo "W tym katalogu jest wiecej niż 5 plików."
+else
+	echo "W tym katalogu nie ma wiecej niz 5 plików."
+fi

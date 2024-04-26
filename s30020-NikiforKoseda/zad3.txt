@@ -97,15 +97,58 @@ fi
 Ćwiczenia 2
 Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
 
+###
+Tutaj dowiedziałem się, że mam zdecydowanie sporo skrzywień z pythona - bash ma bardziej skomplikowaną strukturę. Chociażby niie działa zwykłe ==. Poznałem też polecenie seq, tworzące sekwencję liczb
+
+for number in $(seq 10 -1 1)
+do
+    if [ $((number % 2)) -eq 0 ]
+    then
+        echo $number
+    fi
+done
+
+###
+
 Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+###
+$@ zawiera wszytkie argumenty skryptu, więc skrypt jest w sumie krótki i prosty. Tak jak lubię. I zaczynam dostrzegać geniusz twórców linuxa - praktycznie nie trzeba ręcznie zczytywać wielu rzeczy - jest zmienna lub polecenie która zrobi to za nas
+#!/bin/bash
+
+for arg in "$@"
+do
+    echo "\"$arg\""
+done
+###
 
 Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
 Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+
+###
+I ponownie szybko i sprawnie. To wskazało mi, że bash używa wildcarda * jako wszystkich nazw plików w aktualnym directory
+#!/bin/bash
+
+for file in *
+do
+    echo "Patrzcie Państwo, oto plik: $file"
+done
+###
 
 Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
 
    cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
 Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file
+
+###
+W zasadzie rozwinięcie poprzedniego zadania - ponownie iterujemy po plikach, tylko tym razem z rozszerzeniem i wykonujemy dla nich polecenie - tym razem kompilowania a nie echo
+
+#!/bin/bash
+for file in *.c
+do
+    cc "$file" -o   "${file%.*}"
+done
+###
 
 Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
 
@@ -116,6 +159,21 @@ można wyliczać wartości wyrażeń arytmetycznych (i+1)
 przyda się for
 
 może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
+
+###
+Brak mi nietety czasu na rozwiązanie nie zawieające cat i tac. Ale jak go odnajdę to powrócę do tego zadania
+#!/bin/bash
+
+# Loop over the command line arguments
+for file in "$@"
+do
+    echo "Printing $file from start to end:"
+    cat "$file"
+
+    echo "Printing $file from end to start:"
+    tac "$file"
+done
+###
 
 Ćwiczenia 3
 Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.

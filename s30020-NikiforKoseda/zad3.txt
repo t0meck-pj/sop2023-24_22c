@@ -179,6 +179,20 @@ done
 Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
 Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
 
+###
+Ooo, wreszcie udało mi się zrobić tak żeby zadziałało. Dokonałem również testu - konieczne jest umieszczenie \e[0m na końcu, bo inaczej cały terminal zaczyna się malować na niebiesko czy inny wybrany kolor
+#!/bin/bash
+
+colorize_output() {
+    local text=$1
+    local color_code=$2
+
+    echo -e "\e[${color_code}m${text}\e[0m"
+}
+
+colorize_output "$1" "$2"
+###
+
 Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
 Rekurencyjnie i return czyli:
 
@@ -187,6 +201,36 @@ Nie używamy pętli
 Nie używamy echo
 
 Wartość ma być zwracana przez literał return
+
+###
+Return może zwracać jedynie inty od 0 do 255 - to jest ograniczenie z którym trzeba pracować. Dowiedziałem się że $? przechowuje między innymi ostatniego returna. No i jak zawsze rekurencja jest zbyt zaawansowana na mój umysł - rozumiem koncept, ale ciężko mi go wprowadzić w życie. Tutaj copilot jest bardzo przydatny. Aaa, i jeszcze dowiedziałem się, że w podwójnych nawiasach bash akceptuje == i <= zamiast wymagać -gt i -eq.
+
+#!/bin/bash
+
+fibonacci() {
+    local number=$1
+
+    if (( number <= 0 )); then
+        return 0
+    elif (( number == 1 )); then
+        return 1
+    else
+        local a b
+        fibonacci $((number - 1))
+        a=$?
+        fibonacci $((number - 2))
+        b=$?
+        if (( a + b > 255 )); then
+            return 255
+        else
+            return $((a + b))
+        fi
+    fi
+}
+
+fibonacci $1
+echo $?
+###
 
 Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
 Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html

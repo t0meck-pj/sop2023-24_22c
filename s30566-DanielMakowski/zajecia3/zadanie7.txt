@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for file in $(ls ./); do
+	if [[ -f $file ]]; then
+
+		echo "Patrzcie Państwo, oto plik: ${file}"
+	
+	else
+		echo "$file"
+	fi
+done

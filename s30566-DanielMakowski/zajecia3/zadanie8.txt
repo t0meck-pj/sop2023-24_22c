@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for file in *.c; do
+	if [[ -f "$file" ]]; then
+
+		short="${file%.c}"
+
+		cc "$file" -o "$short";
+	fi
+done

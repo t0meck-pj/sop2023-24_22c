@@ -1,0 +1,13 @@
+#!/bin/bash
+
+name="$1"
+
+if [[ $name =~ ^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*$ ]]; then
+	echo "Imię jest poprawne"
+else
+	echo "Imię nie jest poprawne"
+fi
+
+#Znalazłem w internecie informację, że można wykorzystać \p{Latin} aby matchować
+#wszystkie litery alfabetu łacińskiego razem ze znakami diakrytycznymi. Nie wiem dlaczego
+#nie chciało tutaj zadziałać.

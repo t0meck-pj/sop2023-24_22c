@@ -1,4 +1,5 @@
 Ćwiczenie 1:
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym jak się wywołuje programy.
 
     #!/bin/bash
     echo "Witamy w terminalu"
@@ -32,6 +33,7 @@ I nasza zmienna zostanie poprawnie ustawiona
 W tym przypadku cudzysłowy nie pozwalają nam na używanie zmiennych, apostrofy pozwalają normalnie na odwoływanie się do zmiennych
 
 Ćwiczenie 3:
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik.
 
     PATH     -> przechowuje ścieżki do folderów, w których są programy, dzięki czemu system szybciej może je znaleźć.
                 Możemy użyć komendy which [command] aby zobaczyć ścieżkę do skryptu z daną komendą
@@ -44,6 +46,8 @@ W tym przypadku cudzysłowy nie pozwalają nam na używanie zmiennych, apostrofy
     OSTYPE    -> System operacyjny
 
 Ćwiczenie 4:
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
 
     X=$(ls -l)
     echo $X -> Tak se
@@ -75,6 +79,10 @@ Rezultat nie jest najlepszy, domyślam się, że faktem może być, że dzięki 
 <------------------------------------------------------------------------------------------------------------------------>
 
 Ćwiczenie 5b:
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze kolejno:
+Pierwszy znak z argumentu
+Ostatni znak z argumentu
+Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z przełącznikiem -e):
 
 <------------------------------------------------------------------------------------------------------------------------>
     #!/bin/bash

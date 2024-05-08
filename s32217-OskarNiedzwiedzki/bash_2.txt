@@ -1,5 +1,6 @@
 Ćwiczenie 1:
 
+Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
 1.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -13,6 +14,12 @@
     echo First argument: $1
 
 <------------------------------------------------------------------------------------------------------------------------>
+
+Napisz skrypt, który:
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+Jeśli taki plik istnieje, to niech go wykona.
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
 
 2.
 <------------------------------------------------------------------------------------------------------------------------>
@@ -37,6 +44,11 @@
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+sprawdzi, czy jego nazwa kończy się .sh .
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+porównanie ostatnich 3 liter nazwy skryptu
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
 3.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -46,6 +58,9 @@
     [[ $0 =~ $pattern ]] || mv $0 "$0.sh"
 
 <------------------------------------------------------------------------------------------------------------------------>
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
 
 4.
 <------------------------------------------------------------------------------------------------------------------------>
@@ -67,6 +82,7 @@
 
 Ćwiczenie 2:
 
+Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
 1.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -78,6 +94,7 @@
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
 2.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -90,6 +107,8 @@
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
+Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
 3.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -103,6 +122,10 @@
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file -> link nie działa jak coś, moja przeglądarka uważa go za tak niebezpieczny, że nawet nie mogę jej powiedzieć żeby mu zaufała
 4.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -118,6 +141,11 @@
 <------------------------------------------------------------------------------------------------------------------------>
 
 
+Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+indeksy ujemne tablicy mogą się przydać
+można wyliczać wartości wyrażeń arytmetycznych (i+1)
+przyda się for
+może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
 5.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -148,6 +176,8 @@ done
 
 Ćwiczenie 3:
 
+Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
 1.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -194,6 +224,11 @@ color_text "$1" "$2"
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+Nie używamy pętli
+Nie używamy echo
+Wartość ma być zwracana przez literał return
 2.
 <------------------------------------------------------------------------------------------------------------------------>
 
@@ -226,6 +261,9 @@ fibonacci $1
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
+Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
+
 3.
 To należy umieścić w naszym pliku .bashrc
 
@@ -256,8 +294,10 @@ complete -F _wget_completion wget
 
 <------------------------------------------------------------------------------------------------------------------------>
 
+Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko litery i zawierać polskie znaki).
+Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+Przygotuj wyrażenie regularne sprawdzające e-mail.
 Zadanie domowe:
-
 <------------------------------------------------------------------------------------------------------------------------>
 
 #!/bin/bash

@@ -2,7 +2,7 @@
 
 mail=$1
 
-if [[ $mail =~ ^[0-9A-Za-z]*[\@]{1}[0-9A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż\.]*[\.]{1}[A-Za-z]*$ ]]; then
+if [[ $mail =~ ^[0-9A-Za-z-]*[\@]{1}[0-9A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż\.-]*[\.]{1}[A-Za-z]*$ ]]; then
 	echo "Podano poprawny adres email"
 else
 	echo "To nie jest adres email"

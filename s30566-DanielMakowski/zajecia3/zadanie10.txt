@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+#Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+#Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+
 text=$1
 color=$2
 

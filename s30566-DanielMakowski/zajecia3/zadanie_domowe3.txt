@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Przygotuj wyrażenie regularne sprawdzające e-mail.
+
 mail=$1
 
 if [[ $mail =~ ^[0-9A-Za-z-]*[\@]{1}[0-9A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż\.-]*[\.]{1}[A-Za-z]*$ ]]; then

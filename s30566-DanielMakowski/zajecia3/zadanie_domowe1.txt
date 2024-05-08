@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko litery i zawierać polskie znaki).
+
 name="$1"
 
 if [[ $name =~ ^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]*$ ]]; then

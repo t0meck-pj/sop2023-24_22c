@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+#Rekurencyjnie i return czyli:
+#
+#Nie używamy pętli
+#
+#Nie używamy echo
+#
+#Wartość ma być zwracana przez literał return
+
 n=$1
 
 ciag(){

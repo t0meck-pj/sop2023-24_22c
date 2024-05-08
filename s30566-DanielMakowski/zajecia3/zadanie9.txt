@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+#indeksy ujemne tablicy mogą się przydać
+#
+#można wyliczać wartości wyrażeń arytmetycznych (i+1)
+#
+#przyda się for
+#
+#może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
 
 ### funkcje ###
 

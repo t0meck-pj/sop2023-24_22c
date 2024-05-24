@@ -1,3 +1,17 @@
+/*
+Napisz program, który będzie pozwalał na wyświetlenie dowolnego pliku w postaci takiej, jak w heksedytorach. 
+
+Program powinien wypisać zawartość pliku w postaci liczb szesnastkowych będących wartościami kolejnych bajtów tego pliku. 
+
+Warto zrobić tak, aby kolejne wartości były pogrupowane po 16, 8 albo po 4 w celu poprawy czytelności.
+
+Pamiętaj!
+
+Nie wszystkie bajty da się wydrukować
+
+Niektóre są znakami specjalnymi
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

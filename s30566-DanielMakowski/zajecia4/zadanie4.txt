@@ -1,3 +1,50 @@
+/*
+Napisz program wczytujący z pliku tekstowego ciąg liczb.
+
+Format pliku jest taki:
+
+liczba elementów ciągu (jako liczba naturalna)
+
+Kolejne liczby - każda w nowej linii
+
+Przykład:
+
+3
+5
+
+1
+
+9
+
+Opis przykładu:
+
+3 liczby do wczytania
+
+liczby: 5, 1, 9
+
+Niech program wypisze je w odwrotnej kolejności. Program powinien przyjmować zero albo jeden argument:
+
+jeśli nie podano argumentu, to ma wczytywać ze standardowego wejścia
+
+jeśli podano argument, to jest to nazwa pliku do wczytania
+
+Skorzystaj z:
+
+fopen
+
+fclose
+
+fscanf
+
+Zabezpiecz przed przepełnieniem bufora.
+
+Skorzystaj z funkcji do dynamicznej rezerwacji/alokacji pamięci:
+
+malloc lub calloc
+
+free
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

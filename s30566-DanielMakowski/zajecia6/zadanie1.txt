@@ -1,3 +1,13 @@
+/*
+Przygotuj prosty programik, który:
+
+Wypisze na ekranie swój PID
+
+będzie czekał w pętli nieskończonej do momentu otrzymania sygnału użytkownika (SIGUSR1)
+
+W momencie otrzymania tego sygnału program powinien wypisać na ekranie, że dostał sygnał i się zakończyć.
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>

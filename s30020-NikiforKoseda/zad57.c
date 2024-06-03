@@ -1,20 +1,3 @@
-/*Napisz program, który wygeneruje drzewko procesów wyglądające tak (oczywiście procesy nie będą się nazywały A, B, ...):
-
-A \
-
-  |\B \
-
-  |   |\D
-
-  |    \E
-
-   \C \
-
-      |\F
-
-       \G
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

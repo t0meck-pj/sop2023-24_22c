@@ -35,28 +35,44 @@ int main(int argc, char *argv[])
              error("ERROR on binding");
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if (newsockfd < 0) 
-         error("ERROR on accept");
 
-    bzero(buffer, 256);
-    n = read(newsockfd, buffer, 255);
-    if (n < 0) 
-         error("ERROR reading from socket");
+    while (1) {
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0) 
+            error("ERROR on accept");
 
-    FILE *fp = fopen(buffer, "r");
-    if (fp == NULL) {
-        error("ERROR opening file");
-    }
-
-    while ((n = fread(buffer, sizeof(char), sizeof(buffer), fp)) > 0) {
-        if (write(newsockfd, buffer, n) != n) {
-            error("ERROR writing to socket");
+        pid_t pid = fork();
+        if (pid < 0) {
+            error("ERROR on fork");
         }
-        bzero(buffer, sizeof(buffer));
-    }
 
-    fclose(fp);
+        if (pid == 0) { 
+            close(sockfd);
+
+            bzero(buffer, 256);
+            n = read(newsockfd, buffer, 255);
+            if (n < 0) 
+                error("ERROR reading from socket");
+
+            FILE *fp = fopen(buffer, "r");
+            if (fp == NULL) {
+                error("ERROR opening file");
+            }
+
+            while ((n = fread(buffer, sizeof(char), sizeof(buffer), fp)) > 0) {
+                if (write(newsockfd, buffer, n) != n) {
+                    error("ERROR writing to socket");
+                }
+                bzero(buffer, sizeof(buffer));
+            }
+
+            fclose(fp);
+            close(newsockfd);
+            exit(0);
+        } else {  
+            close(newsockfd);
+        }
+    }
 
     return 0; 
 }

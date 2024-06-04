@@ -1,3 +1,7 @@
 2024-03-10
 Moj kochany pamietniczku na dzisiejszych zajeciach nauczylem sie:
 -jak zainstalowac debiana na Virtualboxie od Oracle
+
+2024-05-26
+Dzisiaj zapoznalem sie z tym jak uzywac sygnalów oraz socketów. Jest to
+trudny temat do nauki, jednak myślę że na spokojnie do opanowania.

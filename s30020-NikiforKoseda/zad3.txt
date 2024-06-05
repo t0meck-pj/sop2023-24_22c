@@ -50,6 +50,20 @@ porównanie ostatnich 3 liter nazwy skryptu
 
 użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
 
+
+###
+Zdecydowałem się na wykorzystanie REGEXa, lubię uniwersalne rozwiązania
+
+#!/bin/bash
+if [[ ! $0 =~ \.sh$ ]]; then
+    mv "$0" "$0.sh"
+    echo "Script extension was changed to .sh"
+else
+    echo "Script name ends with .sh"
+fi
+
+###
+
 Napisz skrypt, który 
 
 sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
@@ -65,20 +79,76 @@ grep ma parametr który też może podawać ilość wystąpień wzorca w strumie
 
 może warto użyć także innego polecenia by znaleźć pliki?
 
+###
+Zdecydowałem się na ls | wc -l
+
+#!/bin/bash
+file_count=$(ls | wc -l)
+if [ $file_count -gt 5 ]
+then
+    echo "More than 5 files"
+else
+    echo "5 files or less"
+fi
+###
+
 
 
 Ćwiczenia 2
 Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
 
+###
+Tutaj dowiedziałem się, że mam zdecydowanie sporo skrzywień z pythona - bash ma bardziej skomplikowaną strukturę. Chociażby niie działa zwykłe ==. Poznałem też polecenie seq, tworzące sekwencję liczb
+
+for number in $(seq 10 -1 1)
+do
+    if [ $((number % 2)) -eq 0 ]
+    then
+        echo $number
+    fi
+done
+
+###
+
 Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+###
+$@ zawiera wszytkie argumenty skryptu, więc skrypt jest w sumie krótki i prosty. Tak jak lubię. I zaczynam dostrzegać geniusz twórców linuxa - praktycznie nie trzeba ręcznie zczytywać wielu rzeczy - jest zmienna lub polecenie która zrobi to za nas
+#!/bin/bash
+
+for arg in "$@"
+do
+    echo "\"$arg\""
+done
+###
 
 Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".
 Podpowiedź: https://en.wikipedia.org/wiki/Internal_field_separator
+
+###
+I ponownie szybko i sprawnie. To wskazało mi, że bash używa wildcarda * jako wszystkich nazw plików w aktualnym directory
+#!/bin/bash
+
+for file in *
+do
+    echo "Patrzcie Państwo, oto plik: $file"
+done
+###
 
 Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
 
    cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
 Oczywiście zamień (tu_nazwa_pliku) na nazwę pliku, a (tu_nazwa_pliku_bez_rozszerzenia) na nazwę pliku z obciętym rozszerzeniem. Jeśli chcesz przykładowe pliki do potestowania, oto one :-) http://lmgtfy.com/?q=example+c+file
+
+###
+W zasadzie rozwinięcie poprzedniego zadania - ponownie iterujemy po plikach, tylko tym razem z rozszerzeniem i wykonujemy dla nich polecenie - tym razem kompilowania a nie echo
+
+#!/bin/bash
+for file in *.c
+do
+    cc "$file" -o   "${file%.*}"
+done
+###
 
 Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
 
@@ -90,9 +160,38 @@ przyda się for
 
 może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku)
 
+###
+Brak mi nietety czasu na rozwiązanie nie zawieające cat i tac. Ale jak go odnajdę to powrócę do tego zadania
+#!/bin/bash
+
+# Loop over the command line arguments
+for file in "$@"
+do
+    echo "Printing $file from start to end:"
+    cat "$file"
+
+    echo "Printing $file from end to start:"
+    tac "$file"
+done
+###
+
 Ćwiczenia 3
 Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
 Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+###
+Ooo, wreszcie udało mi się zrobić tak żeby zadziałało. Dokonałem również testu - konieczne jest umieszczenie \e[0m na końcu, bo inaczej cały terminal zaczyna się malować na niebiesko czy inny wybrany kolor
+#!/bin/bash
+
+colorize_output() {
+    local text=$1
+    local color_code=$2
+
+    echo -e "\e[${color_code}m${text}\e[0m"
+}
+
+colorize_output "$1" "$2"
+###
 
 Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
 Rekurencyjnie i return czyli:
@@ -102,6 +201,36 @@ Nie używamy pętli
 Nie używamy echo
 
 Wartość ma być zwracana przez literał return
+
+###
+Return może zwracać jedynie inty od 0 do 255 - to jest ograniczenie z którym trzeba pracować. Dowiedziałem się że $? przechowuje między innymi ostatniego returna. No i jak zawsze rekurencja jest zbyt zaawansowana na mój umysł - rozumiem koncept, ale ciężko mi go wprowadzić w życie. Tutaj copilot jest bardzo przydatny. Aaa, i jeszcze dowiedziałem się, że w podwójnych nawiasach bash akceptuje == i <= zamiast wymagać -gt i -eq.
+
+#!/bin/bash
+
+fibonacci() {
+    local number=$1
+
+    if (( number <= 0 )); then
+        return 0
+    elif (( number == 1 )); then
+        return 1
+    else
+        local a b
+        fibonacci $((number - 1))
+        a=$?
+        fibonacci $((number - 2))
+        b=$?
+        if (( a + b > 255 )); then
+            return 255
+        else
+            return $((a + b))
+        fi
+    fi
+}
+
+fibonacci $1
+echo $?
+###
 
 Dla ambitnych: Napisz swoją funkcję do autouzupełniania komend. Tu można puścić wodze fantazji :). 
 Zobacz: funkcja do uzupełniania tekstu - https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html

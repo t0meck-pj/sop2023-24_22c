@@ -1,0 +1,22 @@
+#!/bin/bash
+X=tekst
+echo $X
+bash
+echo $X
+
+
+# drugie echo nie wyswietli nic, poniewaz zmienna X nie jest dostepna w nowej powloce ktora otworzylismy poleceniem bash, uzywajac polecenia export, mozemy udostepnic zmienna innym powlokom:
+# X=tekst
+# echo $X
+# export X
+# bash
+# echo $X
+
+
+# X="Tekst 1"
+# Y="tekst:$X"
+# echo "$Y" -> tekst: (brak zmiennej x, lub chocby litery x)
+# Y='tekst:$X'
+# echo "$Y" -> tekst:$X ('' traktuje $X jako plaintext)
+# Y=tekst:$X
+# echo "$Y" tekst:tekst1 ($X wskazal na zmienna X ktora przekazala swoja wartosc do echo)

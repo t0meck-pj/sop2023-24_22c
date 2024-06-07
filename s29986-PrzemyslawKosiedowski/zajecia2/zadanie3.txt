@@ -21,7 +21,7 @@ dodać własny katalog z programami, by móc wykonywać je z dowolnego miejsca w
 systemie bez konieczności podawania pełnej ścieżki za każdym razem.
 
 $RANDOM - przechowuje losową liczbę całkowitą, może być przydatne np. w 
-skryptach do generowania losowych wartośći.
+skryptach do generowania losowych wartości.
 
 $PWD - przechowuje ścieżkę do bieżącego katalogu, może być przydatne np. w
 skryptach do zarządzania plikami w bieżącym katalogu.
@@ -36,8 +36,8 @@ katalogu użytkownika.
 $HOSTNAME - przechowuje nazwę hosta komputera, może się przydać do rozpoznania
 maszyny w sieci
 
-$OSTYPE - przechowuję nazwę typu systemu operacyjnego, tutaj akurat nie mam
-pomysłu na zastosowanie tej zmiennej.
+$OSTYPE - przechowuje nazwę typu systemu operacyjnego, można ją użyć np. kiedy
+tworzymy skrypt, który ma działać tylko na systemie Linux.
 -------------------------------------------------------------------------------
 
 Wniosek:

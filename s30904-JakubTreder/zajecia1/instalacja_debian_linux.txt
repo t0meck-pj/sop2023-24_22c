@@ -1,0 +1,57 @@
+1. Pobrałem Virtual Boxa oraz iso debiana na swój komputer.
+
+2. Na VirtualBoxie stworzylem nowa maszyne wirtualna.
+-Nazwa: nazwa maszyny
+-Folder: folder w ktorym maszyna jest zapisana
+-ISO Image: wczesniej pobrany obraz ze strony 
+-Edition: brak opcji wyboru
+-Typ: Linux 
+-Wersja: Debian(64-bit)
+
+3. Po kliknieciu Next pojawia sie okno Hardware, dostosowujem tu ilosc
+ramu dla maszyny wirtualnej (wybrałem 2048 mb) oraz ilosc procesorow
+CPU (wybralem 1).
+
+4. Kolejnym krokiem jest Virtual Hard disk, tutaj mamy trzy opcje:
+- Create a Virtual Hard disk Now
+- Use an Existing Virtual Hard Disk File
+- Do Not Add a Virtual Hard Disk 
+
+Wybrałem pierwszą opcje tworzaca dysk wirtualny na maszynie (wybralem 20 GB).
+
+5. Na końcu pojawiło się Podsumowanie wszystkich wybranych opcji i zakończyć 
+tworzenie maszyny wirtualnej.
+
+6.Gotowa maszyna pojawia sie z lewej strony VM'ki.
+W ustawieniach mozemy dostosować opcje maszyny wirtualnej
+dotyczące systemu, ekranu, pamieci, dzwieku, sieci, portow szeregowych, usb, udostepnionych
+folderow, interfejsu uzytkownika. 
+W ustawieniach nic nie zmienialem wszystko zostawilem deafultowo.
+
+7. Po uruchomieniu maszyny wirtualnej pokazuje sie okno 
+a) Debian GNU/Linux installer menu(BIOS mode) z opcjami 
+	Graphical Install - instalacja graficzna
+	Install - to wybralem
+	Advanced Options- opcje zaawansowane
+	Help - pomoc dotyczaca systemu
+	Install with speech sytestis - instalacja z emulatorem mowy
+
+b) Po wybraniu install pojawia sie opcja wybrania jezyka
+ 
+c) Po wybraniu jezyka wybieramy region
+
+d) Wybieramy klawiature
+
+e) Wpisujemy nazwe hosta i nazwe domeny (s30904 i pjwtk.edu.pl)
+
+f) Konfiguracja uzytkownikow:
+-root
+-nazwa uzytkownika i haslo dla usera 
+
+g) przechodzimy przez partycje dysków, gdzie wybrałem automatyczną konfiguracje 
+partycjii. Kończymy wybierając "Finish partitioning and write changes to disk".
+
+h) Następna opcja to konfiguracja środowiska graficznego - wybrałem nie.
+
+Następuje restart VMki, po której maszyna jest gotowa do pracy.
+

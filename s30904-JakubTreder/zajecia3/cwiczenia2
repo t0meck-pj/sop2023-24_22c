@@ -1,0 +1,72 @@
+Ćwiczenia 2 
+
+1.Napisz skrypt, który będzie wypisywał liczby od 10 do 1 co 2
+
+Rozwiązanie: 
+
+for (( i = 10; i >= 1; i-=2 )); do
+    echo "$i"
+done
+
+2. Napisz skrypt, który będzie wypisywał wszystkie argumenty wywołania skryptu (pamiętaj o tym, że argument może w sobie zawierać jakieś spacje) napisane w cudzysłowach.
+
+Rozwiązanie: 
+
+for arg in "$@"; do
+    echo "\"$arg\""
+done
+
+3. Napisz skrypt, który wypisze listę plików i katalogów bieżącego katalogu poprzedzając każdą nazwę pliku tekstem "Patrzcie Państwo, oto plik: ".current_dir=$(pwd)
+
+Rozwiązanie: 
+
+for item in "$current_dir"/*; do
+    if [ -f "$item" ]; then
+        echo "Patrzcie Państwo, oto plik: $(basename "$item")"
+    elif [ -d "$item" ]; then
+        echo "Patrzcie Państwo, oto katalog: $(basename "$item")"
+    fi
+done
+
+4. Napisz skrypt, który dla każdego pliku w bieżącym katalogu, który ma rozszerzenie .c wykona taką komendę:
+
+   - cc (tu_nazwa_pliku) -o (tu_nazwa_pliku_bez_rozszerzenia)
+
+Rozwiązanie: 
+
+for file in *.c; do
+    if [ -e "$file" ]; then
+        filename="${file%.*}"
+        cc "$file" -o "$filename"
+        echo "Skompilowano $file"
+    fi
+done
+
+5. Napisz skrypt, który wczyta listę plików do wypisania z wiersza poleceń, a następnie wypisze ich zawartości raz w kolejności od początku do końca, a raz na odwrót. Podpowiedzi:
+
+- indeksy ujemne tablicy mogą się przydać
+
+- można wyliczać wartości wyrażeń arytmetycznych (i+1)
+
+- przyda się for
+
+- może się przydać: cat oraz tac ale postaraj się zrobić to bez używania tych poleceń (drukowanie znak po znaku od początku do końca i od końca do początku). Pamiętaj, że nie tylko kolejność całych wierszy ma być odwrócona ale także kolejność znaków w wierszu.
+
+Rozwiązanie: 
+
+for file in "$@"; do
+    echo "Zawartość pliku $file od początku:"
+    while IFS= read -r line; do
+        echo "$line"
+    done < "$file"
+
+    echo "Zawartość pliku $file od końca:"
+    lines=$(wc -l < "$file")
+    for (( i = lines; i >= 1; i-- )); do
+        sed -n "${i}p" "$file"
+    done
+done
+
+
+
+

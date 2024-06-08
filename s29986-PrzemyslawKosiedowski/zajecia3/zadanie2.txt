@@ -140,26 +140,25 @@ Skrypt:
 #!/bin/bash
 for file in "$@"; do
         if [[ -f "$file" ]]; then
-                #Tworzę pustą tablicę i wprowadzam do niej dane
+                #Tworzę pustą tablicę, wprowadzam do niej dane i wypisuję
+                #zawartość od początku do końca
                 array=()
+                echo "Zawartość $file od początku do końca:"
                 while IFS= read -r line; do
+                        echo "$line"
                         array+=("$line")
                 done < "$file"
 
-                #Wypisuję zawartość tablicy
-                echo "Zawartość $file od początku do końca:"
-                for (( i=0; i<${#array[@]}; i++ )); do
-                        echo "${array[i]}"
-                done
-
+                #Wypisuję zawartość tablicy od tyłu
                 echo "Zawartość $file od końca do początku:"
                 for (( i=${#array[@]}-1; i>=0; i-- )); do
-                        echo "${array[i]}"
+                        echo "${array[i]}" | rev
                 done
         else
                 echo "Plik o podanej nazwie nie istnieje."
         fi
 done
+
 
 
 Wynik:
@@ -175,4 +174,8 @@ wykorzystuję polecenie read, które służy do odczytywania linii ze stdin (w t
 przypadku przekierowuję do pętli plik), a parametr -r zapobiega interpretowaniu
 znaku \ jako znaku ucieczki.
 Znalazłem to polecenie tutaj: https://linuxcommand.org/lc3_man_pages/readh.html
+
+Update:
+Znalazłem polecenie rev (https://www.man7.org/linux/man-pages/man1/rev.1.html),
+które odwraca znaki w linii. Teraz skrypt działa poprawnie.
 

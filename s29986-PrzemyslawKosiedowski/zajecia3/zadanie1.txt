@@ -151,7 +151,7 @@ Napisz skrypt, który
 
 Skrypt:
 #!/bin/bash
-if [[ $(ls -1 | wc -l) -gt 5 ]]; then
+if [[ $(find . -maxdepth 1 -type f | wc -l) -gt 5 ]]; then
         echo "Jest więcej niż 5 plików"
 else
         echo "Jest 5 lub mniej plików"
@@ -162,13 +162,16 @@ Skrypt zadziałał prawidłowo, w moim przypadku wyświetlił komunikat "Jest 5 
 mniej plików", ponieważ w moim katalogu są tylko 4 pliki.
 
 Wniosek:
-Mój skrypt działa tak, że ls -1 wypisuje każdy plik w nowej linii, a wc -l je
-zlicza. W manie znalazłem, że można by to zrobić używając grepa z parametrem
--c zamiast wc (grep -c zlicza liczbę linii, które pasują do wzorca). Jako
-wzorzec można by użyć ^ - oznacza to początek każdej linii, więc ls -1 | grep
--c '^' dałby ten sam wynik.
-Widząc pogrubione słowo "znaleźć" domyśliłem się, że można użyć również
-polecenia find. Polecenie wyglądałoby tak: find . -maxdepth 1 -type f | wc -l,
-gdzie . oznacza bieżący katalog, -maxdepth 1 ogranicza przeszukiwanie do
-bieżącego katalogu, a -type f znajduje tylko pliki.
+Mój skrypt działa tak, że polecenie find . -maxdepth 1 -type f znajduje 
+pliki , a wc -l je zlicza. W manie znalazłem, że można by to zrobić używając 
+grepa z parametrem -c zamiast wc (grep -c zlicza liczbę linii, które pasują 
+do wzorca). Jako wzorzec można by użyć ^ - oznacza to początek każdej linii.
+W poleceniu find:
+	. oznacza bieżący katalog, 
+	-maxdepth 1 ogranicza przeszukiwanie do bieżącego katalogu, 
+	-type f znajduje tylko pliki.
+
+Update:
+Tak pomyślałem sobie, no i w sumie wcześniejsze rozwiązanie wyświetlało również
+katalogi. Teraz powinno być ok.
 

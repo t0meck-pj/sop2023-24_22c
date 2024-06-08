@@ -1,0 +1,74 @@
+Ćwiczenie 1
+
+Tworzę plik skrypt1.bat i zapisuję w nim:
+#!/bin/bash
+
+echo -e "       Witamy w terminalu"
+Po uruchomieniu go komendą ./skrypt1, skrypt działa poprawnie i wyświetla "Witamy w terminalu".
+
+Ćwiczenie 2
+
+Wpisuję komendy:
+
+X=tekst
+echo $X
+
+Konsola wyświetla "tekst", ponieważ zmienna X została ustawiona na "tekst" i wywołana za pomocą echo $X.
+Następnie wpisuję komendy:
+
+bash
+echo $X
+
+Konsola nie wyświetla nic, ponieważ zmienna X nie jest dostępna w nowej sesji bash.
+
+Jeśli próbuję przypisać do X tekst "Tekst dłuższy", konsola traktuje "dłuższy" jako osobną komendę.
+Kiedy jednak używam cudzysłowów, wszystko działa poprawnie:
+
+X="Tekst dłuższy"
+
+Różnica między ' a " polega na tym, że ' przypisuje dosłownie wszystko, co jest w środku,
+natomiast " pozwala na interpretację zmiennych wewnątrz tekstu.
+Przypisałem do zmiennej A wartość "Ala". Po wpisaniu komendy:
+
+echo $A ma kota, a kot ma ${A}ę
+
+Wyświetla się "Ala ma kota, a kot ma Alaę".
+
+Ćwiczenie 3
+
+Wpisuję komendę:
+
+echo $(wybrana_zmienna)
+
+i dla każdej zmiennej otrzymuję:
+
+PATH: /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+To są ścieżki, które system przeszukuje, aby znaleźć komendy.
+RANDOM: Każde wywołanie zwraca inną 5-cyfrową liczbę.
+PWD: /home/PJWSTK/s32213
+To ścieżka do aktualnego katalogu, co pomaga w orientacji.
+PS1: \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+Zawiera to, co jest wyświetlane przed polem wprowadzania poleceń.
+USER: s32213
+Nazwa aktualnego użytkownika.
+HOSTNAME: szuflandia22
+Nazwa hosta.
+OSTYPE: linux-gnu
+Typ systemu operacyjnego, co jest przydatne przy korzystaniu z maszyn wirtualnych.
+
+Ćwiczenie 4
+
+Przypisałem do zmiennej X wynik komendy ls -l:
+
+X=$(ls -l)
+
+Po wywołaniu:
+
+echo $X
+
+Wszystko wyświetla się w jednym ciągu tekstu.
+Aby wyświetlić wynik w odpowiednim formacie, użyłem:
+
+echo "$X"
+
+Teraz wynik wyświetla się poprawnie.

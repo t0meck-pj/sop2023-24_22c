@@ -1,0 +1,20 @@
+1. Pobieram virtual boxa oraz iso debiana.
+2. W zakładce narzędzia wybieram opcje nowa
+3. Po nadaniu nazwy oraz wybraniu ścieżki dodaje iso debiana
+4. Jesli nadamy nazwe maszyny zgodną z wersja systemu operacyjnego jaki chcemy wybrać np(windows 11,debian 12)
+virtualbox automatycznie wybiera s. operacyjny oraz wersje.
+5. Hardware pozawa dostowsowac ilość ramu dla maszyny wirtualnej oraz ilość preocesorów(ja wybrałem 2048 ram i 2 CPU)
+6. Kolejnym krokiem jest wybranie czy chcemy stowrzyc dysk twardy dla maszyny i jaka ilość pamięci chcemu mu przypisać
+albo podpiąć istniejący bądź nie tworzyć go.
+7. Podsumowanie.
+8. Po uruchomieniu maszyny wirtualnej mozeby wybrac:
+graphical install
+install
+advanced options
+help
+install with speech sytestis
+9. Wybór języka, nazwy hosta i domeny
+10. Konfiguracja użytkownika, wybrałem root oraz nazwa i hasło użytkownika
+11. Teraz mozemy stworzyc partycje dysków ja tego nie zrobiłem.
+12. Po zakończeniu instalacji i konfiguracji wirtualna maszyna z debianem jest gotowa i w pełni sprawna.
+

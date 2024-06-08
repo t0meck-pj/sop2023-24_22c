@@ -39,14 +39,15 @@ apostrofów.
 -------------------------------------------------------------------------------
 
 Wynik:
-Po wpisaniu "X=Tekst dłuższy" bash wyrzucił komunikat: 
+Po wpisaniu X=Tekst dłuższy bash wyrzucił komunikat: 
 bash: dłuższy: nie znaleziono polecenia
-Po wpisaniu "echo $X" znowu nic się nie pokazało.
+Po wpisaniu echo $X znowu nic się nie pokazało.
 
 Odpowiedź:
 Bash potraktował spację jako separator argumentów do polecenia, dlatego
 wyrzucił błąd. Można to naprawić umieszczając wartość, którą chcemy przypisać
-do zmiennej, w cudzysłowach lub apostrofach (tak jak Pan to zasugerował).
+do zmiennej, w cudzysłowach lub apostrofach (tak jak Pan to zasugerował), np.
+X="Tekst dłuższy".
 
 Wniosek:
 To zadanie nauczyło mnie, aby używać cudzysłowów lub apostrofów, kiedy chcemy

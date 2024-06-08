@@ -5,7 +5,8 @@
 
 int loop_break = 1;
 
-void check_Mleko();
+void check_Lock();
+void sigaction_register();
 void handler(int signum){
 
     printf("Otrzymalem Sygnal %d\n", signum);
@@ -15,9 +16,10 @@ void handler(int signum){
 
 int main(){
     
-    signal(SIGUSR1,handler);
+    /*signal(SIGUSR1,handler);*/
+    sigaction_register();
     
-    check_Mleko();
+    check_Lock();
 
     while(loop_break){
         sleep(1);
@@ -27,7 +29,7 @@ int main(){
     return 0;
 }
 
-void check_Mleko(){
+void check_Lock(){
     FILE *file;
     int pid;
 
@@ -42,4 +44,13 @@ void check_Mleko(){
         fprintf(file, "%d", getpid());
         fclose(file);
     }
+}
+
+
+void sigaction_register(){
+    struct sigaction act;
+    act.sa_handler = handler;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    sigaction(SIGUSR1, &act, NULL);
 }

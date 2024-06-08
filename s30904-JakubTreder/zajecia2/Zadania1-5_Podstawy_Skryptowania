@@ -1,0 +1,94 @@
+Cwiczenie 1
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". 
+Skorzystaj z komendy echo oraz informacji podanych powyżej. 
+Pamiętaj o atrybutach i o tym jak się wywołuje programy.
+
+-Wykonanie: echo "Witamy w terminalu" 
+-Wynik: "Witamy w terminalu"
+
+Cwiczenie 2
+
+-Wykonanie:
+X=tekst
+echo $X
+bash
+echo $X
+
+-Wynik: Przy pierwszym "echo $" została zwrocona wartosc "tekst", po wpisaniu "echo $" po
+raz drugi nic nie zostało wyświetlone. Tak jakby bash usuną wartość zmiennej. 
+
+
+-Wykonianie: 
+X=Tekst dluzszy 
+
+Wynik: bash: dluzszy: nie znaleziono polecenia. Pokazał się error ponieważ zapamietany
+dalej jest skrypt bash ktory usunal wartosc zmiennej. Potem najpierw dodałem apostrofy
+( X='tekst dluzszy' > echo $X > została zwrócona wartość tekst dluzszy) potem znowu 
+uzylem skryptu bash aby usunąć zawartość zmiennej. Następnie sprawidziłem jak to wyglada 
+przy uzyciu cudzyslowiow:
+( X="tekst dluzszy" > echo $X > została zwrócona wartość tekst dluzszy)
+
+
+-Wykonanie:
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Wynik: W przypadku Y="tekst:$X" zostało zwrocone tekst:Tekst 1,
+w przypadku Y='tekst:$X' zostalo zwrocone tekst:$X, a w 
+przypadku Y=tekst:$X taka sama wartosc jak w pierwszej sytuacji 
+czyli tekst:Tekst 1.
+
+W pierwszym przypadku wartosc X zostala dopisana do zmiennej Y i 
+wartosc zostala wyswietlona razem z odwolaniem do zmiennej, 
+w drugim przypadku przez zastosowanie apostrofow zostala wyswietlona 
+tylko doslowana wartosc ktora jest w zmiennej Y. Wartosc ktora byla wtedy
+przypisana zostal potraktowana tak jakby byl to string. A w trzecim 
+przypadku wynik był taki sam jak w pierwszym poniewaz tak samoo wartosc zmiennej
+X zostala dopisana do zmiennej Y.
+
+Cwiczenie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on jest i kiedy 
+może się wg Ciebie przydać:
+
+- PATH 
+
+Wykonanie: echo $PATH
+
+Wynik: /usr/local/bin:/usr/bin:/usr/local/games:/usr/games 
+
+Zmienna PATH przechowuje sciezki do folderow w ktorych system operacyjny
+szuka wykonywalnych plikow. Moze sie przydac gdy chcesz uruchomic program
+bez podawania pelnej sciezki do pliku wykonywalnego. 
+
+- RANDOM
+
+Wykonanie: echo $RANDOM 
+
+Wynik: 7950
+
+Zmienna RANDOM generuje losowa cyfre. Nie wiem do czego moze sie przydac. 
+
+-PWD
+
+Wykonanie: echo $PWD
+
+Wynik:/home/PJWSTK/s30904/sop2023=24_22c
+
+Zmienna PWD pokazuje aktualny katalog w ktorym jestem, w moim przypadku 
+"/home/PJWSTK/s30904/sop2023=24_22c". Moze sie przydac gdy chcemy sprawdzic
+katalog w ktorym sie znajdujemy
+
+
+-PS1
+
+Wykonanie: echo $PS1
+
+Wynik: \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
+
+Zmienna PS1 przechowuje formatowanie wiersza polecen (prompt), ktory jest 
+wyswietlany przed kazdym nowym poleceniem w terminalu.

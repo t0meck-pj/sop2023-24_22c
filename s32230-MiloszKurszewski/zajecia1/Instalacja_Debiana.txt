@@ -1,0 +1,263 @@
+-------------------------------------------------------------------------------
+Instalacja Debiana krok po kroku.
+-------------------------------------------------------------------------------
+1. Pobieranie wymaganych programów/plików.
+
+(Oprogramowanie pozwalające na stworzenie i zarządzanie maszyny wirtualnej)
+Oracle VM Virtualbox: 
+https://www.virtualbox.org/wiki/Downloads
+
+(Obraz płyty instalacyjnej systemu Debian, inaczej ISO)
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/
+debian-12.5.0-amd64-netinst.iso
+
+-------------------------------------------------------------------------------
+2. Uruchomienie programu Virtualbox
+-------------------------------------------------------------------------------
+3. Proces tworzenia i konfiguracji maszyny wirtualnej.
+- Aby stworzyć maszynę, po uruchomieniu wybieramy opcję NOWA. Mamy do wyboru 
+dwie opcje: Tryb Przewodnika, który jest wybrany domyślnie, oraz Tryb Eksperta, 
+w którym wszystkie możliwe opcje konfiguracji są dostępne od razu. Wybieramy 
+tryb eksperta.
+-------------------------------------------------------------------------------
+A) Pierwszy krok konfiguracji maszyny wirtualnej.
+- Nazwa: (Nie ma ona żadnego znaczenia. Możemy wybrać nazwę taką jaka nam 
+osobiście odpowiada, jednakże warto zaznaczyć, że jeżeli podamy w nazwie nazwę 
+jakiegoś systemu operacyjnego również zmieni się Typ i Wersja na podany przez 
+nas system. Maszynę nazwałem "System", ponieważ podane parametry i konfiguracja 
+zostaną wyjaśnione w następnych krokach.
+-------------------------------------------------------------------------------
+- Folder: (Inaczej ścieżka docelowa, w której dana maszyna ma być utworzona, 
+również wybór jest zależny od naszej preferencji. Ważne jest to, żeby na danym 
+dysku było wolne miejsce. W moim przypadku zainstalowałem maszynę w ścieżce: 
+D:\VM
+-------------------------------------------------------------------------------
+- ISO Image: (Obraz płyty instalacyjnej systemu, który chcemy zainstalować. W 
+naszym przypadku jest to Debian, więc wybieramy ścieżkę do pliku ISO, który 
+pobraliśmy na samym początku przed uruchomieniem programu.
+Przykładowa ścieżka: C:\Users\gamin\Downloads\debian-12.5.0-amd64-netinst.iso
+-------------------------------------------------------------------------------
+- Typ i wersja systemu: W naszym przypadku, jako typ wybieramy Linux, jako 
+wersje Debian (64-bit)
+-------------------------------------------------------------------------------
+- Następnie również zaznaczamy opcję Skip Unattended Installation. Pozwoli nam 
+to przejść przez cały proces instalacyjny, gdy opcja nie jest zaznaczona, 
+niektóre kroki instalacji są wybierane automatycznie bez ingerencji użytkownika. 
+Aby przeprowadzić pełny proces i jak najlepiej zrozumieć instalację, musimy 
+pamiętać, żeby ta opcja na pewno była zaznaczona.
+-------------------------------------------------------------------------------
+B) Konfiguracja zasobów sprzętówych maszyny i wirtualnego dysku twardego.
+- Przechodzimy w zakładkę Hardware i mamy do wyboru dwie opcje.
+RAM: (Maksymalna ilość pamięci systemowej, z której maszyna może korzystać 
+podczas swojej pracy.) W skrócie, im więcej RAMU, tym lepiej ale najlepiej 
+zastanowić się ile RAMU potrzebujemy. Warto w tym przypadku skorzystać z 
+informacji na temat Debiana, jaka jest minimalna i zalecana ilość pamięci RAM. 
+W moim przypadku 2048MB.
+PROCESSORS: (Ilość rdzeni procesora, która ma być przypisana do naszej maszyny. 
+W moim przypadku 2 rdzenie.
+-------------------------------------------------------------------------------
+- Zaznaczamy opcję Enable EFI (special OSes only) jest to: Nowoczesny interfejs 
+firmware, który Debian wspiera. Zastępuje on tradycyjny BIOS. EFI oferuje 
+nowoczesne funkcje i lepsze zarządzanie naszym systemem. Również jest bardziej 
+zoptymalizowany i pozwala na szybszy start systemu w porównaniu do tradycyjnego 
+BIOS-u. W skrócie właczenie EFI zapewnia lepszą kompatybilnośc i wydajność dla 
+nowoczesnych systemów operacyjnych i naszego sprzętu, więc jeżeli mamy taką 
+możliwość warto z niej skorzystać.
+-------------------------------------------------------------------------------
+- HARD DISK (Dysk twardy maszyny)
+Zaznaczamy opcję Create a Virtual Hard Disk Now
+Hard Disk File Location and Size:
+- Wybieramy ścieżkę, w której mamy mieć nasz dysk. Wybieramy pojemność naszego 
+dysku twardego, jeżeli mamy operować na dużej ilości danych możemy wybrać 
+większe pojemności typu 500GB, 1TB. W zalecanych parametrach instalacji Debiana 
+pojemność dysku to 10GB, którą wybrałem.
+Hard Disk File Type and Variant:
+- Dostępne typy dysku twardego:
+VDI - Opcja domyślna, obsługuje dynamicznie przydzielane i stałe rozmiary dysków.
+VHD - Format dysku wirtualnego Microsoftu, również obsługuje dynamicznie 
+przydzielane i stałe rozmiary.
+VMDK - Format dysku używany przez VMware
+HDD - Format dysku używany przez Parallels desktop
+QCOW - Format dysku używany przez QEMU
+QED - Nowszy format dysku wirtualnego dla QEMU
+Wybieramy opcję domyślną (VDI), przystosowaną do naszego VMa.
+Pre-allocate Full Size (Pozwala nam zaalokować pełną przestrzeń dyskową wybraną, 
+domyślnie jest ta opcja odznaczona i niech tak zostanie, ponieważ dysk powiększa 
+się dynamicznie i w przypadku zwykłej instalacji zajęcie od razu 10GB na naszym 
+komputerze nie jest potrzebne. Pre alokacja za to pomaga w wydajności maszyny.
+Poza utworzeniem dysku, możemy użyć również obrazu już istniejącego, albo 
+uruchomić maszynę bez dysku wirtualnego. Po wszystkich etapach klikamy ZAKOŃCZ. 
+Maszyna się utworzyła.
+-------------------------------------------------------------------------------
+4. Zmiana ustawień maszyny wirtualnej
+
+Jeżeli chcemy coś zmienić w naszej maszynie, mamy dostępne opcje:
+
+A) Ogólne
+- Podstawowe: Ustawienia nazwy maszyny, systemu operacyjnego i wersji.
+Zaawansowane: Konfiguracja schowka, przeciągania i upuszczania oraz funkcji 
+Instant Clone.
+- Zaawansowane: Pole tekstowe na dodatkowe informacje o maszynie wirtualnej. 
+Szyfrowanie dysku: Ustawienia dotyczące szyfrowania zawartości dysku wirtualnego.
+- Opis: Pole tekstowe na dodatkowe informacje o maszynie wirtualnej.
+- Szyfrowanie dysku
+B) System
+- Płyta główna: Ustawienia dotyczące pamięci RAM, kolejności rozruchu i włączania 
+różnych urządzeń, takich jak PAE/NX.
+- Procesor: Liczba przypisanych rdzeni procesora i ustawienia związane z 
+wirtualizacją (Intel VT-x/AMD-V).
+- Akceleracja: Opcje związane z akceleracją sprzętową i ustawieniami Hyper-V.
+C) Ekran
+- Ekran: Ustawienia dotyczące pamięci wideo, liczby monitorów i akceleracji 3D.
+- Zdalny pulpit: Konfiguracja serwera RDP do zdalnego dostępu do maszyny.
+- Nagrywanie: Ustawienia dotyczące nagrywania sesji wideo maszyny wirtualnej.
+D) Pamięć
+- Urządzenia pamięci masowej: Konfiguracja kontrolerów IDE/SATA, dodawanie/
+edytowanie dysków wirtualnych i napędów optycznych.
+- Parametry: Szczegółowe ustawienia parametrów urządzeń pamięci masowej, takie 
+jak tryb AHCI.
+E) Dzwięk
+- Sterownik dzwięku gospodarza
+- Kontroler audio: Wybór kontrolera dźwięku używanego przez maszynę wirtualną 
+(ICH AC97, Intel HD Audio, SoundBlaster 16).
+F) Sieć
+- Karta sieciowa: Konfiguracja sieci, w tym typ karty sieciowej, tryb połączenia 
+(NAT, Bridged, Internal Network, Host-only).
+G) Porty szeregowe
+- Porty: Ustawienia portu szeregowego, w tym tryb i adresowanie.
+H) USB: Konfiguracja kontrolera USB, w tym dodawanie urządzeń USB do maszyny 
+wirtualnej (USB 1.1, 2.0, 3.0).
+I) Udostępniane foldery:
+Ustawienia udostępniania folderów między systemem gospodarza a maszyną wirtualną.
+J) Interfejs użytkownika:
+Personalizacja interfejsu użytkownika maszyny wirtualnej, w tym pasków narzędzi
+i skrótów klawiszowych.
+W przypadku mojego zamiaru korzystania z tej maszyny nic nie zmieniam. 
+Najważniejsze parametry ustawiłem w poprzednich krokach
+-------------------------------------------------------------------------------
+5. Instalacja Debiana
+Uruchamiamy naszą maszynę wirtualną. Po uruchomieniu mamy dostępne 5 opcji
+GRAPHICAL INSTALL (Prosta instalacja graficzna, wspiera klawiature i myszkę)
+
+INSTALL (Najprostsza forma instalacji z prostym interfejsem, wspiera klawiature)
+- Graphical expert install
+Instalacja systemu z zaawansowanymi opcjami konfiguracyjnymi w trybie graficznym.
+- Graphical rescue mode
+Tryb graficzny do naprawy istniejącego systemu operacyjnego.
+- Graphical automated install
+Automatyczna instalacja systemu w trybie graficznym z minimalną interakcją 
+użytkownika.
+- Expert install
+Instalacja systemu z zaawansowanymi opcjami konfiguracyjnymi w trybie tekstowym.
+- Rescue mode
+Tryb tekstowy do naprawy istniejącego systemu operacyjnego.
+- Automated install
+Automatyczna instalacja systemu w trybie tekstowym z minimalną interakcją 
+użytkownika.
+
+ACCESSIBLE DARK CONTRAST INSTALLER MENU
+- Zmiana motywu instalatora na ciemne.
+
+INSTALL WITH SPEECH SYNTHESIS
+- Opcja umożliwiająca instalację systemu z syntezatorem mowy przeznaczona dla 
+osób z niepełnosprawnościami.
+
+Wybrałem opcję GRAPHICAL INSTALL
+
+- Wybór języka:
+  Wybieramy język naszego systemu operacyjnego, w moim przypadku Angielski, 
+  ponieważ jest najbardziej uniwersalny.
+- Wybór lokalizacji:
+  Instalator pyta nasz o kraj w którym się znajdujemy, aby ustawić odpowiednio 
+  naszą strefę czasową.
+  Wybrałem oczywiście Polskę.
+- Polska nie ma zdefiniowanego systemu kodowania, więc system nas o to zapyta w 
+  następnym kroku.
+  Wybieramy United States - en_US.UTF-8
+- Wybór schematu klawiatury. Wybieramy odpowiadający nam schemat, w moim 
+  przypadku American English, ale można też wybrać Polish.
+  System następnie instaluje komponenty.
+
+- Konfiguracja sieci:
+  Nazwa hosta: Wybieramy nazwę hosta, jedno słowo które identyfikuje system w 
+  sieci.
+  Nazwa domeny: Jeżeli korzystamy z sieci lokalnej, nie jesteśmy tutaj w żaden 
+  sposób ograniczeni co do nazwy. Najważniejsze, żeby nazwa domeny była taka sama 
+  w każdym komputerze naszej lokalnej sieci domowej.
+- Konfiguracja użytkowników:
+  Hasło do roota: Wybieramy jakie hasło ma mieć użytkownik z najwyższymi prawami 
+  dostępu.
+  W moim przypadku abc123
+  Pełna nazwa nowego użytkownika: Podajemy najlepiej prawdziwą nazwę 
+  użytkownika. w moim przypadku Milosz Kurszewski.
+  Krótka nazwa użytkownika (username) wybrałem Milosz
+  Hasło naszego użytkownika w moim przypadku abc
+- Partycjonowanie dysków
+  mamy dostępne 4 opcje
+  Guided - use entire disk:
+  Automatyczne partycjonowanie całego dysku, tworząc standardowy układ partycji 
+  dla Debiana bez żadnych dodatkowych konfiguracji.
+  Guided - use entire disk and set up LVM:
+  Automatyczne partycjonowanie całego dysku z wykorzystaniem LVM (Logical Volume 
+  Manager), co umożliwia łatwiejsze zarządzanie przestrzenią dyskową i elastyczne 
+  zmiany rozmiarów partycji.
+  Guided - use entire disk and set up encrypted LVM:
+  Automatyczne partycjonowanie całego dysku z wykorzystaniem LVM i szyfrowaniem, 
+  zapewniając dodatkową warstwę bezpieczeństwa dla przechowywanych danych.
+  Manual:
+  Ręczne partycjonowanie dysku, pozwalające użytkownikowi na pełną kontrolę nad 
+  tworzeniem i konfiguracją partycji zgodnie z własnymi wymaganiami.
+
+  Wybieramy opcję Guided - use entire disk and set up LVM
+  Wybieramy dysk, któremy mamy przydzielić partycje, jeżeli utworzyliśmy tylko 
+  jeden, to będzie do wyboru tylko jeden tak jak również w moim przypadku, więc 
+  zaznaczamy go i kontynuujemy.
+
+  Następnie mamy dostępne opcje
+  - All files in one partition:
+  Wszystkie pliki systemowe i użytkownika znajdują się na jednej, wspólnej 
+  partycji
+  - Seperate /home partition:
+  Tworzy oddzielną partycję dla katalogu domowego użytkowników (/home), co ułatwia 
+  zarządzanie danymi użytkownika.
+  - Seperate /home, /var and /tm partitions:
+  Tworzy oddzielne partycje dla katalogów /home (dane użytkowników), /var (dane 
+  aplikacji i logi systemowe) oraz /tmp (tymczasowe pliki), co może poprawić 
+  bezpieczeństwo i wydajność systemu.
+
+  Osobiście wybrałem opcję pierwszą.
+
+  Następnie zatwierdzamy nasz wybór.
+
+  Wybór rozmiaru naszej partycji: możemy wybrać mniejszy rozmiar naszej 
+  partycji, niżeli ten który wcześniej ustawialiśmy, żeby korzystać z narzędzi 
+  LVM i móc dodać więcej partycji w przyszłości, wpisałem max, żeby wykorzystane 
+  było 100% dysku.
+
+  Zatwierdzamy nasz wybór
+  Przebiega instalacja systemu.
+  Konfiguracja menadżera pakietów
+  - wybieramy lokalizację, z którego źródła mają pobierać się systemowe pakiety. 
+    Wpływa to głównie na prędkość pobierania, wybrałem Polskę.
+
+  Wybór środowiska graficznego:
+  W przypadku zwykłej instalacji nie jest potrzebne nam żadne środowisko 
+  graficzne, instalujemy zwykły system tekstowy.
+  Debian desktop environment (zaznaczamy)
+  ... GNOME (odznaczamy)
+  ... Xfce  (odznaczamy)
+  ... GNOME Flashback (odznaczamy)
+  ... KDE Plasma (odznaczamy)
+  ... Cinnamon (odznaczamy)
+  ... MATE (odznaczamy)
+  ... LXDE (odznaczamy)
+  ... LXQt (odznaczamy)
+  web server - serwer sieciowy (odznaczamy)
+  SSH server - serwer SSH. (odznaczamy)
+  i zaznaczamy opcję standard system utilities
+Następnie instalujemy GRUB Boot loadera.
+System jest już zainstalowany, klikamy continue.
+Maszyna uruchamia się ponownie i jest gotowa do użycia,
+wpisujemy nazwe swojego użytkownika i hasło i możemy cieszyć się 
+z korzystania z systemu.
+

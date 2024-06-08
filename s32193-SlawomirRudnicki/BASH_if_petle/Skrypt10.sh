@@ -8,4 +8,3 @@ for (( i=1; i<="$#"; i++ )); do
         tac ${!i} | rev #zadna z moich idei nie zadzialala, jesli bede mial czas, poprawie
     fi
 done
-

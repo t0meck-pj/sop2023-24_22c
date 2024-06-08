@@ -2,4 +2,3 @@
 # echo $x
 # wyswietlona wartosc zmiennej w jednym ciagu znakow
 # echo "${x}" -> wyswietla dokladnie to samo co ls -l
-

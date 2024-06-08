@@ -1,0 +1,12 @@
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i wypisze 
+go na terminalu tak, aby wszystkie wystąpienia Twojego imienia były podświetlone na czerwono. 
+
+plik o nazwie imie.sh a w nim:
+
+	sed -E "s/(aleksander)/\o033[31m\1\o033[0m/g" "$1"
+
+później należy wpisać:
+
+	$./imie.sh plik.txt
+
+wypisane zostanie wszystko co jest w tym pliku tekstowym wraz z moim imieniem na czerwono.

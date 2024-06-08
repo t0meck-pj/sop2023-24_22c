@@ -1,0 +1,54 @@
+Cwiczenia 3
+1. Przygotuj skrypt z funkcją która będzie wypisywała tekst pokolorowany na zadany kolor. Niech funkcja ta przyjmuje dwa argumenty - tekst i kolor.
+Zobacz man console_codes oraz składnię komendy echo (lub przykład z poprzednich zajęć).
+
+Rozwiązanie: 
+
+#!/bin/bash
+
+tekst_pokolorowany() {
+  local text="$1"
+  local color="$2"
+
+  case "$color" in
+    "czarny") color_code="0;30" ;;
+    "czerwony") color_code="0;31" ;;
+    "zielony") color_code="0;32" ;;
+    "zolty") color_code="0;33" ;;
+    "blue") color_code="0;34" ;;
+    "fioletowy") color_code="0;35" ;;
+    "blekitny") color_code="0;36" ;;
+    "bialy") color_code="0;37" ;;
+    *)
+	echo "Nieznany kolor: $color"
+		exit
+		;;
+  esac
+
+2. Przygotuj funkcję obliczającą rekurencyjnie ciąg Fibonacciego. Niech wynik zwraca za pomocą return. Czy są jakieś ograniczenia?
+Rekurencyjnie i return czyli:
+
+-Nie używamy pętli
+
+-Nie używamy echo
+
+Rozwiązanie: 
+
+ciag() {
+  local n="$1"
+  if (( n <= 0 )); then
+    echo "0"
+    return 0
+  elif (( n == 1 )); then
+    echo "1"
+    return 1
+  else
+    local n1=$(fib $((n - 1)))
+    local n2=$(fib $((n - 2)))
+    echo $((n1 + n2))
+    return $((n1 + n2))
+  fi
+}
+
+
+

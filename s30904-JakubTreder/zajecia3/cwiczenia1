@@ -1,0 +1,88 @@
+Ćwiczenia 1 
+1. Napisz skrypt, który sprawdzi, czy podano więcej niż jeden parametr. Jeśli tak, to niech wyświetli pierwszy parametr. Jeśli nie, to niech wyświetli komunikat, że nie podano parametrów.
+
+Rozwiązanie:
+
+if [ $# -gt 1 ]; then
+    echo "Pierwszy parametr: $1"
+else
+    echo "Nie podano parametrów."
+fi
+
+2. Napisz skrypt, który:
+
+sprawdzi, czy istnieje plik config.cfg w bieżącym katalogu.
+
+Jeśli taki plik istnieje, to niech go wykona.
+
+Jeśli nie istnieje, to niech sprawdzi, czy podano argument i wykona plik o nazwie takiej jak wartość argumentu (parametru) skryptu.
+
+Jeśli żadne z powyższych nie nastąpiło, to niech wyświetli komunikat o błędzie.
+
+Rozwiązanie: 
+
+if [ -f "config.cfg" ]; then
+    echo "Wykonuję plik config.cfg..."
+    ./config.cfg
+elif [ $# -gt 0 ]; then
+    if [ -f "$1" ]; then
+        echo "Wykonuję plik $1..."
+        ./"$1"
+    else
+        echo "Błąd: Plik $1 nie istnieje."
+    fi
+else
+    echo "Błąd: Nie znaleziono pliku config.cfg ani nie podano argumentu."
+fi
+
+3.Napisz skrypt, który:
+
+sprawdzi, czy jego nazwa kończy się .sh .
+
+Jeśli nie, to niech zmieni swoją nazwę poprzez dopisanie tego rozszerzenia (rozszerzenie nazwy pliku). Sprawdzenie można zrobić na kilka sposobów, polecam przetestować 3 typowe:
+
+dopasowanie do wyrażenia regularnego (to jest bardziej uniwersalny sposób)
+
+porównanie ostatnich 3 liter nazwy skryptu
+
+użyć wbudowanego w basha mechanizmu do wyciągania części napisów ${%}, ${%%}, ${#}, ${##} 
+
+Rozwiązanie: 
+
+filename="$1"
+
+if [[ ! "$filename" =~ \.sh$ ]]; then
+    new_filename="${filename}.sh"
+    mv "$filename" "$new_filename"
+    echo "Zmieniono nazwę pliku na: $new_filename"
+else
+    echo "Nazwa pliku jest poprawna: $filename"
+fi
+
+4. Napisz skrypt, który 
+
+sprawdzi, czy w bieżącym katalogu jest więcej niż 5 plików. 
+
+Jeśli tak, to wypisze odpowiedni komunikat z informacją że tak jest.
+Podpowiem:
+
+ls - wyświetla listę plików
+
+wc - word count - zlicza znaki, słowa i linie
+
+grep ma parametr który też może podawać ilość wystąpień wzorca w strumieniu - poszukać w manualu jaki to parametr
+
+może warto użyć także innego polecenia by znaleźć pliki?
+
+Rozwiązanie: 
+
+file_count=$(ls -p | grep -v / | wc -l)
+
+Sprawdzenie, czy liczba plików przekracza 5
+if [ "$file_count" -gt 5 ]; then
+    echo "W katalogu bieżącym jest więcej niż pięć plików."
+else
+    echo "W katalogu biężącym nie ma więcej niż pięciu plików."
+fi
+
+

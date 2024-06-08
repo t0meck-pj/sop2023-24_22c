@@ -1,0 +1,452 @@
+
+Zadania 1
+-------------------------------------------------------------------------------
+1. Napisz program obliczający sumę liczb wprowadzonych przez użytkownika 
+(ze standardowego wejścia) i wypisujący wynik na standardowe wyjście.
+Przydatne hasła to:
+scanf
+printf
+operatory arytmetyczne
+if
+for albo while
+-------------------------------------------------------------------------------
+#include <iostream>
+#include <cstdio> 
+int main() {
+    int sum = 0, x;
+
+    std::cout << "Wprowadź liczby (wprowadź 'q' aby zakończyć):" << std::endl;
+    
+    while (std::scanf("%d", &x) == 1) {
+        sum += x;
+    }
+
+    std::cout << "Suma wprowadzonych liczb wynosi: " << sum << std::endl;
+    return 0;
+}
+-------------------------------------------------------------------------------
+
+
+2.Przerób ten program tak, aby wartość była zwracana jako kod zakończenia programu.
+Wyświetl tą wartość z linii komend. 
+Przydatne komendy: 
+
+return
+-------------------------------------------------------------------------------
+
+#include <iostream>
+#include <cstdio> 
+int main() {
+    int sum = 0, x;
+
+    std::cout << "Wprowadź liczby (wprowadź 'q' aby zakończyć):" << std::endl;
+    
+    while (std::scanf("%d", &x) == 1) {
+        sum += x;
+    }
+    return sum;
+}
+-------------------------------------------------------------------------------
+3.Napisz program wyświetlający tradycyjną choinkę o zadanej wysokości. Wysokość
+niech będzie podana jako parametr wywołania programu. 
+Przydatne hasła to:
+
+atoi
+
+argc, argv
+
+for
+-------------------------------------------------------------------------------
+#include <iostream>
+#include <cstdlib>
+
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cout << "Użycie: " << argv[0] << " <wysokość>" << std::endl;
+        return 1;
+    }
+
+    int height = std::atoi(argv[1]);
+    if (height <= 0) {
+        std::cout << "Wysokość musi być dodatnią liczbą całkowitą." << std::endl;
+        return 1;
+    }
+
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < height - i - 1; ++j) {
+            std::cout << ' ';
+        }
+        for (int k = 0; k < 2 * i + 1; ++k) {
+            std::cout << '*';
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+Wstęp z IO (input-output)
+1.Napisz program wczytujący z pliku tekstowego ciąg liczb.
+
+Format pliku jest taki:
+
+liczba elementów ciągu (jako liczba naturalna)
+
+Kolejne liczby - każda w nowej linii
+
+Przykład:
+
+3
+5
+1
+9
+
+Opis przykładu:
+
+3 liczby do wczytania
+
+liczby: 5, 1, 9
+-------------------------------------------------------------------------------
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+
+void readAndPrintReversed(FILE* file) {
+    int numElements;
+    if (fscanf(file, "%d", &numElements) != 1 || numElements <= 0) {
+        std::cerr << "Niepoprawna liczba elementów" << std::endl;
+        return;
+    }
+
+ 
+    int* numbers = (int*)malloc(numElements * sizeof(int));
+    if (numbers == nullptr) {
+        std::cerr << "Błąd alokacji" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < numElements; ++i) {
+        if (fscanf(file, "%d", &numbers[i]) != 1) {
+            std::cerr << "Błąd podczas wczytywania liczb" << std::endl;
+            free(numbers);
+            return;
+        }
+    }
+
+    std::cout << "Liczby w odwrotnej kolejności: ";
+    for (int i = numElements - 1; i >= 0; --i) {
+        std::cout << numbers[i] << " ";
+    }
+    std::cout << std::endl;
+
+    free(numbers);
+}
+
+int main(int argc, char* argv[]) {
+    FILE* file;
+
+    if (argc == 1) {
+        file = stdin;
+    } else if (argc == 2) {
+        file = fopen(argv[1], "r");
+        if (file == nullptr) {
+            std::cerr << "Nie można otworzyć pliku!" << std::endl;
+            return 1;
+        }
+    } else {
+        std::cerr << "Użycie " << argv[0] << " [nazwa_pliku]" << std::endl;
+        return 1;
+    }
+
+    readAndPrintReversed(file);
+
+    if (file != stdin) {
+        fclose(file);
+    }
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+2. Napisz program, który będzie pozwalał na wyświetlenie dowolnego pliku w postaci
+takiej, jak w heksedytorach. 
+Program powinien wypisać zawartość pliku w postaci liczb szesnastkowych będących
+wartościami kolejnych bajtów tego pliku. 
+Warto zrobić tak, aby kolejne wartości były pogrupowane po 16, 8 albo po 4 w celu
+poprawy czytelności.
+
+Pamiętaj!
+
+Nie wszystkie bajty da się wydrukować
+
+Niektóre są znakami specjalnymi
+
+-------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <vector>
+
+void wyswietlHeks(const std::vector<unsigned char>& bufor) {
+    for (size_t i = 0; i < bufor.size(); ++i) {
+        if (i % 16 == 0)
+            std::cout << std::setw(8) << std::setfill('0') << std::hex << i << "  ";
+        
+        std::cout << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(bufor[i]) << " ";
+        
+        if ((i + 1) % 16 == 0 || i == bufor.size() - 1)
+            std::cout << std::endl;
+        else if ((i + 1) % 8 == 0)
+            std::cout << " ";
+    }
+}
+
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cerr << "Podaj nazwę pliku jako argument" << std::endl;
+        return 1;
+    }
+
+    std::ifstream plik(argv[1], std::ios::binary);
+    if (!plik) {
+        std::cerr << "Błąd otwarcia pliku" << std::endl;
+        return 1;
+    }
+
+    std::vector<unsigned char> bufor(std::istreambuf_iterator<char>(plik), {});
+    plik.close();
+
+    std::cout << "Zawartość pliku: " << argv[1] << std::endl;
+    wyswietlHeks(bufor);
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+Zadanie: wskaźniki do funkcji
+1.Napisz program z 3 funkcjami, każda funkcja niech będzie miała taką sygnaturkę:
+ int (*f)(int,int)
+Niech będą to funkcje: maksimum, minimum oraz suma.
+2.Zapamiętaj wskaźniki do tych funkcji w tablicy trójelementowej
+3.Niech program pobiera kolejno wartości:
+functionId - liczba od 0 do 2 oznaczająca indeks funkcji w tablicy
+
+elementCount - liczba elementów ciągu do pobrania
+
+kolejno liczby w ilości elementCount
+4.Niech program przetwarza wczytaną tablicę w taki sposób, że:
+Niech v przyjmie wartość pierwszego elementu
+
+w pętli po wszystkich elementach od drugiego (indeks 1 w tablicy)
+
+wykona funkcję o numerze functionId przekazując jako argumenty v oraz element o aktualnym indeksie. 
+Niech wynik zostanie zapisany do v
+
+Wypisze wartość v na koniec
+
+-------------------------------------------------------------------------------
+#include <iostream>
+
+int maximum(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+int minimum(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int suma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*functions[3])(int, int) = {maximum, minimum, suma};
+
+    int functionId, elementCount;
+    std::cout << "Podaj numer funkcji (0 - maksimum, 1 - minimum, 2 - suma): ";
+    std::cin >> functionId;
+    std::cout << "Podaj liczbe elementow: ";
+    std::cin >> elementCount;
+
+    int v;
+    std::cout << "Podaj pierwszy element: ";
+    std::cin >> v;
+
+    for (int i = 1; i < elementCount; ++i) {
+        int element;
+        std::cout << "Podaj kolejny element: ";
+        std::cin >> element;
+        v = functions[functionId](v, element);
+    }
+
+    std::cout << "Wynik: " << v << std::endl;
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+Zadanie Domowe
+1. Napisz program implementujący listę jednostronnie wiązaną.
+-------------------------------------------------------------------------------
+#include <iostream>
+
+struct Wezel {
+    int wartosc;
+    Wezel* nastepny;
+    
+    Wezel(int val) : wartosc(val), nastepny(nullptr) {}
+};
+
+class ListaJednokierunkowa {
+private:
+    Wezel* head;
+
+public:
+    ListaJednokierunkowa() : head(nullptr) {}
+
+    ~ListaJednokierunkowa() {
+        Wezel* obecny = head;
+        while (obecny != nullptr) {
+            Wezel* nastepny = obecny->nastepny;
+            delete obecny;
+            obecny = nastepny;
+        }
+    }
+
+    void dodaj(int val) {
+        Wezel* nowyWezel = new Wezel(val);
+        if (head == nullptr) {
+            head = nowyWezel;
+            return;
+        }
+        Wezel* obecny = head;
+        while (obecny->nastepny != nullptr) {
+            obecny = obecny->nastepny;
+        }
+        obecny->nastepny = nowyWezel;
+    }
+
+    void wyswietl() {
+        Wezel* obecny = head;
+        while (obecny != nullptr) {
+            std::cout << obecny->wartosc << " ";
+            obecny = obecny->nastepny;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    ListaJednokierunkowa lista;
+
+    lista.dodaj(1);
+    lista.dodaj(2);
+    lista.dodaj(3);
+
+    std::cout << "Lista: ";
+    lista.wyswietl();
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+2. Napisz program implementujący listę dwustronnie wiązaną.
+-------------------------------------------------------------------------------
+#include <iostream>
+
+struct Wezel {
+    int wartosc;
+    Wezel* poprzedni;
+    Wezel* nastepny;
+
+    Wezel(int value) : wartosc(value), poprzedni(nullptr), nastepny(nullptr) {}
+};
+
+class ListaDwukierunkowa {
+private:
+    Wezel* head;
+    Wezel* ogon;
+
+public:
+    ListaDwukierunkowa() : head(nullptr), ogon(nullptr) {}
+
+    ~ListaDwukierunkowa() {
+        Wezel* obecny = head;
+        while (obecny != nullptr) {
+            Wezel* nastepny = obecny->nastepny;
+            delete obecny;
+            obecny = nastepny;
+        }
+    }
+
+    void dodaj(int value) {
+        Wezel* nowyWezel = new Wezel(value);
+        if (head == nullptr) {
+            head = nowyWezel;
+            ogon = nowyWezel;
+            return;
+        }
+        ogon->nastepny = nowyWezel;
+        nowyWezel->poprzedni = ogon;
+        ogon = nowyWezel;
+    }
+
+    void wyswietl() {
+        Wezel* obecny = head;
+        while (obecny != nullptr) {
+            std::cout << obecny->wartosc << " ";
+            obecny = obecny->nastepny;
+        }
+        std::cout << std::endl;
+    }
+};
+
+int main() {
+    ListaDwukierunkowa lista;
+
+    lista.dodaj(1);
+    lista.dodaj(2);
+    lista.dodaj(3);
+
+    std::cout << "Lista: ";
+    lista.wyswietl();
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+3. Napisz program liczący kolejne wartości ciągu Fibonacciego w wersji:
+- rekursywnej (rekurencyjnej)
+- iteracyjnej
+-------------------------------------------------------------------------------
+#include <iostream>
+
+//rekurencyjnie
+int fibRek(int n) {
+    if (n <= 1)
+        return n;
+    return fibRek(n - 1) + fibRek(n - 2);
+}
+
+//iteracyjnie
+int fibIter(int n) {
+    int a = 0, b = 1, temp;
+    if (n == 0)
+        return a;
+    for (int i = 2; i <= n; ++i) {
+        temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+}
+
+int main() {
+    int n;
+    std::cout << "Podaj liczbe n: ";
+    std::cin >> n;
+
+    std::cout << "Wartosc " << n << "-tego elementu ciagu Fibonacciego (wersja rekurencyjna): " << fibRek(n) << std::endl;
+    std::cout << "Wartosc " << n << "-tego elementu ciagu Fibonacciego (wersja iteracyjna): " << fibIter(n) << std::endl;
+
+    return 0;
+}
+-------------------------------------------------------------------------------
+
+
+

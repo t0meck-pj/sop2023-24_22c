@@ -1,0 +1,7 @@
+# echo $PATH -> dodanie execa do PATH zezwala na wywolanie go (execa) jako komendy bez podawania sciezki (PATH zawiera juz sciezki do tego execa)
+# echo $RANDOM -> podaje losowy integer (0 - 32767 - 16-bit)
+# echo $PWD -> podaje sciezke bezposrednia do obecnego katalogu
+# echo $PS1 -> podaje ciag znakow ktory okresla obecnie ustawiony format glownego prompta wyswietlanego przed podanie komendy
+# echo $USER -> podaje uzytkownika ktory uzywa terminala w ktorym wpisana zostala komenda
+# echo $HOSTNAME -> podaje nazwe maszyny na ktorej pracuje terminal
+# echo $OSTYPE -> podaje typ systemu operacyjnego na ktorym pracuje terminal, np linux-gnu, msys (dla windowsa)

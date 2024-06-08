@@ -15,7 +15,7 @@ https://www.virtualbox.org/manual/UserManual.html
 Do wykonania zadania wykorzystałem głównie dokumentację VirtualBoxa, 
 dokumentację Debiana oraz Wikipedię. Korzystałem również z ChatGPT, ale tylko 
 wtedy, kiedy nie rozumiałem informacji zawartych w Internecie lub kiedy nie 
-mogłem ich znaleźć.
+mogłem ich znaleźć - oznaczyłem sekcje, w których go wykorzystuję.
 
 ===============================================================================
 ===============================================================================
@@ -127,8 +127,8 @@ skorzystam z opcji utworzenia VHD.
 	dokumentacji Debiana to 2GB, ja natomiast przyznam tej maszynie 10 GB,
 	dla własnej wygody. 
 
-	HARD DISK FILE TYPE AND VARIANT – tutaj wybieramy rozszerzenie dla 
-	naszego pliku. Dostępne opcje:
+	HARD DISK FILE TYPE AND VARIANT – tutaj wybieramy format dla naszego 
+	pliku. Dostępne opcje:
 		VDI (VirtualBox Disk Image) - jest to domyślny format pliku
 		używany przez VirtualBoxa.  Obsługuje pamięć o stałym 
 		rozmiarze i alokowaną dynamicznie. Pozwala rozszerzyć plik po
@@ -204,8 +204,10 @@ korzystać, w razie co później mogę to zmienić.
 Przeciąganie i upuszczanie, te same relacje, zostawiam wyłączone, ponieważ
 będę korzystać z systemu w wersji tekstowej. 
 
-OPIS - można tu ustawić opis dla maszyny; przydatne, jak korzysta z jednej
-maszyny wiele osób. Zostawiam bez zmian. 
+OPIS - można tutaj dodać szczegółowe informacje dot. maszyny wirtualne. Jest
+to przydatne np. w środowiskach, gdzie maszyn jest wiele i mają podobne nazwy.
+Można tu napisać do czego służy dana maszyna, jakie ma specyficzne ustawienia
+lub kto jest jej głównym użytkownikiem. Zostawiam bez zmian. 
 
 SZYFROWANIE DYSKU – w tym miejscu można włączyć szyfrowanie maszyny, ustawić
 rodzaj szyfrowania (mamy dostępne dwa, tj. 128-bit i 256-bit). Pozostawiam
@@ -264,7 +266,7 @@ zamiast czasu lokalnego (hosta). Jest to przydatne dla systemów UNIX-owych
 włączoną. 
 
 WŁĄCZ EFI (TYLKO SPECJALNE SYSTEMY OPERACYJNE) - tę opcję opisywałem
-wcześniej, więc pozwolę sobie ją w tym miejscu pominąć. 
+wcześniej, pozostawiam ją włączoną. 
 
 ENABLE SECURE BOOT – włącza bezpieczny rozruch. Dzięki niej podczas rozruchu
 komputera uruchamiane są tylko zaufane programy; opcja ta chroni maszynę przez
@@ -476,7 +478,9 @@ HOT-PLUGGABLE (tylko AHCI) - po zaznaczeniu tej opcji system maszyny rozpozna
 ten dysk jako urządzenie “podłączane na gorąco”, tj. można go odłączyć przy
 włączonej maszynie. 
 
-Dostępne kontrolery: 
+Dostępne kontrolery:
+
+(wspomagam się ChatemGPT) 
 
 AHCI (SATA) - obsługuje urządzenia SATA; wysoka wydajność dla nowoczesnych
 dysków, następca IDE 
@@ -509,6 +513,8 @@ możliwe po włączeniu EFI
 VIRTIO-SCSI (Virtual I/O Device SCSI) - pozwala montować wirtualne urządzenia
 pamięci masowej (dyski twarde i napędy optyczne) do maszyny wirtualnej. Wersja
 eksperymentalna. 
+
+(dalej piszę sam)
 
 Obsługa urządzeń: 
 
@@ -606,13 +612,15 @@ wirtualnych sieci NAT w celu komunikacji między maszynami wirtualnymi.
 CLOUD NETWORK (EXPERIMENTAL) - umożliwia połączenie maszyny wirtualnej z
 podsiecią w chmurze. 
 
-NIEPODŁĄCZONA - w tym trybie VirtualBox przekazuje maszynie wirtualnej
-informację o niepodłączonym kablu, co za tym idzie maszyna widzi swoją kartę
-sieciową, ale nie ma dostępu do Internetu. 
+NIEPODŁĄCZONA - ta opcja określa, że karta sieciowa maszyny wirtualnej nie
+jest podłączona do żadnej sieci. OS maszyny wykryje interfejs sieciowy jako
+aktywny, ale żadne pakiety nie będą przesyłane przez sieć.
 
 Poniżej znajdują się opcje zaawansowane: 
 
-TYP KARTY – rodzaj karty, która ma być emulowana. Dostępne opcje: 
+TYP KARTY – rodzaj karty, która ma być emulowana. Dostępne opcje:
+
+(wspomagam się ChatemGPT) 
 
 PCNet PCI II (Am79C970A) - oferuje podstawową obsługę funkcji sieciowych i
 jest często wybierana do wirtualizacji starszych systemów operacyjnych. 
@@ -635,6 +643,8 @@ Paravirtualized network adapter (virtio-net) - opcja ta sprawia, że VirtualBox
 nie wirtualizuje sprzętu sieciowego. W zamian oczekuje, że maszyna udostępni
 specjalny interfejs oprogramowania dla środowisk zwirtualizowanych. Poprawia
 to wydajność sieci. 
+
+(dalej piszę sam)
 
 TRYB NASŁUCHIWANIA (niedostępny dla NAT, RODZAJOWY STEROWNIK i NIEPODŁĄCZONA)
 - pozwala karcie sieciowej maszyny odbierać wszystkie pakiety przesyłane w
@@ -833,13 +843,14 @@ Ja skorzystam ze zwykłego startu.
 
 -------------------------------------------------------------------------------
 
-Po uruchomieniu maszyny uruchomił się instalator z pliku ISO. Aby korzystać z
-maszyny trzeba najpierw zezwolić na przechwytywanie myszki i klawiatury. Okno
-dialogowe pojawi się po próbie kliknięcia na ekran maszyny. Aby wyłączyć
-przechwytywanie trzeba nacisnąć klawisz hosta, domyślnie jest to prawy CTRL. W
-instalatorze można poruszać się za pomocą strzałek na klawiaturze i
-zatwierdzać klawiszem ENTER. Cofać można klawiszem ESC. Dodatkowe klawisze w
-instalatorze: 
+Po uruchomieniu maszyny uruchamia się menu bootujące z pliku ISO z
+instalatorem Debiana. Pozwala ono wybrać różne opcje instalacji. 
+Aby korzystać z maszyny trzeba najpierw zezwolić na przechwytywanie myszki i 
+klawiatury. Okno dialogowe pojawi się po próbie kliknięcia na ekran maszyny. 
+Aby wyłączyć przechwytywanie trzeba nacisnąć klawisz hosta, domyślnie jest to 
+prawy CTRL. 
+Po menu można poruszać się za pomocą strzałek na klawiaturze i zatwierdzać 
+klawiszem ENTER. Cofać można klawiszem ESC. Dodatkowe klawisze: 
 
 E – włącza tryb edycji wybranej opcji. Można w nim zmienić jej parametry. 
 
@@ -848,7 +859,7 @@ programu, który uruchamia system operacyjny.
 
 -------------------------------------------------------------------------------
 
-Dostępne opcje: 
+Dostępne opcje instalacji:
 
 GRAPHICAL INSTALL – przeprowadza instalację w wersji graficznej. 
 
@@ -857,20 +868,33 @@ wymaga mniejszych zasobów w porównaniu do wersji graficznej.
 
 ADVANCED OPTIONS – opcje zaawansowane: 
 
-GRAPHICAL EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem
-graficznym. Oferuje pełną kontrolę. 
+	GRAPHICAL EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem
+	graficznym, który udostępnia więcej opcji, np. możliwość wykrycia i
+	zamontowania nośnika instalacyjnego czy też zmienić priorytet pytań
+	debconfa (debconf umożliwia m.in. automatyczną konfigurację pakietów
+	na podstawie preferencji użytkownika, które przechowuje w bazie
+	danych. Informację znalazłem tutaj: https://wiki.debian.org/debconf).
+	Używany, gdy wymagana jest pełna kontrola nad procesem instalacji.
 
-GRAPHICAL RESCUE MODE – uruchamia system trybie awaryjnym z interfejsem
-graficznym. 
+	GRAPHICAL RESCUE MODE – uruchamia system trybie awaryjnym z interfejsem
+	graficznym. Może być używany do naprawy istniejącego systemu, który
+	nie uruchamia się poprawnie.
 
-GRAPHICAL AUTOMATED INSTALL – automatyczna instalacja z interfejsem
-graficznym, posiada mniej opcji. 
+	GRAPHICAL AUTOMATED INSTALL – automatyczna instalacja z interfejsem
+	graficznym, posiada mniej opcji. Używany, gdy użytkownik chce
+	zainstalować system jak najszybciej.
 
-EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem tekstowym. 
+	EXPERT INSTALL – zaawansowany tryb instalacji z interfejsem tekstowym.
+	Udostępnia te same opcje co tryb graficzny. Jedyną różnicą między nimi
+	jaką zauważyłem jest to, że tryb graficzny umożliwia dodatkowo robienie
+	zrzutów ekranu (przycisk Screenshot w lewym dolnym rogu). 	
 
-RESCUE MODE – uruchamia system w trybie awaryjnym z interfejsem tekstowym. 
+	RESCUE MODE – uruchamia system w trybie awaryjnym z interfejsem 
+	tekstowym. Używany w tym samym celu, co jego graficzny odpowiednik.
 
-AUTOMATED INSTALL – automatyczna instalacja z interfejsem tekstowym. 
+	AUTOMATED INSTALL – automatyczna instalacja z interfejsem tekstowym.
+	Używany, tak jak każdy wyżej opisany odpowiednik tekstowy, w sytuacji,
+	gdzie interfejs graficzny nie jest dostępny lub potrzebny.
 
 ACCESIBLE DARK CONTRAST INSTALLER MENU – oferuje czarne tło z białymi
 napisami, co ułatwia odczytywanie tekstu i nawigację dla osób ze słabszym
@@ -897,8 +921,10 @@ gdzie nie są obsługiwane.
 Następnie trzeba wybrać układ klawiatury. Wybieram AMERICAN ENGLISH, ponieważ
 jest zgodny z moim układem, czyli polski (programisty). 
 
-Instalator przydziela do naszej emulowanej karty sieciowej adres sieciowy.
-Kolejne kroki: 
+-------------------------------------------------------------------------------
+
+W tym momencie serwer DHCP przydziela do naszej emulowanej karty sieciowej 
+adres sieciowy. Kolejne kroki: 
 
 Wybieram nazwę dla maszyny (będzie pod nią widoczna w sieci). Dla procesu
 instalacji nie ma ona znaczenia, więc zostawiam domyślne “debian”. 
@@ -907,8 +933,8 @@ Wybieram nazwę domeny; nie korzystam z żadnej, więc zostawiam to pole puste.
 
 Ustalam hasło dla konta roota. W kolejnym oknie je potwierdzam. 
 
-Ustalam pełną nazwę dla nowego użytkownika. Niech to będzie mój indeks,
-s29986. Następnie ustalam login (taki sam), jego hasło, powtarzam je. 
+Ustalam pełną nazwę dla nowego użytkownika. W moim przypadku będzie to s29986. 
+Następnie ustalam login (taki sam) oraz hasło. 
 
 ===============================================================================
 
@@ -1048,7 +1074,7 @@ dyskowej. Pozwala ustawić LVM oraz zaszyfrować system.
 Tak jak wcześniej, najpierw wybieramy dysk. Następnie schemat partycjonowania
 (wybieram ten co wcześniej).  
 
-Przechodzę to konfiguracji LVM, zatwierdzam wybrany schemat. 
+Przechodzę do konfiguracji LVM, zatwierdzam wybrany schemat. 
 
 Następnie instalator nadpisuje zawartość partycji fizycznej #3 na wybranym
 dysku losowymi (na niej będzie znajdował się LVM) danymi, aby zapobiec
@@ -1091,60 +1117,74 @@ Następnie pojawia się okno z ustawieniami dla partycji:
 
 NAME – nazwa partycji. 
 
-USE AS - określa sposób używania partycji. Dostępne opcje: 
+USE AS - określa sposób używania partycji. Dostępne opcje:
 
-Ext4 journaling file system – następca Ext3, oferuje wszystkie funkcje
-poprzednika + m.in. wsparcie dla większych rozmiarów partycji (do 1 EB) i
-plików (pojedynczy plik może mieć nawet 16TB). 
+(opisywałem je z użyciem ChatGPT)
 
-Ext3 journaling file system - następca Ext2, posiada te same cechy co
-poprzednik + obsługuje mechanizm księgowania, który w razie awarii systemu
-pozwoli odzyskać dane. Jest wolniejszy od Ext2. 
+	Ext2 file system – druga wersja systemu plików Ext; nie korzysta z
+	księgowania, co w razie awarii może skutkować utratą danych. Limit
+	długości pliku: 2 TiB. Maksymalny rozmiar partycji: 32 TiB.
 
-Ext2 journaling file system – druga wersja systemu plików Ext; nie korzysta z
-księgowania, co w razie awarii może skutkować utratą danych. 
+	Ext3 journaling file system - następca Ext2, posiada te same cechy co
+	poprzednik + obsługuje mechanizm księgowania, który w razie awarii 
+	systemu pozwoli odzyskać dane. Jest wolniejszy od Ext2. Limit długości
+	pliku i maksymalny rozmiar partycji taki sam jak Ext2.  
 
-btrfs journaling file system - (B-Tree File System) nowoczesny system plików,
-posiada wiele zaawansowanych funkcji, np. kopiowanie migawkowe.  Jest bardziej
-elastyczny niż Ext4, może być przydatny np. do zarządzania danymi w chmurze
-czy wirtualizacji. 
+	Ext4 journaling file system – następca Ext3, oferuje wszystkie funkcje
+	poprzednika + m.in. wsparcie dla większych rozmiarów partycji (do 1 
+	EiB) i plików (pojedynczy plik może mieć nawet 16 TiB).
 
-JFS journaling file system – system plików stworzony przez IBM dla AIX,
-później dostosowany do Linuxa. Charakteryzuje się dobrą wydajnością, również
-posiada mechanizm księgowania. 
+	btrfs journaling file system - (B-Tree File System) nowoczesny system 
+	plików, posiada wiele zaawansowanych funkcji, np. kopiowanie migawkowe.
+	Jest bardziej elastyczny niż Ext4, może być przydatny np. do 
+	zarządzania danymi w chmurze czy wirtualizacji. Limit długości pliku:
+	16 EiB. Maksymalny rozmiar partycji: 16 EiB.
 
-XFS journaling file system – przeznaczony głównie dla systemów serwerowych. 
+	JFS journaling file system – system plików stworzony przez IBM dla AIX,
+	później dostosowany do Linuxa. Charakteryzuje się dobrą wydajnością, 
+	również posiada mechanizm księgowania. Limit długości pliku: 4 PiB.
+	Maksymalny rozmiar partycji: 32 PiB.
 
-FAT16 file system – starszy system plików, oferuje m.in. obsługę partycji o
-maksymalnym rozmiarze 2 GB do 4 GB w zależności od sektora dysku. 
+	XFS journaling file system – przeznaczony głównie dla systemów 
+	serwerowych. Limit długości pliku: 8 EiB. Maksymalny rozmiar partycji:
+	8 EiB.
 
-FAT32 file system – starszy system plików, następca FAT16, oferuje m.in.
-obsługę partycji o maksymalnym rozmiarze 2 TB. 
+	FAT16 file system – starszy system plików, oferuje m.in. obsługę 
+	partycji o maksymalnym rozmiarze 2 GiB do 4 GiB w zależności od sektora 
+	dysku. Limit długości pliku: 2 GiB.
 
-swap area - przestrzeń wymiany, wykorzystywana przez system operacyjny w
-przypadku braku pamięci RAM. 
+	FAT32 file system – starszy system plików, następca FAT16, oferuje 
+	m.in. obsługę partycji o maksymalnym rozmiarze 16 TiB. Limit długości
+	pliku: 4 GiB.
 
-Reserved BIOS boot area - specjalna partycja zarezerwowana dla systemów
-uruchamianych w trybie BIOS. 
+	swap area - przestrzeń wymiany, wykorzystywana przez system operacyjny 
+	w przypadku braku pamięci RAM. 
 
-ChromeOS kernel partition - partycja przeznaczona dla jądra systemu
-operacyjnego ChromeOS. 
+	Reserved BIOS boot area - specjalna partycja zarezerwowana dla systemów
+	uruchamianych w trybie BIOS. 
 
-EFI System Partition - partycja ESP, niezbędna dla systemów uruchamianych w
-trybie UEFI. 
+	ChromeOS kernel partition - partycja przeznaczona dla jądra systemu
+	operacyjnego ChromeOS. 
 
-physical volume for encryption - partycja, która będzie używana jako wolumin
-do szyfrowania danych. 
+	EFI System Partition - partycja ESP, niezbędna dla systemów 
+	uruchamianych w trybie UEFI. 
 
-physical volume for RAID - partycja, która będzie używana jako wolumin w
-macierzy RAID. 
+	physical volume for encryption - partycja, która będzie używana jako 
+	wolumin do szyfrowania danych. 
 
-physical volume for LVM - partycja, która będzie używana jako wolumin dla LVM. 
+	physical volume for RAID - partycja, która będzie używana jako wolumin 
+	w macierzy RAID. 
 
-do no use the partition - partycja nie będzie używana ani montowana w systemie
-operacyjnym. 
+	physical volume for LVM - partycja, która będzie używana jako wolumin 
+	dla LVM. 
 
-Strona z porównaniem systemów plików:
+	do no use the partition - partycja nie będzie używana ani montowana w 
+	systemie operacyjnym. 
+
+(dalej piszę sam)
+
+Strona z porównaniem systemów plików (używałem ją do sprawdzania wartości, 
+które generował ChatGPT):
 https://en.wikipedia.org/wiki/Comparison_of_file_systems 
 
 MOUNT POINT – punkt montowania dla partycji: 
@@ -1176,7 +1216,9 @@ konkretnego katalogu na dysku.
 Do not mount it – pozwala nie montować partycji w systemie; nie będzie
 dostępna do odczytu i zapisu. 
 
-MOUNT OPTIONS – opcje montowania: 
+MOUNT OPTIONS – opcje montowania:
+
+(opisane z użyciem ChatGPT)
 
 discard – informuje system plików, aby natychmiast usuwał niepotrzebne bloki
 danych z urządzenia w trakcie operacji zapisu; może poprawić wydajność przy
@@ -1209,7 +1251,9 @@ poszczególnych użytkowników poprzez ustawienie limitów.
 grpquota – robi to samo, ale dla grupy. 
 
 user_xattr – pozwala na przypisanie dodatkowych informacji do plików i
-katalogów poza standardowymi metadanymi, np. opis pliku. 
+katalogów poza standardowymi metadanymi, np. opis pliku.
+
+(dalej piszę sam)
 
 LABEL – ustawia etykietę dla partycji. 
 
@@ -1218,15 +1262,23 @@ system operacyjny.
 
 TYPICAL USAGE - określa typ partycji: 
 
-standard – standardowa konfiguracja, optymalna dla ogólnego użytku. 
+(opisane z użyciem ChatGPT) 
+
+standard – standardowa konfiguracja, optymalna dla ogólnego użytku. Zapewnia
+zrównoważone proporcje między liczbą inodów a przestrzenią dyskową.
 
 news – konfiguracja zoptymalizowana dla systemów przechowujących pliki
-wiadomości. 
+wiadomości, które są małe, szybko-zmienne i krótko-żyjące. Tego typu pliki
+mogą prowadzić do szybkiej fragmentacji danych. Opcja ta dostosowuje system
+plików, aby lepiej zarządzać dużą ilością małych plików głównie poprzez 
+odpowiednie dobranie liczby inodów.
 
 largefile – zoptymalizowany dla obsługi pojedynczych plików o bardzo dużych
 rozmiarach. 
 
-largefile4 – obsługuje pliki jeszcze większe niż largefile. 
+largefile4 – obsługuje pliki jeszcze większe niż largefile 
+
+(dalej piszę sam). 
 
 BOOTABLE FLAG – flaga, która wskazuje, że ta partycja może być użyta do
 rozruchu systemu. Zastąpił ją bootloader. 
@@ -1277,6 +1329,20 @@ W przypadku partycji dane będę używał na niej systemu plików Ext4 (zapewni
 największą stabilność), zamontuję ją w katalogu głównym (/), i resztę opcji
 pozostawię bez zmian. 
 
+Podsumowanie mapy partycji:
+LVM VG system-vg, LV dane - 8.5 GB Linux device-mapper (linear)
+	#1	8.5 GB	  f	  ext4		/
+LVM VG system-vg, LV swap - 1.0 GB Linux device-mapper (linear)
+	#1	1.0 GB    f	  swap		swap
+SCSI3 (0,0,0) (sda) - 10.7 GB ATA VBOX HARDDISK
+		  1.0 MB	  FREE SPACE
+	#1	598.7 MB  B   K	  ESP
+	#2	599.8 MB	  ext2		/boot
+	#3	  8.5 GB      K   lvm
+	#4	  1.0 GB      K   lvm
+		  1.0 MB	  FREE SPACE
+
+
 Zatwierdzam wszystkie skonfigurowane partycje i kontynuuję instalację systemu. 
 
 
@@ -1296,8 +1362,15 @@ POLAND => ftp.task.gda.pl. Można również określić serwer pośredniczący (p
 - pozostawiam puste pole. 
 
 Po konfiguracji instalator zapyta się, czy chcemy brać udział w badaniach
-statystycznych dotyczących najczęściej używanych pakietów na systemie. Jest to
-instalacja demonstracyjna, więc nie zezwalam na mój udział. 
+statystycznych dotyczących najczęściej używanych pakietów na systemie.
+Pozyskane dane mają posłużyć twórcom Debiana do usprawnienia procesu
+instalacji i samego użytkowania systemu. W skrócie, mogą się oni dzięki temu
+skupić na aktualizowaniu i wspieraniu najpopularniejszych pakietów, co
+skutkuje poprawą stabilności i bezpieczeństa systemu dla większości
+użytkowników. Dane te mogą także wpływać na wybór domyślnych pakietów dla
+przyszłych wydań Debiana. Dodatkowo, te statystyki są dostępne dla każdego, 
+przez co mogą też być wykorzystywane przez społeczność open source.
+Jest to instalacja demonstracyjna, więc nie zezwalam na mój udział.
 
 Kolejnym krokiem jest wybór dodatkowego oprogramowania, które można
 zainstalować. Dostępne: 
@@ -1306,21 +1379,115 @@ DEBIAN DESKTOP ENVIRONMENT - środowisko graficzne. Do wyboru: GNOME, Xfce,
 GNOME Flashback, KDE Plasma, Cinnamon, MATE, LXDE, LXQt. Odznaczam (spacją),
 instaluję system tekstowy. 
 
+Porównanie środowisk (wygenerowany przez ChatGPT):
+	
+	GNOME
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 2 GB
+	    	Rozmiar na dysku: Około 3 GB
+    	    Wydajność: Umiarkowana, może być cięższa na starszym sprzęcie.
+	    Ergonomia: Intuicyjne i nowoczesne, zorientowane na użytkownika. 
+		       Dobrze zintegrowane z systemem.
+	    Stabilność: Wysoka, regularnie aktualizowane i dobrze testowane.
+	    Bezpieczeństwo: Dobre mechanizmy kontroli dostępu i aktualizacje
+			    bezpieczeństwa.
+	
+	Xfce
+	    Wymagania sprzętowe:
+		CPU: Niskie wymagania
+		RAM: Co najmniej 512 MB
+		Rozmiar na dysku: Około 1,5 GB
+	    Wydajność: Bardzo szybkie i lekkie, idealne na starszy sprzęt.
+	    Ergonomia: Proste i łatwe w użyciu, choć mniej nowoczesne niż GNOME.
+	    Stabilność: Bardzo wysoka, znane z niezawodności.
+	    Bezpieczeństwo: Standardowe mechanizmy, mniej zaawansowane niż 
+			    GNOME.
+	
+	GNOME Flashback
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2,5 GB
+	    Wydajność: Lepsza wydajność niż standardowe GNOME, bardziej klasyczne
+		       podejście.
+	    Ergonomia: Tradycyjne podejście, łatwe do adaptacji dla użytkowników
+		       klasycznego GNOME.
+	    Stabilność: Wysoka, korzysta z tego samego zaplecza co GNOME.
+	    Bezpieczeństwo: Solidne mechanizmy kontroli dostępu.
+	
+	KDE Plasma
+	    Wymagania sprzętowe:
+		CPU: Średnie do wysokie wymagania
+		RAM: Co najmniej 2 GB
+		Rozmiar na dysku: Około 3 GB
+	    Wydajność: Umiarkowana, dostosowywalna do różnych potrzeb.
+	    Ergonomia: Bardzo elastyczne i konfigurowalne, bogate w funkcje.
+	    Stabilność: Wysoka, ale może wymagać więcej zasobów.
+	    Bezpieczeństwo: Bardzo dobre mechanizmy, regularne aktualizacje.
+
+	Cinnamon
+	    Wymagania sprzętowe:
+		CPU: Średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2 GB
+	    Wydajność: Umiarkowana, dobrze zbalansowana.
+	    Ergonomia: Przyjazne dla użytkownika, przypomina klasyczny pulpit.
+	    Stabilność: Wysoka, stabilne i niezawodne.
+	    Bezpieczeństwo: Dobre mechanizmy kontroli dostępu.
+
+	MATE
+	    Wymagania sprzętowe:
+		CPU: Niskie do średnie wymagania
+		RAM: Co najmniej 1 GB
+		Rozmiar na dysku: Około 2 GB
+	    Wydajność: Bardzo dobra, lekki na zasoby.
+	    Ergonomia: Tradycyjne i proste, łatwe do adaptacji.
+	    Stabilność: Bardzo wysoka, rozwijane jako kontynuacja GNOME 2.
+	    Bezpieczeństwo: Standardowe mechanizmy, solidne zabezpieczenia.
+
+	LXDE
+	    Wymagania sprzętowe:
+		CPU: Bardzo niskie wymagania
+	 	RAM: Co najmniej 256 MB
+	        Rozmiar na dysku: Około 1 GB
+	    Wydajność: Wyjątkowo szybkie, idealne dla starszych komputerów.
+	    Ergonomia: Proste i minimalne, mniej funkcji niż inne środowiska.
+	    Stabilność: Wysoka, minimalne obciążenie systemu.
+	    Bezpieczeństwo: Standardowe mechanizmy, mniej zaawansowane.
+
+	LXQt
+	    Wymagania sprzętowe:
+		CPU: Niskie wymagania
+		RAM: Co najmniej 512 MB
+		Rozmiar na dysku: Około 1,5 GB
+	    Wydajność: Bardzo dobra, lekki i nowoczesny.
+	    Ergonomia: Nowoczesne, ale lekkie, łączy prostotę z nowoczesnością.
+    	    Stabilność: Wysoka, rozwijane jako następca LXDE.
+	    Bezpieczeństwo: Solidne mechanizmy, standardowe zabezpieczenia.
+
+(koniec wygenerowanego fragmentu)	
+
 WEB SERVER – serwer sieciowy. Nie zaznaczam. 
 
 SSH SERVER – serwer SSH. Nie zaznaczam. 
 
 STANDARD SYSTEM UTILITIES – podstawowe narzędzia systemowe, takie jak powłoka
 Bash, menedżer pakietów apt czy narzędzie sudo. Są one niezbędne do pracy na
-systemie. Jak najbardziej instaluję je. 
+systemie. Jak najbardziej instaluję je. Lista wszystkich pakietów znajduje się
+tutaj:
+https://csmojo.com/posts/what-debian-standard-system-utilities-include.html
 
 Następnie instalowana jest reszta systemu, w tym GRUB. Jeśli wybrano EFI, to
-zainstaluje się automatycznie. Jeśli natomiast korzystamy z BIOSu:  	 
+zainstaluje się automatycznie. Jeśli natomiast korzystamy z BIOSu, to
+bootloader można zainstalować w dwóch miejscach - MBR (Master Boot Record) i 
+BR (Boot Record). W MBR instalujemy, jeśli GRUB ma być głównym bootloaderem 
+lub jeśli instalujemy pierwszy system. W BR natomiast, jeśli w MBR jest już
+inny bootloader zainstalowany (np. Windows Boot Manager) lub gdy korzystamy z
+wielu systemów. 
 
-Instalator informuje, że jeśli na dysku nie ma innego systemu, to można
-bezpiecznie go zainstalować na dysku podstawowym. Przechodząc dalej można
-wybrać nasz dysk lub inny dowolny dysk (w tym nośniki przenośne, np.
-Pendrive). 
+Przechodząc dalej można wybrać nasz dysk lub inny dowolny dysk (w tym nośniki 
+przenośne, np. pendrive). 
 
 W następnym kroku system jest już zainstalowany, wystarczy wybrać COUNTINUE –
 sprawi to, że maszyna uruchomi się ponownie, po czym system będzie gotowy do
@@ -1341,5 +1508,17 @@ nim nauczyłem. Uświadomiło mi także ile informacji jest potrzebnych, aby
 poprawnmie zainstalować system. Na pewno będę musiał uzupełnić wiedzę o
 systemach plików i opcjach montowania partycji.
 Mam nadzieję, że następne zadania nie będą dla mnie tak czasochłonne i będę
-w stanie wykonać je tak, jakbym chciał.
+w stanie wykonać je tak, jakbym chciał. (coś mi nie pykło...)
+
+-------------------------------------------------------------------------------
+
+Update: wprowadziłem poprawki do zadania. Oznaczyłem również fragmenty, w
+których wykorzystywałem ChatGPT. Nie zmieniałem wyglądu całego zadania, 
+ponieważ pewnie utrudniłoby to Panu jego sprawdzanie.
+Statystyka: 
+	> tekst składa się z 61 790 znaków (od klikamy NOWA do końca, nie liczę
+	  "podziałek")
+	> tekst z użyciem Chatu składa się z 9 859 znaków.
+	> (9 859 / 61 790) * 100 ~ 16%
+Tak więc w 84% praca jest napisana przeze mnie.
 

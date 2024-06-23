@@ -1,0 +1,22 @@
+Zadanie domowe
+Przygotuj skrypt, który odczyta plik (jego nazwa ma być argumentem skryptu) i 
+wypisze go na terminalu tak, aby wszystkie wystąpienia Twojego imienia były 
+podświetlone na czerwono. 
+
+Wykonanie:
+#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Użycie: $0 plik"
+    exit 1
+fi
+filename=$1
+if [ ! -f "$filename" ]; then
+    echo "Plik $filename nie istnieje."
+    exit 1
+fi
+name="Kacper"
+red='\033[0;31m'
+nc='\033[0m'
+while IFS= read -r line; do
+    echo -e "$(echo "$line" | sed "s/$name/${red}&${nc}/g")"
+done < "$filename"

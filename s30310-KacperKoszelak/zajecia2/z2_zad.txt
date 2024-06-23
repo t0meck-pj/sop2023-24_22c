@@ -1,0 +1,169 @@
+Ćwiczenie 1
+Napisz skrypt wyświetlający na terminalu tekst "Witamy w terminalu". Skorzystaj
+z komendy echo oraz informacji podanych powyżej. Pamiętaj o atrybutach i o tym 
+jak się wywołuje programy.
+
+Wykonanie:
+Stworzyłem plik "witamy.sh" o treści:
+
+#!/bin/bash
+echo -e "Witamy w terminalu"
+
+Wniosek:
+Po wpisaniu polecenia "./witamy" plik zwraca napis "Witamy w terminalu". Plik 
+działa poprawnie.
+
+
+
+
+Ćwiczenie 2
+To zadanie należy wykonać wpisując polecenia w terminalu normalnie. Nie należy
+tworzyć skryptu z tymi poleceniami.
+
+ Zobacz taką serię poleceń:
+
+X=tekst
+echo $X
+bash
+echo $X
+
+Co się stało? Czy potrafisz wyjaśnić?
+
+Wykonanie:
+Do zmiennej "X" przypisany jest tekst o treści "tekst". Komendą "echo" 
+wypisujemy tekst na ekran. Komendą "bash" otwieramy nową powłokę w której
+zmienna "X" nie istnieje, więc po wywołaniu zmiennej "X" w nowej powłoce nie 
+zostaje ona wypisana na ekran.
+
+
+
+Zobacz:
+
+X=Tekst dłuższy
+echo $X
+
+Co jest nie tak? jak to naprawić? Zobacz czy pomoże zastosowanie cudzysłowów i 
+apostrofów.
+
+Wykonanie:
+Zmienna "X" nie została poprawnie zadeklarowana. Bash uznaje tekst po spacji za
+polecenie. By to naprawić należy użyć cudzysłowia:
+X="Tekst dłuższy"
+echo $X
+
+
+
+Zobacz:
+
+X="Tekst 1"
+Y="tekst:$X"
+echo "$Y"
+Y='tekst:$X'
+echo "$Y"
+Y=tekst:$X
+echo "$Y"
+
+Jaka jest różnica między " a ' ?
+
+Wykonanie:
+Cudzysłowia pozwalają na interpretację znaków specjalnych oraz zmiennych, a 
+apostrof traktuje je jako zwykły tekst.
+
+
+
+Ćwiczenie 3
+Zobacz co przechowują zmienne i opisz jak rozumiesz uzyskany wynik. Do czego on
+jest i kiedy może się wg Ciebie przydać:
+
+PATH
+RANDOM
+PWD
+PS1
+USER
+HOSTNAME
+OSTYPE
+
+Wykonanie:
+PATH - zawiera ścieżki
+RANDOM - zwraca losową liczbę z przedziału 0-32767
+PWD - zwraca obecnie używaną ścieżkę
+PS1 - zmienna środowiskowa w powłoce bash, która określa, jak ma wyglądać 
+główny prompt powłoki.
+USER - zwraca nazwę obecnego użytkownika
+HOSTNAME - zwraca nazwę hosta
+OSTYPE - zwraca typ systemu operacyjnego
+
+
+
+
+Ćwiczenie 4
+Wykonaj komendę ls -l w podpowłoce i przypisz ją do zmiennej X.
+Wyświetl zawartość tej zmiennej.
+Spraw, aby nie było różnicy (co najwyżej kolorki) między zwykłym wykonaniem 
+komendy:
+ls -l
+a wypisaniem zawartości zmiennej X. Nie będzie dobrego rezultatu gdy zrobimy 
+tak:
+echo $X
+Zastanów się dlaczego.
+
+Wykonanie:
+X=$(ls -l)
+echo $X - tekst ulega zmianie; znak nowej linii zostaje zastąpiony spacją
+echo "$X" - oryginalna treść zostaje zachowana
+
+
+
+
+Ćwiczenie 5a
+Pamiętasz jedno z zadań poprzednich?
+A=Ala
+echo $A ma kota, a kot ma ${A}ę
+Przerób je tak, aby tekst wypisywał się poprawnie.
+Napisz skrypt, który będzie wypisywał taki tekst także dla imion męskich. 
+Pomijamy zdrobnienia i imiona które się dziwnie odmieniają (na przykład Marek).
+Niech skrypt ten przyjmuje jeden argument - imię. Przykładowe wywołanie:
+$ ./pszetżkole Ala
+Ala ma kota, a kot ma Alę
+$ ./pszetżkole Justyna
+Justyna ma kota, a kot ma Justynę
+$ ./pszetżkole Stefan
+Stefan ma kota, a kot ma Stefana
+Czy jest to możliwe w czystym bash-u?
+
+Wykonanie:
+imie=$1
+if [[ $imie == *[aA] ]]; then
+   echo "$imie ma kota, a kot ma $imieę"
+else
+   echo "$imie ma kota, a kot ma ${imie}a"
+fi
+
+Tak, jest to możliwe w czystym bash-u.
+
+
+
+
+Ćwiczenie 5b
+Napisz skrypt, który wczyta jako argument jakiś tekst. Skrypt ten wypisze 
+kolejno:
+1. Pierwszy znak z argumentu
+2. Ostatni znak z argumentu
+3. Zamieni w argumencie każdy tekst SOP na tekst poniżej (zastosuj echo z 
+przełącznikiem -e):
+\e[32mSOP\e[0m
+Przykładowy tekst testowy:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+Wynikowo ma to wyglądać tak:
+SOP! SOP w imieniu prawa! SOP w imieniu prawa!
+
+Wykonanie:
+#!/bin/bash
+jakistekst="$1"
+echo "Pierwszy znak: ${jakistekst:0:1}"
+echo "Ostatni znak: ${jakistekst: -1}"
+echo -e "${jakistekst//SOP/\\e[32mSOP\\e[0m}"
+
+Wniosek:
+po wpisaniu ./SOP "SOP! SOP w imieniu prawa! SOP w imieniu prawa!" program 
+zwraca podane dane, gdzie słowa "SOP" zmieniają kolor na zielony.

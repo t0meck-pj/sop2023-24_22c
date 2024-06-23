@@ -1,0 +1,88 @@
+Zadania 1
+1)Napisz program obliczający sumę liczb wprowadzonych przez użytkownika (ze 
+standardowego wejścia) i wypisujący wynik na standardowe wyjście.
+Przydatne hasła to:
+scanf
+printf
+operatory arytmetyczne
+if
+for albo while
+
+Wykonanie:
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;  
+    int sum = 0;  
+
+    cout << "Podaj ile liczb chcesz wprowadzić: ";
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        int num;
+        cout << "Podaj liczbę: ";
+        cin >> num;
+        sum += num;
+    }
+    cout << "Suma wprowadzonych liczb: " << sum << endl;
+    return 0;
+}
+
+2)Przerób ten program tak, aby wartość była zwracana jako kod zakończenia 
+programu. Wyświetl tą wartość z linii komend. 
+Przydatne komendy: 
+return
+
+Wykonanie:
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;  
+    int sum = 0;  
+    cout << "Podaj ile liczb chcesz wprowadzić: ";
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        int num;
+        cout << "Podaj liczbę: ";
+        cin >> num;
+        sum += num;
+    }
+    cout << "Suma wprowadzonych liczb: " << sum << endl;
+    return sum % 256;
+}
+
+3)Napisz program wyświetlający tradycyjną choinkę o zadanej wysokości. Wysokość
+niech będzie podana jako parametr wywołania programu. 
+Przydatne hasła to:
+atoi
+argc, argv
+for
+
+Wykonanie:
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+int main(int argc, char** argv) {
+    int x = 0;
+    int y = 0;
+    int height = 0;
+    if (argc < 2) {
+        cerr << "Za mało argumentów" << endl;
+        return 1;
+    }
+    height = atoi(argv[1]);
+    cout << endl;
+    for (x = 1; x <= height; x++) {
+        for (y = height - x; y >= 0; y--)
+            cout << " ";
+        for (y = 0; y < x * 2 - 1; y++)
+            cout << "*";
+        cout << endl;
+    }
+    return 0;
+}

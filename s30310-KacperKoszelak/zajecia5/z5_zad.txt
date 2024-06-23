@@ -1,0 +1,175 @@
+Zadania
+1.Napisz program, który 
+przedstawi swój numer PID, oraz PPID
+po wypisaniu, będzie czekał na standardowym wejściu na dane od użytkownika.
+Uruchom program - nic nie podawaj na wejściu (program powinien czekać w 
+nieskończoność).Uruchom nowy terminal. W nim za pomocą komendy kill zamknij ten
+program korzystając z PID wypisanego przez niego na początku.
+
+Wykonanie:
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+int main() {
+    cout << "PID: " << getpid() << endl;
+    cout << "PPID: " << getppid() << endl;
+    string input;
+    getline(cin, input);
+    cout << "Otrzymane dane: " << input << endl;
+    return 0;
+}
+
+2.Napisz program, który uruchomi podproces za pomocą komendy fork. Niech proces
+rodzica oczekuje na proces potomka. Oba procesy powinny wypisać swój PID oraz 
+PPID.
+
+Wykonanie:
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+
+using namespace std;
+
+int main() {
+    pid_t pid = fork();
+    if (pid < 0) {
+        cerr << "Błąd forka" << endl;
+        return 1;
+    } else if (pid == 0) {
+        cout << "Proces child-a: " << endl;
+        cout << "PID: " << getpid() << endl;
+        cout << "PPID: " << getppid() << endl;
+    } else {
+        cout << "Proces parent-a: " << endl;
+        cout << "PID: " << getpid() << endl;
+        cout << "PPID: " << getppid() << endl;
+        wait(NULL);
+    }
+
+    return 0;
+}
+
+3.Napisz program, który będzie pobierał jeden argument z wiersza poleceń  i 
+będzie obliczał w 2 procesach:
+Proces rodzica: Wartość sumy liczb od 0 do wartości zadanej jako pierwszy 
+argument wykonania programu.
+Proces potomny: Wypisujący liczby nieparzyste od 1 do wartości zadanej jako 
+pierwszy argument wykonania programu.
+Program powinien wypisać wyniki w kolejności takiej, że najpierw wypisze wynik 
+proces potomny, a następnie proces rodzica. 
+Nie korzystaj z komendy sleep.
+
+Wykonanie:
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <cstdlib>
+
+using namespace std;
+
+int main(int argc, char* argv[]) {
+    int value = atoi(argv[1]);
+    if (value <= 0) {
+        cerr << "liczba musi być na plusie" << endl;
+        return 1;
+    }
+    pid_t pid = fork();
+    if (pid < 0) {
+        cerr << "błąd forka" << endl;
+        return 1;
+    } else if (pid == 0) {
+        cout << "proces child-a:" << endl;
+        for (int i = 1; i <= value; i += 2) {
+            cout << i << " ";
+        }
+        cout << endl;
+    } else {
+        wait(NULL);
+        int sum = 0;
+        for (int i = 0; i <= value; ++i) {
+            sum += i;
+        }
+        cout << "proces parent-a: " << sum << endl;
+    }
+    return 0;
+}
+
+4.Napisz program, który uruchomi 100 procesów w taki sposób, że każdy kolejny 
+potomek stworzy potomka. Niech każdy proces poczeka na zakończenie procesu 
+potomka. Możesz korzystać z oczekiwania na wejście lub z komendy sleep i zobacz
+czy drzewko procesów jest takie jak się spodziewasz (możesz w tym celu 
+ograniczyć liczbę procesów do 10). Zobacz podpowiedź na początku tej strony.
+Czyli drzewo procesów ma wynikowo wyglądać tak: główny -> potomek1 -> potomek2 
+-> ... -> potomek99 -> potomek100
+Przydatne przy sprawdzaniu: Drzewo procesów można wydrukować poleceniem pstree
+
+Wykonanie:
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <cstdlib>
+
+using namespace std;
+
+int main() {
+    const int NUM_PROCESSES = 100;
+    pid_t pid;
+    int process_count = 0;
+    while (process_count < NUM_PROCESSES) {
+        pid = fork();
+
+        if (pid < 0) { 
+            cerr << "Błąd forka" << endl;
+            return 1;
+        } else if (pid == 0) {
+            process_count++;
+            cout << "Proces " << process_count << " z PID " << getpid() << 
+		" i PPID " << getppid() << endl;
+            if (process_count == NUM_PROCESSES) {
+                return 0;
+            }
+        } else {
+            wait(NULL);
+            break;
+        }
+    }
+    return 0;
+}
+
+5.Napisz program, który uruchomi 100 procesów potomnych w taki sposób, że 
+będzie jeden rodzic i 100 potomków.
+Proces główny niech oczekuje na zakończenie wszystkich procesów potomnych.
+Przydatne funkcje: waitpid i wait
+
+Wykonanie:
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+
+using namespace std;
+
+int main() {
+    const int NUM_CHILDREN = 100;
+    pid_t child_pids[NUM_CHILDREN];
+    int status;
+    for (int i = 0; i < NUM_CHILDREN; ++i) {
+        pid_t pid = fork();
+        if (pid == 0) { 
+            cout << "Proces potomny " << getpid() << endl;
+            return 0;
+        } else if (pid > 0) {
+            child_pids[i] = pid;
+        } else {
+            cerr << "Błąd podczas tworzenia procesu potomnego" << endl;
+            return 1;
+        }
+    }
+    for (int i = 0; i < NUM_CHILDREN; ++i) {
+        waitpid(child_pids[i], &status, 0);
+    }
+    cout << "Proces główny zakończony." << endl;
+    return 0;
+}
+

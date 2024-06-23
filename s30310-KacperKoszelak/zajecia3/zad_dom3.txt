@@ -1,0 +1,46 @@
+Zadanie domowe
+W przypadku bardzo podobnych rozwiazań nie będę ich uznawał.
+1.Przygotuj wyrażenie regularne, które będzie sprawdzało, czy tekst jest 
+poprawnie napisanym polskim imieniem (od wielkiej litery, może mieć tylko 
+litery i zawierać polskie znaki).
+2.Przygotuj wyrażenie regularne sprawdzające czy tekst jest kodem pocztowym (cały
+tekst, czyli zaczyna się od cyfry i kończy się cyfrą).
+3.Przygotuj wyrażenie regularne sprawdzające e-mail.
+4.Napisz skrypt który będzie pobierał jeden argument z linii komend i wypisywał 
+informację o tym, czy jest to imie, kod pocztowy, czy też email. Na przykład
+./coto Janusz
+imię
+./coto 68-221
+kod pocztowy
+./coto 'muniek+spam@gmail.com'
+email
+
+Wykonanie:
+1) ^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+$
+2) ^[0-9]{2}-?[0-9]{3}$
+3) ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+4)
+#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Użycie: $0"
+    exit 1
+fi
+input="$1"
+name_regex="^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+$"
+postal_code_regex="^[0-9]{2}-?[0-9]{3}$"
+email_regex="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+if [[ "$input" =~ $name_regex ]]; then
+    echo "imię"
+    exit 0
+fi
+if [[ "$input" =~ $postal_code_regex ]]; then
+    echo "kod pocztowy"
+    exit 0
+fi
+if [[ "$input" =~ $email_regex ]]; then
+    echo "email"
+    exit 0
+fi
+else
+    echo "Nieznany format"
+exit 1

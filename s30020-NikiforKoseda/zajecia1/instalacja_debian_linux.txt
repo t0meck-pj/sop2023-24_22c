@@ -1,0 +1,35 @@
+1. Wita nas menu z opcjami. Zaczynamy od wyboru języka.
+    -Tu wybieram angielski, jednak potem trafiamy na menu wyboru kraju, terytorium lub obszaru - tu warto wybrać polskę, bo na tej podstawie będzie ustalana między innymi data i godzina
+    -Tu wybieramy też klawiaturę - sugeruję US, odpowiada polskiej klawiaturze programisty
+    -Pojawi się też menu wyboru standardów kodowania, z niego nie potrzebujemy niczego, więc można pzejść dalej
+2. Możemy od razu przejść do załadowania komponentów instalatora.
+    -Wszystkie konieczne komponenty zostaną załadowane automatycznie. Wyświetlone mamy dodatkowe komponenty, którymi możemy być zainteresowani. Ja nie jestem żadnym, więc ruszam dalej
+3. Teraz w menu pojawi się więcej opcji. Klikamy ,,Detect network hardware" A następnie ,,Configure network"
+    -W menu pojawi się opcja by połączenie konfigurować automatycznie, lub ręcznie. Jako, że ręczne ustawianie protokołów, IP, itd. jest męczące i w domowych zastosowaniach raczej niepraktyczne, sugeruję wybranie opcji automatycznej
+    -Możemy wybrać jak długo chcemy czekać na wykrycie linku (sugeruję 3 sekundy)
+    -Jako następną wybieramy nazwę naszego komputera (tak będzie widoczny dla innych PCtów w sieci)
+    -Wybieramy domenę (jest to przydatne gdy chcemy wymieniać dane między komputerami w sieci lokalnej, wszystkie komputery w ramach jednej sieci muszą być podpięte do jednej domeny)
+4. Jako następne tworzymy użytkownika i hasło
+    -Dostaniemy wybór, czy umożliwić logowanie jako root. Sugeruję wyłączyć taką możliwość, i korzystać z sudo - na koncie roota można bardzo dużo napsuć nie wiedząc co się robi
+5. Jako następny ustawiamy zegar systemowy
+    -Tu warto pozwolić by instalator skorzystał z NTP (Network Time Protocol) do automatycznego ustawienia zegara
+6. Kolejnym etapem jest wykrycie dysków i podzielenie ich na partycje
+    - Zalecane jest aby utworzyć 2 partycje, korzystając z tablic msdos lub gpt, jako że są dostosowane pod nowoczesne systemy. Jedna to partycja swap (około 1GB, służy na wypadek skończenia się RAMu) oraz reszta pamięci na pliki (W systemie Ext4)
+7. Teraz instalujemy podstawowy system
+    - Możemy wybrać ogólne lub precyzyjne sterowniki
+    - Możemy też wybrać nasz kernel, jeżeli mamy dostępne kilka 
+8. Następne to konfiguracja menedżera pakietów
+    -Możemy wybrać czy instalować dodatkowe pakiety z nośnika danych
+    -Możemy również pobrać je z internetu
+    -Dostaniemy opcje by wybrać czy chcemy korzystać z niedarmowego oprogramowania, contribut oprogramowania, gdzie instalować i z jakich źródeł
+    -Możemy też wybrać jakie update'y instalować
+9. Oprogramowanie do instalacji
+    -Możemy wybrać czy aktualizacje oprogramowania będą automatyczne
+    -Możemy też dać zgodę na pobieranie od nas danych statystycznych
+10. Instalacja środowiska graficznego
+    -Tutaj wybieramy czy i jakie GUI chcemy. Jako że mój komp nie domaga do decyduję się na standardowego GNOME
+11. Instalacja GRUB
+    -GRUB to boot menu - umożliwia wybór systemu operacyjnego do uruchomienia przy uruchamianiu. Jęzeli mamy inne systemy poza linuxem dzięki niemu będziemy mogli się do nich dostać
+12. Kończymy instalację!
+    -Po instalacji rebootujemy, w GRUBie wybieramy debiana
+    -Koniec! Debian powinien działać. A przynajmniej korzystając z klasyka - u mnie działa.

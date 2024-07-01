@@ -50,6 +50,7 @@ const char* get_mime_type(const char*);
 
 void ctrlc_handler(int);
 void server_setup(int, char**);
+void server_destroy();
 
 int main(int argc, char** argv){
 	pid_t child; /*child proces id*/	
@@ -160,7 +161,7 @@ void ctrlc_handler(int signum){
 		while(wait(NULL)>0); /*wait for all children to end their job*/
 		printf("Server has been disabled\n");
 		log_info("Server has been force quit", log_file);
-		close(sockfd);
+		server_destroy();
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -380,5 +381,12 @@ void server_setup(int argc, char** argv){
 
 	listen(sockfd, MAX_CONNECTIONS); /*start listening to the socket, max 16 connection can be queued*/
 	clilen = sizeof(cli_addr);
+}
+
+void server_destroy(){
+	fclose(log_file);
+	mem_manager_destroy();
+	close(sockfd);
+	close(newsockfd);
 }
 

@@ -33,14 +33,18 @@ struct dlist* dlist_pop_front(struct dlist* this) {
     new_head = this->head->next;
     free(this->head);
     this->head = new_head;
-    this->head->prev = NULL;
+
+    if(new_head!=NULL)
+        this->head->prev = NULL;
+    else
+        this->tail=NULL;
+        
     this->size--;
 
     return this;
 }
 
 struct dlist* dlist_pop_back(struct dlist* this) {
-    struct dlist_node* before_tail = NULL;
     if (this == NULL || this->head == NULL) return NULL;
 
     this->tail = this->tail->prev;
@@ -205,7 +209,7 @@ struct dlist* dlist_pop(struct dlist* this, int index)
     }
     else {
         actual = this->tail;
-        for (iter = 0; iter < this->size - index; iter++)
+        for (iter = this->size-1; iter > index; iter--)
             actual = actual->prev;
     }
 

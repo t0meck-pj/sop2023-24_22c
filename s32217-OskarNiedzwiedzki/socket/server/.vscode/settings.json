@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "memory_manager.h": "c",
+        "dlist.h": "c",
+        "unistd.h": "c"
+    }
+}

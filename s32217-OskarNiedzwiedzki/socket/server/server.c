@@ -1,4 +1,6 @@
 #define HTTP_SERVER
+#define TRUE 1>0
+#define FALSE 1<0
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -7,10 +9,12 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <regex.h>
 #include <time.h>
+#include "memory_manager.h"
 
 #define MAX_CONNECTIONS 16
 #define BUFFER_LENGTH 256
@@ -55,6 +59,7 @@ int main(int argc, char** argv){
 		return EXIT_FAILURE;
 	}
 
+	mem_manager_init();
 	server_setup(argc, argv);
 
 	/*listen to new connections*/
@@ -76,11 +81,16 @@ int main(int argc, char** argv){
 #ifdef HTTP_SERVER
 			service_http_request(newsockfd);
 			sprintf(log_buffer,"HTTP: disconnecting, with user: (%s)", inet_ntoa(cli_addr.sin_addr));
+			log_info(log_buffer, log_file);
 #else
 			service_send_file(newsockfd);
 			sprintf(log_buffer, "File has been/has not been sent, disconnecting with user: (%s)", inet_ntoa(cli_addr.sin_addr));
 #endif
+			sprintf(log_buffer, "Memory usage after request: %ld bytes of memory used. Number of memory blocks reserved: %d", 
+								mem_manager.allocated_bytes, 
+								mem_manager.block_refs->get_size(mem_manager.block_refs));
 			log_info(log_buffer, log_file);
+			close(newsockfd);
 			exit(EXIT_SUCCESS);
 		}
 		else close(newsockfd);
@@ -90,7 +100,7 @@ int main(int argc, char** argv){
 void log_error(char* msg, FILE* log){
 	char date_str[64];
 	time_t rawtime;
-	struct tm* timeinfo;
+	struct tm* timeinfo; /*localtime is points to the static region of memory, do not use free on it*/
 
 	if(log==NULL) return;
 
@@ -101,18 +111,20 @@ void log_error(char* msg, FILE* log){
 	fprintf(log, "(%s)[Error] %s\n",date_str, msg);
 	exit(EXIT_FAILURE);
 }
+
 void log_info(char* msg, FILE* log){
 	char date_str[64];
 	time_t rawtime;
 	struct tm* timeinfo;
-
-	if(log==NULL) return;
+	
+	if(log==NULL)return;
 
 	time(&rawtime);
 	timeinfo=localtime(&rawtime);
 	strftime(date_str, sizeof(date_str), "%d-%m-%Y %H:%M:%S", timeinfo);
 
 	fprintf(log, "(%s)[Info] %s\n",date_str, msg);
+	fflush(log);/*flush the stream at the end, to save to the file*/
 }
 
 int check_blacklist(struct in_addr* sin_addr_ref){
@@ -127,12 +139,12 @@ int check_blacklist(struct in_addr* sin_addr_ref){
 		line[strlen(line)-1]='\0'; /*fgets returns string with newline, which we do not want to have, this removes it*/
 		if(strcmp(inet_ntoa(*sin_addr_ref), line)==0){
 			fclose(blacklist);
-			return 0 > 1; /*user is on the blacklist*/
+			return FALSE; /*user is on the blacklist*/
 		}
 	}
 
 	fclose(blacklist);
-	return 1 > 0;
+	return TRUE;
 }
 
 void ctrlc_handler(int signum){
@@ -144,6 +156,8 @@ void ctrlc_handler(int signum){
 		exit(EXIT_FAILURE);
 	}
 	else{
+		kill(0,SIGINT); /*kill all child processes, 0 from posix specs means that all child processes in given group will be sent this signal*/
+		while(wait(NULL)>0); /*wait for all children to end their job*/
 		printf("Server has been disabled\n");
 		log_info("Server has been force quit", log_file);
 		close(sockfd);
@@ -163,7 +177,7 @@ void service_send_file(int socket){
 
 	memset(buffer,0,sizeof(buffer));
 	if((n=read(socket, &filename_len, sizeof(int))) < 0) log_error("server read filename_len", log_file);
-	filename = malloc(sizeof(char) * filename_len+1); /*+1 for termination character*/
+	filename = allocate(sizeof(char), filename_len+1);
 	if((n=read(socket,filename, filename_len))<0) log_error("server read filename", log_file);
 
 	sprintf(log_buffer, "User requested file: %s", filename);
@@ -197,12 +211,12 @@ void service_send_file(int socket){
 	log_info(log_buffer,log_file);
 
 	fclose(file);
-	free(filename);
+	destroy(filename);
 }
 
 char* url_decode(const char* url){
 	int len = strlen(url);
-	char* decoded = malloc(sizeof(char) * (len+1));
+	char* decoded = allocate(sizeof(char), len+1);
 	int decoded_iter=0;
 	unsigned int hex_val=0;
 	int i=0;
@@ -274,6 +288,7 @@ int http_send_header(int socket, const char* filename){
 	n = write(socket, header, strlen(header));
 	if(n<0) log_error("HTTP send request write error", log_file);
 
+	fclose(f);
 	return http_code;
 }
 
@@ -308,13 +323,14 @@ void service_http_request(int socket){
 	n = read(socket, request, sizeof(request));
 	if(n<0) log_error("HTTP request read", log_file);
 
-	regcomp(&regex, "^GET /([^ ]*) HTTP/1", REG_EXTENDED); /*compile regex, this regex gets filepath from get request*/
+	regcomp(&regex, "^GET ([^ ]*) HTTP/1", REG_EXTENDED); /*compile regex, this regex gets filepath from get request*/
 
 	if(regexec(&regex, request, 2, matches,0)!=0)
 		log_error("HTTP regex error", log_file);
 
 
 	match_length = matches[1].rm_eo - matches[1].rm_so;
+	memset(filename_encoded,0,BUFFER_LENGTH); /*zero memory, to prevent from errors i have been looking for error here for almost 5 hours*/
 	strncpy(filename_encoded, request + matches[1].rm_so, match_length);
 	filename_decoded=url_decode(filename_encoded);
 
@@ -333,7 +349,7 @@ void service_http_request(int socket){
 	sprintf(log_buffer, "Request sent successfully with code %d", http_code);
 	log_info(log_buffer, log_file);
 
-	free(filename_decoded);
+	destroy(filename_decoded);
 }
 
 void server_setup(int argc, char** argv){

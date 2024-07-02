@@ -47,8 +47,10 @@ struct dlist* dlist_pop_front(struct dlist* this) {
 struct dlist* dlist_pop_back(struct dlist* this) {
     if (this == NULL || this->head == NULL) return NULL;
 
+    struct dlist_node* remove = this->tail;
+
     this->tail = this->tail->prev;
-    free(this->tail->next);
+    free(remove);
     this->size--;
 
     return this;

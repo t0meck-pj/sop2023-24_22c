@@ -8,15 +8,15 @@ SRCDIR = .
 OBJDIR = ./compile
 
 SOURCES = $(SRCDIR)/server.c $(SRCDIR)/DList.c $(SRCDIR)/memory_manager.c
-MEMTEST_SOURCES = $(SRCDIR)/memtest.c $(SRCDIR)/memory_manager.c $(SRCDIR)/DList.c
+MEMTEST_SOURCES = $(SRCDIR)/memtest.c $(SRCDIR)/memory_manager.c $(SRCDIR)/DList.c $(SRCDIR)/memory_watch.c
 
 # Header files
 HEADERS = $(SRCDIR)/DList.h $(SRCDIR)/memory_manager.h
-MEMTEST_HEADERS= $(SRCDIR)/DList.h $(SRCDIR)/memory_manager.h
+MEMTEST_HEADERS= $(SRCDIR)/DList.h $(SRCDIR)/memory_manager.h $(SRCDIR)/memory_watch.h
 
 # Object files
 OBJECTS = $(OBJDIR)/server.o $(OBJDIR)/memory_manager.o $(OBJDIR)/DList.o
-MEMTEST_OBJECTS = $(OBJDIR)/memtest.o $(OBJDIR)/memory_manager.o $(OBJDIR)/DList.o
+MEMTEST_OBJECTS = $(OBJDIR)/memtest.o $(OBJDIR)/memory_manager.o $(OBJDIR)/DList.o $(OBJDIR)/memory_watch.o
 
 # Target executable
 SERVER_TARGET = $(OBJDIR)/server
